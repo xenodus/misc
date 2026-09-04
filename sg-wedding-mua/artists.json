@@ -1,217 +1,1552 @@
 [
   {
-    "name": "Cynderella Makeup & Hair",
-    "handle": "cynderellasg",
-    "followers": 32792
+    "name": "Khadijah Azzahra Makeup",
+    "handle": "khadijahazzahra_makeup",
+    "followers": 2200000
   },
   {
-    "name": "Autelier Makeup",
-    "handle": "autelier_makeup",
-    "followers": 17556
+    "name": "Kannan Raajamanickam",
+    "handle": "kannanraajamanickam",
+    "followers": 342000
   },
   {
-    "name": "Adinda Sardjono",
-    "handle": "adindasardjono",
-    "followers": 11980
+    "name": "MakeUp By Melvin",
+    "handle": "melvin_tseng",
+    "followers": 182000
   },
   {
-    "name": "Amanda Cheong Makeup",
-    "handle": "amandacheong_makeupartist",
-    "followers": 11242
+    "name": "Naomi lane Makeup Artist",
+    "handle": "naomilane_makeup",
+    "followers": 166000
   },
   {
-    "name": "ALENA Makeup",
-    "handle": "alena_alenamakeup",
-    "followers": 10880
+    "name": "Manga Jaganmohan",
+    "handle": "mangajaganmohan",
+    "followers": 137000
   },
   {
-    "name": "Anggun by Mastura",
-    "handle": "anggunbymastura",
-    "followers": 9899
+    "name": "Vicky Makeup",
+    "handle": "vickymakeup_mehndi",
+    "followers": 99900
+  },
+  {
+    "name": "Shaun Lee Makeup Artist",
+    "handle": "shaunleelee",
+    "followers": 83200
+  },
+  {
+    "name": "Sharmila Loganathan",
+    "handle": "sharmila.logan",
+    "followers": 64900
+  },
+  {
+    "name": "Thiva Makeup Artist",
+    "handle": "thiva_mua",
+    "followers": 64700
+  },
+  {
+    "name": "Shobha Bridals",
+    "handle": "shobabridals",
+    "followers": 57400
+  },
+  {
+    "name": "Zexin Lee NX MAKEUP TEAM",
+    "handle": "z3_xin",
+    "followers": 53700
+  },
+  {
+    "name": "Tinoq Russell Goh",
+    "handle": "pasirpanjangboy",
+    "followers": 46200
+  },
+  {
+    "name": "Nidhi Thukral Mua",
+    "handle": "muathukralnidhi",
+    "followers": 45000
+  },
+  {
+    "name": "Skai Chan Photography",
+    "handle": "skaichanphotography",
+    "followers": 39600
+  },
+  {
+    "name": "JUSTINA LOH ❥ NX MAKEUP TEAM -NICOLEXIIAN",
+    "handle": "nicolexiian",
+    "followers": 35800
   },
   {
     "name": "Bypattcia",
     "handle": "bypattcia",
-    "followers": 9341
+    "followers": 32400
   },
   {
-    "name": "BeFound Studios",
-    "handle": "befoundstudios",
-    "followers": 8019
+    "name": "Renugha Official",
+    "handle": "renugha_m_vadivelu",
+    "followers": 31500
   },
   {
-    "name": "Cleo Chang Makeup",
-    "handle": "cleochangmakeup",
-    "followers": 7999
+    "name": "Keith Tan Makeup",
+    "handle": "keith_makeup_artist",
+    "followers": 29900
   },
   {
-    "name": "Dblchin Makeup",
-    "handle": "dblchin",
-    "followers": 7995
+    "name": "Roxanne Sylvia",
+    "handle": "mizroxx",
+    "followers": 22600
   },
   {
-    "name": "Angel Chua Makeup and Hair",
-    "handle": "angelchuamakeuphair",
-    "followers": 7771
+    "name": "Sakiho Bridal Makeup",
+    "handle": "sakiho.bridal",
+    "followers": 21700
   },
   {
-    "name": "Christine Chia Makeup",
-    "handle": "christinechiamakeup",
-    "followers": 7259
+    "name": "Cynderella Makeup & Hair",
+    "handle": "cynderellasg",
+    "followers": 20600
+  },
+  {
+    "name": "Mahes Makeup Artist",
+    "handle": "mahes_mua",
+    "followers": 20600
+  },
+  {
+    "name": "Nix Soriano",
+    "handle": "nixsoriano.mua",
+    "followers": 20500
+  },
+  {
+    "name": "Sugandha | Makeup+ Skincare+ Beauty",
+    "handle": "sugandhaduggal",
+    "followers": 20300
+  },
+  {
+    "name": "Autelier Makeup",
+    "handle": "autelier_makeup",
+    "followers": 20000
+  },
+  {
+    "name": "Dear Daisy Makeup Artist",
+    "handle": "deardaisymakeup",
+    "followers": 19800
+  },
+  {
+    "name": "Monina Monisha Makeup Artist",
+    "handle": "moninamonisha",
+    "followers": 19400
+  },
+  {
+    "name": "Looks Studio",
+    "handle": "looksstudio",
+    "followers": 17300
+  },
+  {
+    "name": "Daisy’s Artistry",
+    "handle": "daisysartistry",
+    "followers": 16600
+  },
+  {
+    "name": "Ella Tamayo",
+    "handle": "makeupbyellatamayo",
+    "followers": 15800
+  },
+  {
+    "name": "Stefanie Halim Makeup Artist",
+    "handle": "stefaniehalim",
+    "followers": 14000
+  },
+  {
+    "name": "Adinda Sardjono",
+    "handle": "adindasardjono",
+    "followers": 13700
+  },
+  {
+    "name": "Silviana Makeup",
+    "handle": "silviana.makeup",
+    "followers": 13600
   },
   {
     "name": "Bridal by Tiffany",
     "handle": "bridalbytiffany",
-    "followers": 6817
+    "followers": 13000
+  },
+  {
+    "name": "Roseanne Tang Makeup",
+    "handle": "roseannetangrs",
+    "followers": 13000
+  },
+  {
+    "name": "Susan Beauty Artistry",
+    "handle": "muasusan",
+    "followers": 13000
+  },
+  {
+    "name": "Thippawan Makeup",
+    "handle": "thippawan.makeup",
+    "followers": 12600
+  },
+  {
+    "name": "Ladyy Claire Makeup",
+    "handle": "ladyyclairemakeup",
+    "followers": 12500
+  },
+  {
+    "name": "Lindalino Makeup & Hair Services",
+    "handle": "lindalino.makeup",
+    "followers": 12100
+  },
+  {
+    "name": "TangYong Hair & Makeup",
+    "handle": "tangyongmakeup",
+    "followers": 12000
+  },
+  {
+    "name": "Rachel Liling Ong",
+    "handle": "rachelongll",
+    "followers": 11700
+  },
+  {
+    "name": "Stella Ang Makeup",
+    "handle": "stella.ang.makeup",
+    "followers": 11400
+  },
+  {
+    "name": "KENNY",
+    "handle": "kenhermanns",
+    "followers": 11100
   },
   {
     "name": "Canvas of Glory",
     "handle": "canvasofglory",
-    "followers": 6498
+    "followers": 11000
   },
   {
-    "name": "AESTA Makeup",
-    "handle": "aesta_makeup",
-    "followers": 5451
+    "name": "ELITE Makeup Artists Inc.",
+    "handle": "elitemakeupartistsinc",
+    "followers": 10700
   },
   {
-    "name": "Gaby Tan Makeup",
-    "handle": "bygabytan",
-    "followers": 3955
+    "name": "Kirti Luthra",
+    "handle": "kirtiluthramua",
+    "followers": 10700
   },
   {
-    "name": "Candy T. Makeup",
-    "handle": "candy__t",
-    "followers": 3831
+    "name": "Mooilove Makeup Studio by Selynn Wang",
+    "handle": "mooilove_makeup_studio",
+    "followers": 10500
   },
   {
-    "name": "Clara Song Makeup",
-    "handle": "clarasongbridal",
-    "followers": 3446
+    "name": "SHALU BRIDAL MAKE-UP ARTIST",
+    "handle": "shalu_mua",
+    "followers": 10500
   },
   {
-    "name": "Dazxle Makeup",
-    "handle": "dazxle_makeup",
-    "followers": 3251
+    "name": "Amanda Cheong Makeup",
+    "handle": "amandacheong_makeupartist",
+    "followers": 10400
   },
   {
-    "name": "Canvaseety",
-    "handle": "canvaseety",
-    "followers": 3243
-  },
-  {
-    "name": "Aoi's Makeup",
-    "handle": "aoismakeup",
-    "followers": 3218
-  },
-  {
-    "name": "Cheron Tan",
-    "handle": "muacher",
-    "followers": 2899
-  },
-  {
-    "name": "3tee Makeup",
-    "handle": "3teemakeup",
-    "followers": 2548
-  },
-  {
-    "name": "ARLY",
-    "handle": "arly.co",
-    "followers": 2220
-  },
-  {
-    "name": "Beauty Without Filter",
-    "handle": "beautywithoutfilter",
-    "followers": 2149
-  },
-  {
-    "name": "Arieltistry",
-    "handle": "arieltistry",
-    "followers": 2115
-  },
-  {
-    "name": "Beauty Brush by Ashvin",
-    "handle": "beautybrushbyashvin",
-    "followers": 1877
-  },
-  {
-    "name": "Hayley Makeup & Hair",
-    "handle": "hayley_makeup_hair",
-    "followers": 1849
-  },
-  {
-    "name": "Fiona Chin Makeup",
-    "handle": "fionachin_mua",
-    "followers": 1765
-  },
-  {
-    "name": "Am Up Makeup Artistry",
-    "handle": "amup_makeupartistry",
-    "followers": 1560
-  },
-  {
-    "name": "Ann’s Beauty Palette (MUA)",
-    "handle": "anns_beauty_palette",
-    "followers": 1556
-  },
-  {
-    "name": "bmarvlous",
-    "handle": "bmarvlous",
-    "followers": 1349
-  },
-  {
-    "name": "Beauty Buzz",
-    "handle": "beautybuzz_inc",
-    "followers": 1219
-  },
-  {
-    "name": "CandyL Makeup Artist",
-    "handle": "candyl_makeup_artist",
-    "followers": 701
-  },
-  {
-    "name": "Chloe Makeup SG",
-    "handle": "chloe_makeup_sg",
-    "followers": 578
-  },
-  {
-    "name": "27A Co",
-    "handle": "27a.co",
-    "followers": 0
-  },
-  {
-    "name": "2AM Makeup Studio",
-    "handle": "2am.makeupstudio",
-    "followers": 0
-  },
-  {
-    "name": "A Little Moment Photography",
-    "handle": "alittlemoment",
-    "followers": 0
-  },
-  {
-    "name": "A2i Makeup",
-    "handle": "a2imakeup",
-    "followers": 0
+    "name": "PONNIE HSU Makeup Artist",
+    "handle": "ponniehsumakeupstudio",
+    "followers": 10400
   },
   {
     "name": "Adeline Ariel Hair & Makeup",
     "handle": "adeline.ariel",
-    "followers": 0
+    "followers": 10300
   },
   {
-    "name": "Ally Lim Makeup",
-    "handle": "allylimmakeup",
-    "followers": 0
+    "name": "Anggun by Mastura",
+    "handle": "anggunbymastura",
+    "followers": 10200
+  },
+  {
+    "name": "Saydanar Makeup",
+    "handle": "saydanar_hmua",
+    "followers": 9946
+  },
+  {
+    "name": "BeFound Studios",
+    "handle": "befoundstudios",
+    "followers": 9532
+  },
+  {
+    "name": "Victoria Han Makeup",
+    "handle": "victoriahan_makeup",
+    "followers": 9407
+  },
+  {
+    "name": "Zinny Theint Make Up Artistry",
+    "handle": "zinnytheint",
+    "followers": 8876
+  },
+  {
+    "name": "Bella Donna Artistry",
+    "handle": "belladonna.artistry",
+    "followers": 8848
+  },
+  {
+    "name": "Veela makeup",
+    "handle": "veela_makeup_haiyan",
+    "followers": 8825
+  },
+  {
+    "name": "Dreammakers Makeup",
+    "handle": "dreammakers_makeup",
+    "followers": 8814
+  },
+  {
+    "name": "Christine Tan Makeup",
+    "handle": "christinetan.makeup",
+    "followers": 8741
+  },
+  {
+    "name": "Vianne Young",
+    "handle": "viannemakeup",
+    "followers": 8634
+  },
+  {
+    "name": "Tiffining Beauty",
+    "handle": "tiffiningbeauty",
+    "followers": 8472
+  },
+  {
+    "name": "Makeup Wif Style",
+    "handle": "makeupwifstyle",
+    "followers": 8220
+  },
+  {
+    "name": "Ling's Palette",
+    "handle": "lingspalette",
+    "followers": 7877
+  },
+  {
+    "name": "Dblchin Makeup",
+    "handle": "dblchin",
+    "followers": 7809
+  },
+  {
+    "name": "Christine Chia Makeup",
+    "handle": "christinechiamakeup",
+    "followers": 7669
+  },
+  {
+    "name": "Charmaine Lin Makeup",
+    "handle": "charmainelin_makeup",
+    "followers": 7532
+  },
+  {
+    "name": "Nisha Mua",
+    "handle": "nishaa_mua",
+    "followers": 7519
+  },
+  {
+    "name": "Angel Chua Makeup and Hair",
+    "handle": "angelchuamakeuphair",
+    "followers": 7213
+  },
+  {
+    "name": "LiLi Makeup Specialist",
+    "handle": "lilimakeupspecialist",
+    "followers": 7167
+  },
+  {
+    "name": "Denise Lee Makeup",
+    "handle": "deniseleemakeup",
+    "followers": 7095
+  },
+  {
+    "name": "Sarah Lee Autelier",
+    "handle": "sarahlee_autelier",
+    "followers": 6790
+  },
+  {
+    "name": "Cocoon Makeup & Hair",
+    "handle": "cocoonmakeupandhair",
+    "followers": 6785
+  },
+  {
+    "name": "Vera Lim Makeup Artist",
+    "handle": "veraveralim",
+    "followers": 6736
+  },
+  {
+    "name": "Julie Kim Makeup (Soyeong Kim)",
+    "handle": "juliekimmakeup",
+    "followers": 6640
+  },
+  {
+    "name": "Ying Cui Pris Makeup Artist",
+    "handle": "yyingcui",
+    "followers": 6467
+  },
+  {
+    "name": "BRIDAL: Henna Artists- Make-up Artists",
+    "handle": "sandyxsher",
+    "followers": 6383
+  },
+  {
+    "name": "Monika Makeovers Singapore",
+    "handle": "monikamakeovers.singapore",
+    "followers": 6303
+  },
+  {
+    "name": "Candy Le Makeup Artist",
+    "handle": "candyle.makeup",
+    "followers": 6090
+  },
+  {
+    "name": "The Suburbs Studio",
+    "handle": "suburbs.studio",
+    "followers": 6045
+  },
+  {
+    "name": "Dear Muse Makeup",
+    "handle": "dearmuse.makeup",
+    "followers": 5920
+  },
+  {
+    "name": "Elsa Yan Makeup",
+    "handle": "elsayan_makeup",
+    "followers": 5726
+  },
+  {
+    "name": "The Make Up Room",
+    "handle": "themakeuproom_sg",
+    "followers": 5680
+  },
+  {
+    "name": "fidelistoh",
+    "handle": "fidelistoh",
+    "followers": 5609
+  },
+  {
+    "name": "Queenie Cong Makeover",
+    "handle": "queeniecong_makeover",
+    "followers": 5579
+  },
+  {
+    "name": "Makeup Artistry by Julie",
+    "handle": "makeupartistrybyjulie_mua",
+    "followers": 5575
+  },
+  {
+    "name": "AESTA Makeup",
+    "handle": "aesta_makeup",
+    "followers": 5553
+  },
+  {
+    "name": "Em Elite Makeup Artists",
+    "handle": "em_elitemakeupartistsinc",
+    "followers": 5492
+  },
+  {
+    "name": "Angel Gwee Makeup",
+    "handle": "angelgwee",
+    "followers": 5471
+  },
+  {
+    "name": "DAWN Makeup Artist",
+    "handle": "mua.dawn",
+    "followers": 5466
+  },
+  {
+    "name": "Yuki Lim Makeup Artist",
+    "handle": "yukilim_makeupartist",
+    "followers": 5283
+  },
+  {
+    "name": "Singapore Top MUA HMUA Hair / Makeup Artist",
+    "handle": "teambride_sg",
+    "followers": 5232
+  },
+  {
+    "name": "Makeup by Rashidah Jones",
+    "handle": "makeupbyrashidahmarican",
+    "followers": 5113
+  },
+  {
+    "name": "SUE.ZB",
+    "handle": "sue.zb",
+    "followers": 5038
+  },
+  {
+    "name": "The Beauty Society",
+    "handle": "lovebeautysociety",
+    "followers": 4880
+  },
+  {
+    "name": "Minnie Makeup Artist",
+    "handle": "minnie_makeupartist3428",
+    "followers": 4820
+  },
+  {
+    "name": "ululada Korean Skincare and Makeup",
+    "handle": "ululada.sg",
+    "followers": 4805
+  },
+  {
+    "name": "Zanncreations Makeup",
+    "handle": "zanncreations_makeup",
+    "followers": 4652
+  },
+  {
+    "name": "ST Bridal Makeup",
+    "handle": "stbridalmakeup",
+    "followers": 4597
+  },
+  {
+    "name": "Annabella Makeup Artist",
+    "handle": "makeuphairbyannabella",
+    "followers": 4586
+  },
+  {
+    "name": "Shino Makeup & Hairstyling",
+    "handle": "shinomakeupnhairstyling",
+    "followers": 4575
+  },
+  {
+    "name": "Makeup by Fiona B",
+    "handle": "makeup_by_fionab",
+    "followers": 4571
+  },
+  {
+    "name": "KARRISHMA BEAUTY HOUSE",
+    "handle": "karrishmabeautyhouse_",
+    "followers": 4535
+  },
+  {
+    "name": "Canvaseety",
+    "handle": "canvaseety",
+    "followers": 4534
+  },
+  {
+    "name": "SASA",
+    "handle": "sasa_hmua_sg",
+    "followers": 4506
+  },
+  {
+    "name": "Gaby Tan Makeup",
+    "handle": "bygabytan",
+    "followers": 4466
+  },
+  {
+    "name": "Amber Weng Makeover",
+    "handle": "amber_weng",
+    "followers": 4450
+  },
+  {
+    "name": "Aoi's Makeup",
+    "handle": "aoismakeup",
+    "followers": 4448
+  },
+  {
+    "name": "Kirei Beauty Products & Services",
+    "handle": "kireibeauty.sg",
+    "followers": 4342
+  },
+  {
+    "name": "YuHui Tay Makeup Artist",
+    "handle": "yuhui.13rushes",
+    "followers": 4236
+  },
+  {
+    "name": "Xara Lee Makeup Artistry",
+    "handle": "xara_lee_makeup",
+    "followers": 4206
+  },
+  {
+    "name": "Zihan Makeup",
+    "handle": "zihanmakeup",
+    "followers": 4193
+  },
+  {
+    "name": "Andriana Jamil",
+    "handle": "andriana_jamil",
+    "followers": 4188
+  },
+  {
+    "name": "Susan Liew Makeup Artist",
+    "handle": "makeupbysusanliew",
+    "followers": 4115
+  },
+  {
+    "name": "Makeup.Nadie",
+    "handle": "nadie.weddings",
+    "followers": 4111
+  },
+  {
+    "name": "Greg'O",
+    "handle": "grego7go",
+    "followers": 4104
+  },
+  {
+    "name": "Candy T. Makeup",
+    "handle": "candy__t",
+    "followers": 4046
+  },
+  {
+    "name": "Chloe Makeup SG",
+    "handle": "chloe_makeup_sg",
+    "followers": 3997
+  },
+  {
+    "name": "Zoel Tee",
+    "handle": "zoel.makeup",
+    "followers": 3992
+  },
+  {
+    "name": "Autelier Pro Singapore",
+    "handle": "autelier_pro",
+    "followers": 3986
+  },
+  {
+    "name": "FOREVER PIXELS ARTS",
+    "handle": "foreverpixelsarts",
+    "followers": 3813
+  },
+  {
+    "name": "Iman Li Shi",
+    "handle": "imanlishimakeup",
+    "followers": 3765
+  },
+  {
+    "name": "Cherry Beauty4U",
+    "handle": "cherry_beauty4u",
+    "followers": 3695
+  },
+  {
+    "name": "ARLY",
+    "handle": "arly.co",
+    "followers": 3646
+  },
+  {
+    "name": "Elaine Beauty Studio",
+    "handle": "elainebeautystudio",
+    "followers": 3602
+  },
+  {
+    "name": "Miki Makeup Artist",
+    "handle": "mikimakeup.sg",
+    "followers": 3601
+  },
+  {
+    "name": "Clara Song Makeup",
+    "handle": "clarasongbridal",
+    "followers": 3536
+  },
+  {
+    "name": "EK MAKEUP STUDIO",
+    "handle": "ekmakeup.studio",
+    "followers": 3531
+  },
+  {
+    "name": "Vicky",
+    "handle": "vickyangmakeup",
+    "followers": 3528
+  },
+  {
+    "name": "Tracy Immanuel Makeup",
+    "handle": "tracyimmanuelmakeup",
+    "followers": 3521
+  },
+  {
+    "name": "Beauty Crave Malar Mua",
+    "handle": "malar_mua",
+    "followers": 3448
+  },
+  {
+    "name": "Cheron Tan",
+    "handle": "muacher",
+    "followers": 3426
+  },
+  {
+    "name": "Nicole Makeup by Xiao Jing Liu",
+    "handle": "nicole_makeup_sg",
+    "followers": 3385
+  },
+  {
+    "name": "Pure Gold Makeup",
+    "handle": "puregoldmakeup",
+    "followers": 3382
+  },
+  {
+    "name": "Zihui Makeup",
+    "handle": "zihuimakeup",
+    "followers": 3336
+  },
+  {
+    "name": "Makeup Maestro Wedding",
+    "handle": "makeupmaestrowedding",
+    "followers": 3335
+  },
+  {
+    "name": "Ginger Lynette Lyn",
+    "handle": "gingerlynette",
+    "followers": 3305
+  },
+  {
+    "name": "Dazxle Makeup",
+    "handle": "dazxle_makeup",
+    "followers": 3263
+  },
+  {
+    "name": "Powderpuffed Makeup for Brides",
+    "handle": "powderpuffedsg",
+    "followers": 3248
+  },
+  {
+    "name": "Shuzenmoy Makeup Studio",
+    "handle": "shuzenmoy_makeup",
+    "followers": 3195
+  },
+  {
+    "name": "Makeup and Hairdo by Namtan",
+    "handle": "makeup_namtan",
+    "followers": 3180
+  },
+  {
+    "name": "Beauty Without Filter",
+    "handle": "beautywithoutfilter",
+    "followers": 3169
+  },
+  {
+    "name": "Claire Wang",
+    "handle": "theglow_beautybar",
+    "followers": 3160
+  },
+  {
+    "name": "Sha Shamsi",
+    "handle": "shashamsi",
+    "followers": 3115
+  },
+  {
+    "name": "Carmela Datu-Ocampo Makeup Artist",
+    "handle": "carmelaocampomua",
+    "followers": 3000
+  },
+  {
+    "name": "Jennis Wong Makeup",
+    "handle": "jenniswongmakeup",
+    "followers": 2999
+  },
+  {
+    "name": "Natcha Makeup Hairstylist",
+    "handle": "natcha_makeup_hairstylist",
+    "followers": 2989
+  },
+  {
+    "name": "Jenny Chan Makeup Artist",
+    "handle": "jenny__jennisabella",
+    "followers": 2942
+  },
+  {
+    "name": "Makeup Entourage",
+    "handle": "makeupentourage",
+    "followers": 2935
+  },
+  {
+    "name": "Makeup By Sherill",
+    "handle": "makeupbysherill",
+    "followers": 2934
+  },
+  {
+    "name": "3tee Makeup",
+    "handle": "3teemakeup",
+    "followers": 2916
+  },
+  {
+    "name": "Feautte Makeup",
+    "handle": "feautte.makeup",
+    "followers": 2908
+  },
+  {
+    "name": "Joey Elite Makeup Artists",
+    "handle": "joey_elitemakeupartistsinc",
+    "followers": 2897
+  },
+  {
+    "name": "Joyce Yeo Makeup",
+    "handle": "joyceyeomakeup",
+    "followers": 2896
+  },
+  {
+    "name": "Punithalakshimi Makeup Artist",
+    "handle": "_luxx.beauty_",
+    "followers": 2884
+  },
+  {
+    "name": "Makeup by Louise Luan",
+    "handle": "makeupbylouiseluan",
+    "followers": 2790
+  },
+  {
+    "name": "FuwartistryMakeup",
+    "handle": "fuwartistrymakeup",
+    "followers": 2785
+  },
+  {
+    "name": "2AM Makeup Studio",
+    "handle": "2am.makeupstudio",
+    "followers": 2783
+  },
+  {
+    "name": "Hayley Makeup & Hair",
+    "handle": "hayley_makeup_hair",
+    "followers": 2766
+  },
+  {
+    "name": "Kwangs Makeup",
+    "handle": "kwangsmakeup",
+    "followers": 2752
+  },
+  {
+    "name": "Beauty Brush by Ashvin",
+    "handle": "beautybrushbyashvin",
+    "followers": 2732
+  },
+  {
+    "name": "Jas Tan Makeup Artist",
+    "handle": "jastanmua",
+    "followers": 2711
+  },
+  {
+    "name": "Phoebe Powderpuffed",
+    "handle": "phoebe_powderpuffed",
+    "followers": 2643
+  },
+  {
+    "name": "MAKEUP BY AQRA",
+    "handle": "makeupbyaqra",
+    "followers": 2635
+  },
+  {
+    "name": "Stephy Ng Makeup And Hair",
+    "handle": "stephyngmakeup",
+    "followers": 2607
+  },
+  {
+    "name": "Ella Capistrano Orea",
+    "handle": "makeupbyellaorea",
+    "followers": 2601
+  },
+  {
+    "name": "Makeup by Wendy Soh",
+    "handle": "makeupbywendys",
+    "followers": 2592
+  },
+  {
+    "name": "Makeup by TYPE",
+    "handle": "makeupbytype",
+    "followers": 2534
+  },
+  {
+    "name": "Love Me Do Image Studio",
+    "handle": "lovemedo_imagestudio",
+    "followers": 2460
+  },
+  {
+    "name": "Valda Goh Makeup Artist",
+    "handle": "valdagoh",
+    "followers": 2393
+  },
+  {
+    "name": "The Big Blow",
+    "handle": "thebigblow",
+    "followers": 2390
+  },
+  {
+    "name": "Kala Beauty Studio",
+    "handle": "kalabeautyart",
+    "followers": 2360
+  },
+  {
+    "name": "Candice Xiong Makeup",
+    "handle": "candice.xiong_makeup",
+    "followers": 2321
+  },
+  {
+    "name": "Yani Makeup Artist",
+    "handle": "blushbyyaps_makeup",
+    "followers": 2298
+  },
+  {
+    "name": "Karis Chiu Makeup",
+    "handle": "karischiumakeup",
+    "followers": 2288
+  },
+  {
+    "name": "Zbeauty.sg",
+    "handle": "zbeauty.sg",
+    "followers": 2271
+  },
+  {
+    "name": "The Style Atelier",
+    "handle": "thestyleatelier",
+    "followers": 2265
+  },
+  {
+    "name": "Get Pretty With Pika Makeup Artist",
+    "handle": "getprettywithpika",
+    "followers": 2261
+  },
+  {
+    "name": "Mu En Makeup",
+    "handle": "muenmakeup",
+    "followers": 2146
+  },
+  {
+    "name": "Makeup Doyennes",
+    "handle": "makeupdoyennes_brides",
+    "followers": 2132
   },
   {
     "name": "Alycia Tan Makeup",
     "handle": "alyciatanmakeup",
-    "followers": 0
+    "followers": 2112
   },
   {
-    "name": "Alyssa Hair and Makeup",
-    "handle": "alyssahairandmakeup",
+    "name": "Fiona Chin Makeup",
+    "handle": "fionachin_mua",
+    "followers": 2105
+  },
+  {
+    "name": "Make Up By Stella",
+    "handle": "makeupbystellamoon",
+    "followers": 2076
+  },
+  {
+    "name": "Cherie Tay Makeup Artist",
+    "handle": "cherietay.mua",
+    "followers": 2054
+  },
+  {
+    "name": "The Powder Loft; Makeup Artist",
+    "handle": "thepowderloft",
+    "followers": 1989
+  },
+  {
+    "name": "Annita Makeup Artist",
+    "handle": "annita_makeupsg",
+    "followers": 1947
+  },
+  {
+    "name": "Clarinda Ong",
+    "handle": "clarinda_sparkle",
+    "followers": 1944
+  },
+  {
+    "name": "TG Goh",
+    "handle": "tggoh",
+    "followers": 1941
+  },
+  {
+    "name": "Melisa Nash | Hair & Makeup Artist",
+    "handle": "makeupmschff",
+    "followers": 1919
+  },
+  {
+    "name": "Annie | Makeup Artist",
+    "handle": "anniemakeup.sg",
+    "followers": 1825
+  },
+  {
+    "name": "The Xclusive unisex salon",
+    "handle": "xclusive_salon_makeupstudio",
+    "followers": 1753
+  },
+  {
+    "name": "Yuki Fang makeup artist",
+    "handle": "yukifangmakeup",
+    "followers": 1751
+  },
+  {
+    "name": "Enchanté Makeup",
+    "handle": "enchantemakeupsg",
+    "followers": 1741
+  },
+  {
+    "name": "The Radiant People",
+    "handle": "theradiantpeople",
+    "followers": 1716
+  },
+  {
+    "name": "Queen Makeup Artist",
+    "handle": "queenmakeupartist.sg",
+    "followers": 1676
+  },
+  {
+    "name": "Shermaine Chan Makeup Artist",
+    "handle": "shermaine_makeup",
+    "followers": 1666
+  },
+  {
+    "name": "Powder Wowder",
+    "handle": "powderwowder",
+    "followers": 1661
+  },
+  {
+    "name": "Am Up Makeup Artistry",
+    "handle": "amup_makeupartistry",
+    "followers": 1649
+  },
+  {
+    "name": "Radha Prada Beauty",
+    "handle": "radhaprada_beauty",
+    "followers": 1643
+  },
+  {
+    "name": "Makeup Works",
+    "handle": "makeupworkssg",
+    "followers": 1636
+  },
+  {
+    "name": "Wanie Hisham",
+    "handle": "waniehisham_muasg",
+    "followers": 1622
+  },
+  {
+    "name": "Angeline Chan Makeup Artist",
+    "handle": "angelandfairy",
+    "followers": 1590
+  },
+  {
+    "name": "Nicole K. Makeup",
+    "handle": "nicolekmakeup",
+    "followers": 1536
+  },
+  {
+    "name": "bmarvlous",
+    "handle": "bmarvlous",
+    "followers": 1487
+  },
+  {
+    "name": "Sylvia Koh Hair & Makeup Artist",
+    "handle": "sylviakohmua",
+    "followers": 1485
+  },
+  {
+    "name": "Gin Tan Makeup",
+    "handle": "gintanmakeup",
+    "followers": 1477
+  },
+  {
+    "name": "Beauty Buzz",
+    "handle": "beautybuzz_inc",
+    "followers": 1457
+  },
+  {
+    "name": "Jolene Powderpuffed",
+    "handle": "jolene_powderpuffed",
+    "followers": 1456
+  },
+  {
+    "name": "Tracy Yap Makeup Artist",
+    "handle": "tracyyap.makeupartist",
+    "followers": 1449
+  },
+  {
+    "name": "Venize Makeup",
+    "handle": "venizemakeup_sg",
+    "followers": 1360
+  },
+  {
+    "name": "Jaclyn Tan Hair and Makeup",
+    "handle": "jaclyntanhmua",
+    "followers": 1355
+  },
+  {
+    "name": "Jace Ang Makeup",
+    "handle": "jaceangmakeup",
+    "followers": 1342
+  },
+  {
+    "name": "A2i Makeup",
+    "handle": "a2imakeup",
+    "followers": 1320
+  },
+  {
+    "name": "Tiara Red Wan Makeup Artist",
+    "handle": "tiararedwan",
+    "followers": 1303
+  },
+  {
+    "name": "Eunice Chow",
+    "handle": "lalaland_eunice",
+    "followers": 1284
+  },
+  {
+    "name": "Vivian Leo-Yen Makeup Artist",
+    "handle": "vivianleoyenmakeup",
+    "followers": 1275
+  },
+  {
+    "name": "Amy Lee Makeup Artist",
+    "handle": "amylimakeupartist",
+    "followers": 1271
+  },
+  {
+    "name": "Wiwa Makeup & Hairstylist",
+    "handle": "joicyyyc",
+    "followers": 1260
+  },
+  {
+    "name": "LOVEBLUSH",
+    "handle": "loveblush.sg",
+    "followers": 1226
+  },
+  {
+    "name": "Makeup Artist Sherry",
+    "handle": "makeupartist.sherry",
+    "followers": 1222
+  },
+  {
+    "name": "Rachel Ong Makeup",
+    "handle": "rachelongmakeup",
+    "followers": 1221
+  },
+  {
+    "name": "Love & Joy Bridal Makeup",
+    "handle": "lovejoymakeup",
+    "followers": 1192
+  },
+  {
+    "name": "Ann de Image",
+    "handle": "anndeimage",
+    "followers": 1187
+  },
+  {
+    "name": "Jessie Ng Makeup Artist",
+    "handle": "jessiengmua",
+    "followers": 1174
+  },
+  {
+    "name": "Wildroses Bridal Makeup and Hair",
+    "handle": "wildrosesbridalmakeupandhair",
+    "followers": 1170
+  },
+  {
+    "name": "Sophia Chia Makeup Works",
+    "handle": "sophiamakeupworks",
+    "followers": 1167
+  },
+  {
+    "name": "Aulifo Libli",
+    "handle": "aulifo_libli",
+    "followers": 1154
+  },
+  {
+    "name": "Mizzy Neshie Makeup Artist",
+    "handle": "mizzy_neshie_mua",
+    "followers": 1128
+  },
+  {
+    "name": "Jedi MUA",
+    "handle": "jedimua",
+    "followers": 1084
+  },
+  {
+    "name": "V Makeup & Hairstyling",
+    "handle": "mua_ivy_tan",
+    "followers": 1052
+  },
+  {
+    "name": "Marilyn Kong Makeup",
+    "handle": "kong.marilyn_makeup",
+    "followers": 1046
+  },
+  {
+    "name": "27A Co",
+    "handle": "27a.co",
+    "followers": 1018
+  },
+  {
+    "name": "Izzy Makeup Artistry",
+    "handle": "izzymakeupartistry",
+    "followers": 1015
+  },
+  {
+    "name": "Helen Qin Makeup Artist",
+    "handle": "helenmuasingapore",
+    "followers": 1005
+  },
+  {
+    "name": "Sophia Soh",
+    "handle": "mua.sophi",
+    "followers": 992
+  },
+  {
+    "name": "Makeup by Paula",
+    "handle": "mua_paula_",
+    "followers": 991
+  },
+  {
+    "name": "KUREA Makeup Studio | Claire Make-up Artist",
+    "handle": "claire_kureamakeup",
+    "followers": 987
+  },
+  {
+    "name": "YENARTISTRY",
+    "handle": "yenartistry",
+    "followers": 976
+  },
+  {
+    "name": "Nikki Fu Makeup",
+    "handle": "nikkifu",
+    "followers": 964
+  },
+  {
+    "name": "MakeThisOut",
+    "handle": "makethisout",
+    "followers": 936
+  },
+  {
+    "name": "Reyna Hearts Artisty",
+    "handle": "reyna_hearts",
+    "followers": 926
+  },
+  {
+    "name": "Ling Chia Makeup",
+    "handle": "lingchiamakeup.lele",
+    "followers": 907
+  },
+  {
+    "name": "Eileen Beauty Without Filter",
+    "handle": "eileen_beautywithoutfilter",
+    "followers": 888
+  },
+  {
+    "name": "Kacey Teh",
+    "handle": "kaceytehmua",
+    "followers": 877
+  },
+  {
+    "name": "Khai Lee Makeup",
+    "handle": "khaimakeup",
+    "followers": 826
+  },
+  {
+    "name": "Anna Makeup Artist",
+    "handle": "annamakeup.sg",
+    "followers": 819
+  },
+  {
+    "name": "Beyond Makeup by Beatrice Tan",
+    "handle": "bebeyond.makeup",
+    "followers": 802
+  },
+  {
+    "name": "Monicca Stevani MUA",
+    "handle": "moniccastevanimua",
+    "followers": 802
+  },
+  {
+    "name": "Honour Makeup",
+    "handle": "honourmakeup_",
+    "followers": 752
+  },
+  {
+    "name": "Fabfoto Booth",
+    "handle": "fabfotosg",
+    "followers": 707
+  },
+  {
+    "name": "CandyL Makeup Artist",
+    "handle": "candyl_makeup_artist",
+    "followers": 692
+  },
+  {
+    "name": "Beauty Expert Lina",
+    "handle": "beautyexpertlina",
+    "followers": 674
+  },
+  {
+    "name": "Makeup By Ariella Sneha",
+    "handle": "makeupbyariellasneha",
+    "followers": 660
+  },
+  {
+    "name": "Makeup Entourage",
+    "handle": "makeupentouragebrides",
+    "followers": 656
+  },
+  {
+    "name": "Valen Makeup Studio",
+    "handle": "valenmakeupstudio",
+    "followers": 647
+  },
+  {
+    "name": "YRegina Makeup",
+    "handle": "yreginamakeup",
+    "followers": 645
+  },
+  {
+    "name": "Mavis Enchante Makeup",
+    "handle": "mavis_enchantemakeup",
+    "followers": 621
+  },
+  {
+    "name": "Canvaseety Brides",
+    "handle": "canvaseetybrides",
+    "followers": 590
+  },
+  {
+    "name": "Chin Sien Makeup",
+    "handle": "chinsienmakeup",
+    "followers": 587
+  },
+  {
+    "name": "Weiyee-Makeup",
+    "handle": "weiyee_makeup",
+    "followers": 561
+  },
+  {
+    "name": "Makeup123.sg",
+    "handle": "makeup123.sg",
+    "followers": 554
+  },
+  {
+    "name": "Makeup by Fion",
+    "handle": "makeupbyfion",
+    "followers": 548
+  },
+  {
+    "name": "Sakshi Khatri Artistry",
+    "handle": "sakshikhatriartistry",
+    "followers": 526
+  },
+  {
+    "name": "Ally Lim Makeup",
+    "handle": "allylimmakeup",
+    "followers": 522
+  },
+  {
+    "name": "Liren Neo Makeup",
+    "handle": "lirenneo",
+    "followers": 511
+  },
+  {
+    "name": "Soleill Makeup",
+    "handle": "soleill.makeup",
+    "followers": 471
+  },
+  {
+    "name": "Zoey Powderpuffed",
+    "handle": "zoey_powderpuffed",
+    "followers": 468
+  },
+  {
+    "name": "KELLYKKL MAKEUP ARTIST",
+    "handle": "kellykkl.makeupartist",
+    "followers": 459
+  },
+  {
+    "name": "Liren Neo Makeup Artist",
+    "handle": "liren.neo",
+    "followers": 441
+  },
+  {
+    "name": "Style by Jeann",
+    "handle": "stylebyjeann",
+    "followers": 425
+  },
+  {
+    "name": "Evenovi Makeup & Hair",
+    "handle": "nkmuasg",
+    "followers": 393
+  },
+  {
+    "name": "Christelle Lin Hui",
+    "handle": "christelle.linhui",
+    "followers": 386
+  },
+  {
+    "name": "Cozy Container",
+    "handle": "cozycontainer0306",
+    "followers": 349
+  },
+  {
+    "name": "Peggy's Makeup Atelier",
+    "handle": "peggymakeupatelier",
+    "followers": 345
+  },
+  {
+    "name": "Merry Fish Makeup & Hair",
+    "handle": "merryfishmakeupandhair",
+    "followers": 339
+  },
+  {
+    "name": "Style You Pretty",
+    "handle": "official_styleyoupretty",
+    "followers": 332
+  },
+  {
+    "name": "Doll Up Inc",
+    "handle": "dollupinc.sg",
+    "followers": 304
+  },
+  {
+    "name": "Pristique Make Up",
+    "handle": "pristiquemakeup",
+    "followers": 299
+  },
+  {
+    "name": "The House of AM by Adithi Menon",
+    "handle": "thehouseofam.adithi",
+    "followers": 294
+  },
+  {
+    "name": "Make Up Artist Bee Hong",
+    "handle": "sgmakeupartistbeehong",
+    "followers": 287
+  },
+  {
+    "name": "Jinnie Lee",
+    "handle": "jinnieleemakeup",
+    "followers": 281
+  },
+  {
+    "name": "Yukiko Lim Makeup & Hairstyling",
+    "handle": "makeupyukikolim",
+    "followers": 265
+  },
+  {
+    "name": "Sumie Beauty Makeup Salon",
+    "handle": "sumiebms",
+    "followers": 243
+  },
+  {
+    "name": "Twentys Makeup Artistry",
+    "handle": "twentysmakeup",
+    "followers": 210
+  },
+  {
+    "name": "A Little Moment Photography",
+    "handle": "alittlemoment",
+    "followers": 208
+  },
+  {
+    "name": "Clara Song Makeup",
+    "handle": "clarasongmakeup",
+    "followers": 204
+  },
+  {
+    "name": "SnJ Wedding Services",
+    "handle": "snj_wedding_services",
+    "followers": 192
+  },
+  {
+    "name": "Makeup by Inshiraz",
+    "handle": "makeupbyinshiraz",
+    "followers": 191
+  },
+  {
+    "name": "NaileDGlam",
+    "handle": "nailed_glam",
+    "followers": 169
+  },
+  {
+    "name": "Sharon Ang Makeup",
+    "handle": "sharonangmakeup",
+    "followers": 167
+  },
+  {
+    "name": "Beauty Expert Lina Makeup and Hairstyling Services",
+    "handle": "beautyexpertlina_sg",
+    "followers": 141
+  },
+  {
+    "name": "Yvonne How Makeup& Hairdo Service",
+    "handle": "yvonneyh__mua",
+    "followers": 140
+  },
+  {
+    "name": "Zen Makeup Team",
+    "handle": "zenmakeupteam",
+    "followers": 131
+  },
+  {
+    "name": "Sai Magical Creation",
+    "handle": "saimagicalcreations",
+    "followers": 121
+  },
+  {
+    "name": "Waynesther Professional Makeup",
+    "handle": "waynesther",
+    "followers": 112
+  },
+  {
+    "name": "Ooosh!",
+    "handle": "ooosh.sg",
+    "followers": 110
+  },
+  {
+    "name": "Christine Liu",
+    "handle": "christineliu.com.sg",
+    "followers": 108
+  },
+  {
+    "name": "Made by Kel",
+    "handle": "madebykel",
+    "followers": 87
+  },
+  {
+    "name": "SDMUA Bridal Makeup Artist",
+    "handle": "sdmua5",
+    "followers": 87
+  },
+  {
+    "name": "Elemente Beauty",
+    "handle": "elementebeauty",
+    "followers": 72
+  },
+  {
+    "name": "Evenovi Makeup & Hair",
+    "handle": "nkmuawedding",
+    "followers": 59
+  },
+  {
+    "name": "Wincey Make Up Studio",
+    "handle": "winceymakeup",
+    "followers": 48
+  },
+  {
+    "name": "The Rorrimu Bride",
+    "handle": "therorrimubride",
+    "followers": 42
+  },
+  {
+    "name": "Dea.R Makeup",
+    "handle": "dea.rmakeup",
+    "followers": 40
+  },
+  {
+    "name": "Z Beauty SG",
+    "handle": "zbeautysg",
+    "followers": 28
+  },
+  {
+    "name": "Chuwa Makeup",
+    "handle": "chuwamakeup",
+    "followers": 23
+  },
+  {
+    "name": "Lili Makeup Specialist",
+    "handle": "lilihelmy",
+    "followers": 21
+  },
+  {
+    "name": "Immortelle Atelier",
+    "handle": "immortelleatelier",
+    "followers": 17
+  },
+  {
+    "name": "Sandeep Kapoor Makeover",
+    "handle": "sandeepkapoorofficial",
+    "followers": 1
+  },
+  {
+    "name": "ALENA Makeup",
+    "handle": "alena_alenamakeup",
     "followers": 0
   },
   {
@@ -220,23 +1555,8 @@
     "followers": 0
   },
   {
-    "name": "Amber Weng Makeover",
-    "handle": "amber_weng",
-    "followers": 0
-  },
-  {
-    "name": "Amy Lee Makeup Artist",
-    "handle": "amylimakeupartist",
-    "followers": 0
-  },
-  {
     "name": "Andrea Claire Makeup",
     "handle": "andreaclairemakeup",
-    "followers": 0
-  },
-  {
-    "name": "Andriana Jamil",
-    "handle": "andriana_jamil",
     "followers": 0
   },
   {
@@ -245,48 +1565,13 @@
     "followers": 0
   },
   {
-    "name": "Angel Gwee Makeup",
-    "handle": "angelgwee",
-    "followers": 0
-  },
-  {
-    "name": "Angeline Chan Makeup Artist",
-    "handle": "angelandfairy",
-    "followers": 0
-  },
-  {
-    "name": "Ann de Image",
-    "handle": "anndeimage",
-    "followers": 0
-  },
-  {
-    "name": "Ann Makeup",
-    "handle": "ann_makeup.sg",
-    "followers": 0
-  },
-  {
     "name": "Anna Makeup Artist",
     "handle": "annamakeupartist.sg",
     "followers": 0
   },
   {
-    "name": "Anna Makeup Artist",
-    "handle": "annamakeup.sg",
-    "followers": 0
-  },
-  {
-    "name": "Annabella Makeup Artist",
-    "handle": "makeuphairbyannabella",
-    "followers": 0
-  },
-  {
-    "name": "Annie | Makeup Artist",
-    "handle": "anniemakeup.sg",
-    "followers": 0
-  },
-  {
-    "name": "Annita Makeup Artist",
-    "handle": "annita_makeupsg",
+    "name": "Ann’s Beauty Palette (MUA)",
+    "handle": "anns_beauty_palette",
     "followers": 0
   },
   {
@@ -295,18 +1580,8 @@
     "followers": 0
   },
   {
-    "name": "Ashley K Makeup",
-    "handle": "ashleykokmakeup",
-    "followers": 0
-  },
-  {
-    "name": "Aulifo Libli",
-    "handle": "aulifo_libli",
-    "followers": 0
-  },
-  {
-    "name": "Autelier Pro Singapore",
-    "handle": "autelier_pro",
+    "name": "Arieltistry",
+    "handle": "arieltistry",
     "followers": 0
   },
   {
@@ -320,53 +1595,8 @@
     "followers": 0
   },
   {
-    "name": "Beauty Crave Malar Mua",
-    "handle": "malar_mua",
-    "followers": 0
-  },
-  {
-    "name": "Beauty Expert Lina",
-    "handle": "beautyexpertlina",
-    "followers": 0
-  },
-  {
-    "name": "Beauty Expert Lina Makeup and Hairstyling Services",
-    "handle": "beautyexpertlina_sg",
-    "followers": 0
-  },
-  {
-    "name": "Bella Donna Artistry",
-    "handle": "belladonna.artistry",
-    "followers": 0
-  },
-  {
-    "name": "Beyond Makeup by Beatrice Tan",
-    "handle": "bebeyond.makeup",
-    "followers": 0
-  },
-  {
     "name": "Bridal Department by Suburbs Studio",
     "handle": "bridaldepartment",
-    "followers": 0
-  },
-  {
-    "name": "BRIDAL: Henna Artists- Make-up Artists",
-    "handle": "sandyxsher",
-    "followers": 0
-  },
-  {
-    "name": "Cadee Yeoh",
-    "handle": "cadeeyeoh",
-    "followers": 0
-  },
-  {
-    "name": "Candice Xiong Makeup",
-    "handle": "candice.xiong_makeup",
-    "followers": 0
-  },
-  {
-    "name": "Candy Le Makeup Artist",
-    "handle": "candyle.makeup",
     "followers": 0
   },
   {
@@ -375,43 +1605,8 @@
     "followers": 0
   },
   {
-    "name": "Canvaseety Brides",
-    "handle": "canvaseetybrides",
-    "followers": 0
-  },
-  {
     "name": "Car Chan Makeup & Hair",
     "handle": "carchanmakeup",
-    "followers": 0
-  },
-  {
-    "name": "Carmela Datu-Ocampo Makeup Artist",
-    "handle": "carmelaocampomua",
-    "followers": 0
-  },
-  {
-    "name": "Charmaine Lin Makeup",
-    "handle": "charmainelin_makeup",
-    "followers": 0
-  },
-  {
-    "name": "Cherie Tay Makeup Artist",
-    "handle": "cherietay.mua",
-    "followers": 0
-  },
-  {
-    "name": "Cherry Beauty4U",
-    "handle": "cherry_beauty4u",
-    "followers": 0
-  },
-  {
-    "name": "Chi Chi Allure Makeup Studio",
-    "handle": "chichi_allure",
-    "followers": 0
-  },
-  {
-    "name": "Chin Sien Makeup",
-    "handle": "chinsienmakeup",
     "followers": 0
   },
   {
@@ -420,88 +1615,13 @@
     "followers": 0
   },
   {
-    "name": "Christelle Lin Hui",
-    "handle": "christelle.linhui",
-    "followers": 0
-  },
-  {
-    "name": "Christine Liu",
-    "handle": "christineliu.com.sg",
-    "followers": 0
-  },
-  {
-    "name": "Christine Tan Makeup",
-    "handle": "christinetan.makeup",
-    "followers": 0
-  },
-  {
-    "name": "Chuwa Makeup",
-    "handle": "chuwamakeup",
-    "followers": 0
-  },
-  {
-    "name": "Claire Wang",
-    "handle": "theglow_beautybar",
-    "followers": 0
-  },
-  {
-    "name": "Clara Song Makeup",
-    "handle": "clarasongmakeup",
-    "followers": 0
-  },
-  {
     "name": "Clarence Lee Makeup",
     "handle": "clarenceleemakeup",
     "followers": 0
   },
   {
-    "name": "Clarinda Ong",
-    "handle": "clarinda_sparkle",
-    "followers": 0
-  },
-  {
-    "name": "Cocoon Makeup & Hair",
-    "handle": "cocoonmakeupandhair",
-    "followers": 0
-  },
-  {
-    "name": "Cozy Container",
-    "handle": "cozycontainer0306",
-    "followers": 0
-  },
-  {
-    "name": "Daisy’s Artistry",
-    "handle": "daisysartistry",
-    "followers": 0
-  },
-  {
-    "name": "DAWN Makeup Artist",
-    "handle": "mua.dawn",
-    "followers": 0
-  },
-  {
-    "name": "Dea.R Makeup",
-    "handle": "dea.rmakeup",
-    "followers": 0
-  },
-  {
-    "name": "Dear Daisy Makeup Artist",
-    "handle": "deardaisymakeup",
-    "followers": 0
-  },
-  {
-    "name": "Dear Muse Makeup",
-    "handle": "dearmuse.makeup",
-    "followers": 0
-  },
-  {
-    "name": "Denise Lee Makeup",
-    "handle": "deniseleemakeup",
-    "followers": 0
-  },
-  {
-    "name": "Doll Up Inc",
-    "handle": "dollupinc.sg",
+    "name": "Cleo Chang Makeup",
+    "handle": "cleochangmakeup",
     "followers": 0
   },
   {
@@ -515,63 +1635,8 @@
     "followers": 0
   },
   {
-    "name": "Dreammakers Makeup",
-    "handle": "dreammakers_makeup",
-    "followers": 0
-  },
-  {
-    "name": "Eileen Beauty Without Filter",
-    "handle": "eileen_beautywithoutfilter",
-    "followers": 0
-  },
-  {
-    "name": "EK MAKEUP STUDIO",
-    "handle": "ekmakeup.studio",
-    "followers": 0
-  },
-  {
-    "name": "Elaine Beauty Studio",
-    "handle": "elainebeautystudio",
-    "followers": 0
-  },
-  {
-    "name": "Elemente Beauty",
-    "handle": "elementebeauty",
-    "followers": 0
-  },
-  {
-    "name": "ELITE Makeup Artists Inc.",
-    "handle": "elitemakeupartistsinc",
-    "followers": 0
-  },
-  {
-    "name": "Ella Capistrano Orea",
-    "handle": "makeupbyellaorea",
-    "followers": 0
-  },
-  {
-    "name": "Ella Tamayo",
-    "handle": "makeupbyellatamayo",
-    "followers": 0
-  },
-  {
-    "name": "Elsa Yan Makeup",
-    "handle": "elsayan_makeup",
-    "followers": 0
-  },
-  {
-    "name": "Em Elite Makeup Artists",
-    "handle": "em_elitemakeupartistsinc",
-    "followers": 0
-  },
-  {
     "name": "Enchanté Makeup",
     "handle": "enchantemakeup.sg",
-    "followers": 0
-  },
-  {
-    "name": "Enchanté Makeup",
-    "handle": "enchantemakeupsg",
     "followers": 0
   },
   {
@@ -580,48 +1645,8 @@
     "followers": 0
   },
   {
-    "name": "Eunice Chow",
-    "handle": "lalaland_eunice",
-    "followers": 0
-  },
-  {
-    "name": "Evenovi Makeup & Hair",
-    "handle": "nkmuasg",
-    "followers": 0
-  },
-  {
-    "name": "Evenovi Makeup & Hair",
-    "handle": "nkmuawedding",
-    "followers": 0
-  },
-  {
-    "name": "Fabfoto Booth",
-    "handle": "fabfotosg",
-    "followers": 0
-  },
-  {
     "name": "Fclover Makeup",
     "handle": "fclovermakeup",
-    "followers": 0
-  },
-  {
-    "name": "Feautte Makeup",
-    "handle": "feautte.makeup",
-    "followers": 0
-  },
-  {
-    "name": "fidelistoh",
-    "handle": "fidelistoh",
-    "followers": 0
-  },
-  {
-    "name": "FOREVER PIXELS ARTS",
-    "handle": "foreverpixelsarts",
-    "followers": 0
-  },
-  {
-    "name": "FuwartistryMakeup",
-    "handle": "fuwartistrymakeup",
     "followers": 0
   },
   {
@@ -630,33 +1655,8 @@
     "followers": 0
   },
   {
-    "name": "Get Pretty With Pika Makeup Artist",
-    "handle": "getprettywithpika",
-    "followers": 0
-  },
-  {
-    "name": "Gin Chia Makeup",
-    "handle": "ginchiamakeup",
-    "followers": 0
-  },
-  {
-    "name": "Gin Tan Makeup",
-    "handle": "gintanmakeup",
-    "followers": 0
-  },
-  {
-    "name": "Ginger Lynette Lyn",
-    "handle": "gingerlynette",
-    "followers": 0
-  },
-  {
     "name": "Ginger Lynette Makeup",
     "handle": "gingerlynettemakeup",
-    "followers": 0
-  },
-  {
-    "name": "Greg'O",
-    "handle": "grego7go",
     "followers": 0
   },
   {
@@ -665,28 +1665,8 @@
     "followers": 0
   },
   {
-    "name": "Helen Qin Makeup Artist",
-    "handle": "helenmuasingapore",
-    "followers": 0
-  },
-  {
-    "name": "Honour Makeup",
-    "handle": "honourmakeup_",
-    "followers": 0
-  },
-  {
     "name": "Iheartblooms",
     "handle": "iheartblooms",
-    "followers": 0
-  },
-  {
-    "name": "Iman Li Shi",
-    "handle": "imanlishimakeup",
-    "followers": 0
-  },
-  {
-    "name": "Immortelle Atelier",
-    "handle": "immortelleatelier",
     "followers": 0
   },
   {
@@ -695,63 +1675,8 @@
     "followers": 0
   },
   {
-    "name": "Izzy Makeup Artistry",
-    "handle": "izzymakeupartistry",
-    "followers": 0
-  },
-  {
-    "name": "Jace Ang Makeup",
-    "handle": "jaceangmakeup",
-    "followers": 0
-  },
-  {
-    "name": "Jaclyn Tan Hair and Makeup",
-    "handle": "jaclyntanhmua",
-    "followers": 0
-  },
-  {
     "name": "Jan Ng",
     "handle": "janng.mua",
-    "followers": 0
-  },
-  {
-    "name": "Jas Tan Makeup Artist",
-    "handle": "jastanmua",
-    "followers": 0
-  },
-  {
-    "name": "Jedi MUA",
-    "handle": "jedimua",
-    "followers": 0
-  },
-  {
-    "name": "Jennis Wong Makeup",
-    "handle": "jenniswongmakeup",
-    "followers": 0
-  },
-  {
-    "name": "Jenny Chan Makeup Artist",
-    "handle": "jenny__jennisabella",
-    "followers": 0
-  },
-  {
-    "name": "Jenny Goh 2am Makeup",
-    "handle": "jenny_qianyi",
-    "followers": 0
-  },
-  {
-    "name": "Jessie Ng Makeup Artist",
-    "handle": "jessiengmua",
-    "followers": 0
-  },
-  {
-    "name": "Jinnie Lee",
-    "handle": "jinnieleemakeup",
-    "followers": 0
-  },
-  {
-    "name": "Joey Elite Makeup Artists",
-    "handle": "joey_elitemakeupartistsinc",
     "followers": 0
   },
   {
@@ -760,98 +1685,8 @@
     "followers": 0
   },
   {
-    "name": "Jolene Powderpuffed",
-    "handle": "jolene_powderpuffed",
-    "followers": 0
-  },
-  {
-    "name": "Joyce Yeo Makeup",
-    "handle": "joyceyeomakeup",
-    "followers": 0
-  },
-  {
-    "name": "Julie Kim Makeup (Soyeong Kim)",
-    "handle": "juliekimmakeup",
-    "followers": 0
-  },
-  {
-    "name": "JUSTINA LOH ❥ NX MAKEUP TEAM -NICOLEXIIAN",
-    "handle": "nicolexiian",
-    "followers": 0
-  },
-  {
-    "name": "Kacey Teh",
-    "handle": "kaceytehmua",
-    "followers": 0
-  },
-  {
-    "name": "Kala Beauty Studio",
-    "handle": "kalabeautyart",
-    "followers": 0
-  },
-  {
-    "name": "Kannan Raajamanickam",
-    "handle": "kannanraajamanickam",
-    "followers": 0
-  },
-  {
-    "name": "Karis Chiu Makeup",
-    "handle": "karischiumakeup",
-    "followers": 0
-  },
-  {
-    "name": "KARRISHMA BEAUTY HOUSE",
-    "handle": "karrishmabeautyhouse_",
-    "followers": 0
-  },
-  {
     "name": "Karyn Makeup & Co.",
     "handle": "karynch.mua",
-    "followers": 0
-  },
-  {
-    "name": "Kate Jebelli Makeup",
-    "handle": "katejebelli_makeup",
-    "followers": 0
-  },
-  {
-    "name": "Keith Tan Makeup",
-    "handle": "keith_makeup_artist",
-    "followers": 0
-  },
-  {
-    "name": "KELLYKKL MAKEUP ARTIST",
-    "handle": "kellykkl.makeupartist",
-    "followers": 0
-  },
-  {
-    "name": "Kenneth Lee Makeup",
-    "handle": "kennethleemakeup",
-    "followers": 0
-  },
-  {
-    "name": "KENNY",
-    "handle": "kenhermanns",
-    "followers": 0
-  },
-  {
-    "name": "Khadijah Azzahra Makeup",
-    "handle": "khadijahazzahra_makeup",
-    "followers": 0
-  },
-  {
-    "name": "Khai Lee Makeup",
-    "handle": "khaimakeup",
-    "followers": 0
-  },
-  {
-    "name": "Kirei Beauty Products & Services",
-    "handle": "kireibeauty.sg",
-    "followers": 0
-  },
-  {
-    "name": "Kirti Luthra",
-    "handle": "kirtiluthramua",
     "followers": 0
   },
   {
@@ -860,83 +1695,8 @@
     "followers": 0
   },
   {
-    "name": "Kung Nim",
-    "handle": "benla_makover_services",
-    "followers": 0
-  },
-  {
-    "name": "KUREA Makeup Studio | Claire Make-up Artist",
-    "handle": "claire_kureamakeup",
-    "followers": 0
-  },
-  {
-    "name": "Kwangs Makeup",
-    "handle": "kwangsmakeup",
-    "followers": 0
-  },
-  {
     "name": "La Belle Couture Makeup",
     "handle": "labellecouture.sg",
-    "followers": 0
-  },
-  {
-    "name": "Ladyy Claire Makeup",
-    "handle": "ladyyclairemakeup",
-    "followers": 0
-  },
-  {
-    "name": "LiLi Makeup Specialist",
-    "handle": "lilimakeupspecialist",
-    "followers": 0
-  },
-  {
-    "name": "Lili Makeup Specialist",
-    "handle": "lilihelmy",
-    "followers": 0
-  },
-  {
-    "name": "Lindalino Makeup & Hair Services",
-    "handle": "lindalino.makeup",
-    "followers": 0
-  },
-  {
-    "name": "Ling Chia Makeup",
-    "handle": "lingchiamakeup.lele",
-    "followers": 0
-  },
-  {
-    "name": "Ling's Palette",
-    "handle": "lingspalette",
-    "followers": 0
-  },
-  {
-    "name": "Liren Neo Makeup",
-    "handle": "lirenneo",
-    "followers": 0
-  },
-  {
-    "name": "Liren Neo Makeup Artist",
-    "handle": "liren.neo",
-    "followers": 0
-  },
-  {
-    "name": "Looks Studio",
-    "handle": "looksstudio",
-    "followers": 0
-  },
-  {
-    "name": "Love & Joy Bridal Makeup",
-    "handle": "lovejoymakeup",
-    "followers": 0
-  },
-  {
-    "name": "Love Me Do Image Studio",
-    "handle": "lovemedo_imagestudio",
-    "followers": 0
-  },
-  {
-    "name": "LOVEBLUSH",
-    "handle": "loveblush.sg",
     "followers": 0
   },
   {
@@ -955,48 +1715,13 @@
     "followers": 0
   },
   {
-    "name": "Lynh Makeup Artist",
-    "handle": "lynh.mua",
-    "followers": 0
-  },
-  {
-    "name": "Made by Kel",
-    "handle": "madebykel",
-    "followers": 0
-  },
-  {
-    "name": "Mahes Makeup Artist",
-    "handle": "mahes_mua",
-    "followers": 0
-  },
-  {
     "name": "Mahes — The Indian Bride",
     "handle": "mahestheindianbride",
     "followers": 0
   },
   {
-    "name": "Make Up Artist Bee Hong",
-    "handle": "sgmakeupartistbeehong",
-    "followers": 0
-  },
-  {
     "name": "Make Up by Janice Lai",
     "handle": "makeupbyjanicelai",
-    "followers": 0
-  },
-  {
-    "name": "Make Up By Stella",
-    "handle": "makeupbystellamoon",
-    "followers": 0
-  },
-  {
-    "name": "MakeThisOut",
-    "handle": "makethisout",
-    "followers": 0
-  },
-  {
-    "name": "Makeup and Hairdo by Namtan",
-    "handle": "makeup_namtan",
     "followers": 0
   },
   {
@@ -1010,16 +1735,6 @@
     "followers": 0
   },
   {
-    "name": "Makeup Artist Sherry",
-    "handle": "makeupartist.sherry",
-    "followers": 0
-  },
-  {
-    "name": "Makeup Artistry by Julie",
-    "handle": "makeupartistrybyjulie_mua",
-    "followers": 0
-  },
-  {
     "name": "Makeup by Ann",
     "handle": "ann_ladyyclairemakeup",
     "followers": 0
@@ -1030,133 +1745,8 @@
     "followers": 0
   },
   {
-    "name": "MAKEUP BY AQRA",
-    "handle": "makeupbyaqra",
-    "followers": 0
-  },
-  {
-    "name": "Makeup By Ariella Sneha",
-    "handle": "makeupbyariellasneha",
-    "followers": 0
-  },
-  {
     "name": "Makeup by Dianella",
     "handle": "makeupbydianellanto",
-    "followers": 0
-  },
-  {
-    "name": "Makeup by Fion",
-    "handle": "makeupbyfion",
-    "followers": 0
-  },
-  {
-    "name": "Makeup by Fiona B",
-    "handle": "makeup_by_fionab",
-    "followers": 0
-  },
-  {
-    "name": "Makeup by Inshiraz",
-    "handle": "makeupbyinshiraz",
-    "followers": 0
-  },
-  {
-    "name": "Makeup by Louise Luan",
-    "handle": "makeupbylouiseluan",
-    "followers": 0
-  },
-  {
-    "name": "MakeUp By Melvin",
-    "handle": "melvin_tseng",
-    "followers": 0
-  },
-  {
-    "name": "Makeup by Paula",
-    "handle": "mua_paula_",
-    "followers": 0
-  },
-  {
-    "name": "Makeup by Rashidah Jones",
-    "handle": "makeupbyrashidahmarican",
-    "followers": 0
-  },
-  {
-    "name": "Makeup By Sherill",
-    "handle": "makeupbysherill",
-    "followers": 0
-  },
-  {
-    "name": "Makeup by TYPE",
-    "handle": "makeupbytype",
-    "followers": 0
-  },
-  {
-    "name": "Makeup by Wendy Soh",
-    "handle": "makeupbywendys",
-    "followers": 0
-  },
-  {
-    "name": "Makeup Doyennes",
-    "handle": "makeupdoyennes_brides",
-    "followers": 0
-  },
-  {
-    "name": "Makeup Entourage",
-    "handle": "makeupentouragebrides",
-    "followers": 0
-  },
-  {
-    "name": "Makeup Entourage",
-    "handle": "makeupentourage",
-    "followers": 0
-  },
-  {
-    "name": "Makeup Maestro Wedding",
-    "handle": "makeupmaestrowedding",
-    "followers": 0
-  },
-  {
-    "name": "Makeup Wif Style",
-    "handle": "makeupwifstyle",
-    "followers": 0
-  },
-  {
-    "name": "Makeup Works",
-    "handle": "makeupworkssg",
-    "followers": 0
-  },
-  {
-    "name": "Makeup.Nadie",
-    "handle": "nadie.weddings",
-    "followers": 0
-  },
-  {
-    "name": "Makeup123.sg",
-    "handle": "makeup123.sg",
-    "followers": 0
-  },
-  {
-    "name": "MakeupArtist Mini Natsiree",
-    "handle": "makeupartist_mininatsiree",
-    "followers": 0
-  },
-  {
-    "name": "Manga Jaganmohan",
-    "handle": "mangajaganmohan",
-    "followers": 0
-  },
-  {
-    "name": "Marilyn Kong Makeup",
-    "handle": "kong.marilyn_makeup",
-    "followers": 0
-  },
-  {
-    "name": "Mavis Enchante Makeup",
-    "handle": "mavis_enchantemakeup",
-    "followers": 0
-  },
-  {
-    "name": "Melisa Nash | Hair & Makeup Artist",
-    "handle": "makeupmschff",
     "followers": 0
   },
   {
@@ -1167,11 +1757,6 @@
   {
     "name": "Merry Fish Makeup & Hair",
     "handle": "merryfish_makeupandhair",
-    "followers": 0
-  },
-  {
-    "name": "Merry Fish Makeup & Hair",
-    "handle": "merryfishmakeupandhair",
     "followers": 0
   },
   {
@@ -1190,28 +1775,8 @@
     "followers": 0
   },
   {
-    "name": "Miki Makeup Artist",
-    "handle": "mikimakeup.sg",
-    "followers": 0
-  },
-  {
-    "name": "Minnie Makeup Artist",
-    "handle": "minnie_makeupartist3428",
-    "followers": 0
-  },
-  {
     "name": "MissLinz Makeup",
     "handle": "misslinzmakeuphere",
-    "followers": 0
-  },
-  {
-    "name": "Mizzy Neshie Makeup Artist",
-    "handle": "mizzy_neshie_mua",
-    "followers": 0
-  },
-  {
-    "name": "Monicca Stevani MUA",
-    "handle": "moniccastevanimua",
     "followers": 0
   },
   {
@@ -1220,78 +1785,8 @@
     "followers": 0
   },
   {
-    "name": "Monika Makeovers Singapore",
-    "handle": "monikamakeovers.singapore",
-    "followers": 0
-  },
-  {
-    "name": "Monina Monisha Makeup Artist",
-    "handle": "moninamonisha",
-    "followers": 0
-  },
-  {
-    "name": "Mooilove Makeup Studio by Selynn Wang",
-    "handle": "mooilove_makeup_studio",
-    "followers": 0
-  },
-  {
     "name": "MS Makeup SG",
     "handle": "msmakeupsg",
-    "followers": 0
-  },
-  {
-    "name": "Mu En Makeup",
-    "handle": "muenmakeup",
-    "followers": 0
-  },
-  {
-    "name": "NaileDGlam",
-    "handle": "nailed_glam",
-    "followers": 0
-  },
-  {
-    "name": "Naomi lane Makeup Artist",
-    "handle": "naomilane_makeup",
-    "followers": 0
-  },
-  {
-    "name": "Natcha Makeup Hairstylist",
-    "handle": "natcha_makeup_hairstylist",
-    "followers": 0
-  },
-  {
-    "name": "Nicole K. Makeup",
-    "handle": "nicolekmakeup",
-    "followers": 0
-  },
-  {
-    "name": "Nicole Makeup by Xiao Jing Liu",
-    "handle": "nicole_makeup_sg",
-    "followers": 0
-  },
-  {
-    "name": "Nidhi Thukral Mua",
-    "handle": "muathukralnidhi",
-    "followers": 0
-  },
-  {
-    "name": "Nikki Fu Makeup",
-    "handle": "nikkifu",
-    "followers": 0
-  },
-  {
-    "name": "Nisha Mua",
-    "handle": "nishaa_mua",
-    "followers": 0
-  },
-  {
-    "name": "Nix Soriano",
-    "handle": "nixsoriano.mua",
-    "followers": 0
-  },
-  {
-    "name": "Ooosh!",
-    "handle": "ooosh.sg",
     "followers": 0
   },
   {
@@ -1300,78 +1795,8 @@
     "followers": 0
   },
   {
-    "name": "Peggy's Makeup Atelier",
-    "handle": "peggymakeupatelier",
-    "followers": 0
-  },
-  {
-    "name": "Phoebe Powderpuffed",
-    "handle": "phoebe_powderpuffed",
-    "followers": 0
-  },
-  {
-    "name": "PKO MAKEUP",
-    "handle": "pko_makeup",
-    "followers": 0
-  },
-  {
-    "name": "PONNIE HSU Makeup Artist",
-    "handle": "ponniehsumakeupstudio",
-    "followers": 0
-  },
-  {
-    "name": "Powder Wowder",
-    "handle": "powderwowder",
-    "followers": 0
-  },
-  {
     "name": "Powderpuffed",
     "handle": "powderpuffed",
-    "followers": 0
-  },
-  {
-    "name": "Powderpuffed Makeup for Brides",
-    "handle": "powderpuffedsg",
-    "followers": 0
-  },
-  {
-    "name": "Pristique Make Up",
-    "handle": "pristiquemakeup",
-    "followers": 0
-  },
-  {
-    "name": "Punithalakshimi Makeup Artist",
-    "handle": "_luxx.beauty_",
-    "followers": 0
-  },
-  {
-    "name": "Pure Gold Makeup",
-    "handle": "puregoldmakeup",
-    "followers": 0
-  },
-  {
-    "name": "Queen Makeup Artist",
-    "handle": "queenmakeupartist.sg",
-    "followers": 0
-  },
-  {
-    "name": "Queenie Cong Makeover",
-    "handle": "queeniecong_makeover",
-    "followers": 0
-  },
-  {
-    "name": "Rachel Liling Ong",
-    "handle": "rachelongll",
-    "followers": 0
-  },
-  {
-    "name": "Rachel Ong Makeup",
-    "handle": "rachelongmakeup",
-    "followers": 0
-  },
-  {
-    "name": "Radha Prada Beauty",
-    "handle": "radhaprada_beauty",
     "followers": 0
   },
   {
@@ -1385,33 +1810,13 @@
     "followers": 0
   },
   {
-    "name": "Renugha Official",
-    "handle": "renugha_m_vadivelu",
-    "followers": 0
-  },
-  {
-    "name": "Reyna Hearts Artisty",
-    "handle": "reyna_hearts",
-    "followers": 0
-  },
-  {
     "name": "Rie Miura Total Beauty",
     "handle": "rie_miura.makeupartist",
     "followers": 0
   },
   {
-    "name": "Roseanne Tang Makeup",
-    "handle": "roseannetangrs",
-    "followers": 0
-  },
-  {
     "name": "Rouge by DD",
     "handle": "rougebydd",
-    "followers": 0
-  },
-  {
-    "name": "Roxanne Sylvia",
-    "handle": "mizroxx",
     "followers": 0
   },
   {
@@ -1425,46 +1830,6 @@
     "followers": 0
   },
   {
-    "name": "Sai Magical Creation",
-    "handle": "saimagicalcreations",
-    "followers": 0
-  },
-  {
-    "name": "Sakiho Bridal Makeup",
-    "handle": "sakiho.bridal",
-    "followers": 0
-  },
-  {
-    "name": "Sakshi Khatri Artistry",
-    "handle": "sakshikhatriartistry",
-    "followers": 0
-  },
-  {
-    "name": "Sandeep Kapoor Makeover",
-    "handle": "sandeepkapoorofficial",
-    "followers": 0
-  },
-  {
-    "name": "Sarah Lee Autelier",
-    "handle": "sarahlee_autelier",
-    "followers": 0
-  },
-  {
-    "name": "SASA",
-    "handle": "sasa_hmua_sg",
-    "followers": 0
-  },
-  {
-    "name": "Saydanar Makeup",
-    "handle": "saydanar_hmua",
-    "followers": 0
-  },
-  {
-    "name": "SDMUA Bridal Makeup Artist",
-    "handle": "sdmua5",
-    "followers": 0
-  },
-  {
     "name": "SG Face Michelle Foong",
     "handle": "sgface",
     "followers": 0
@@ -1475,153 +1840,8 @@
     "followers": 0
   },
   {
-    "name": "Sha Shamsi",
-    "handle": "shashamsi",
-    "followers": 0
-  },
-  {
-    "name": "SHALU BRIDAL MAKE-UP ARTIST",
-    "handle": "shalu_mua",
-    "followers": 0
-  },
-  {
-    "name": "Sharmila Loganathan",
-    "handle": "sharmila.logan",
-    "followers": 0
-  },
-  {
-    "name": "Sharon Ang Makeup",
-    "handle": "sharonangmakeup",
-    "followers": 0
-  },
-  {
-    "name": "Shaun Lee Makeup Artist",
-    "handle": "shaunleelee",
-    "followers": 0
-  },
-  {
-    "name": "Shermaine Chan Makeup Artist",
-    "handle": "shermaine_makeup",
-    "followers": 0
-  },
-  {
-    "name": "Shino Makeup & Hairstyling",
-    "handle": "shinomakeupnhairstyling",
-    "followers": 0
-  },
-  {
-    "name": "Shobha Bridals",
-    "handle": "shobabridals",
-    "followers": 0
-  },
-  {
-    "name": "Shuzenmoy Makeup Studio",
-    "handle": "shuzenmoy_makeup",
-    "followers": 0
-  },
-  {
-    "name": "Silviana Makeup",
-    "handle": "silviana.makeup",
-    "followers": 0
-  },
-  {
-    "name": "Singapore Top MUA HMUA Hair / Makeup Artist",
-    "handle": "teambride_sg",
-    "followers": 0
-  },
-  {
-    "name": "Skai Chan Photography",
-    "handle": "skaichanphotography",
-    "followers": 0
-  },
-  {
-    "name": "SnJ Wedding Services",
-    "handle": "snj_wedding_services",
-    "followers": 0
-  },
-  {
-    "name": "Soleill Makeup",
-    "handle": "soleill.makeup",
-    "followers": 0
-  },
-  {
-    "name": "Sophia Chia Makeup Works",
-    "handle": "sophiamakeupworks",
-    "followers": 0
-  },
-  {
-    "name": "Sophia Soh",
-    "handle": "mua.sophi",
-    "followers": 0
-  },
-  {
-    "name": "ST Bridal Makeup",
-    "handle": "stbridalmakeup",
-    "followers": 0
-  },
-  {
-    "name": "Stefanie Halim Makeup Artist",
-    "handle": "stefaniehalim",
-    "followers": 0
-  },
-  {
-    "name": "Stella Ang Makeup",
-    "handle": "stella.ang.makeup",
-    "followers": 0
-  },
-  {
     "name": "Stephy Ng Makeup & Hair",
     "handle": "stephyngmakeupandhair",
-    "followers": 0
-  },
-  {
-    "name": "Stephy Ng Makeup And Hair",
-    "handle": "stephyngmakeup",
-    "followers": 0
-  },
-  {
-    "name": "Style by Jeann",
-    "handle": "stylebyjeann",
-    "followers": 0
-  },
-  {
-    "name": "Style You Pretty",
-    "handle": "official_styleyoupretty",
-    "followers": 0
-  },
-  {
-    "name": "SUE.ZB",
-    "handle": "sue.zb",
-    "followers": 0
-  },
-  {
-    "name": "Sugandha | Makeup+ Skincare+ Beauty",
-    "handle": "sugandhaduggal",
-    "followers": 0
-  },
-  {
-    "name": "Sumie Beauty Makeup Salon",
-    "handle": "sumiebms",
-    "followers": 0
-  },
-  {
-    "name": "Susan Beauty Artistry",
-    "handle": "muasusan",
-    "followers": 0
-  },
-  {
-    "name": "Susan Liew Makeup Artist",
-    "handle": "makeupbysusanliew",
-    "followers": 0
-  },
-  {
-    "name": "Suz Artistry",
-    "handle": "suzartistry",
-    "followers": 0
-  },
-  {
-    "name": "Sylvia Koh Hair & Makeup Artist",
-    "handle": "sylviakohmua",
     "followers": 0
   },
   {
@@ -1630,33 +1850,8 @@
     "followers": 0
   },
   {
-    "name": "TangYong Hair & Makeup",
-    "handle": "tangyongmakeup",
-    "followers": 0
-  },
-  {
     "name": "Team Bride SG",
     "handle": "teambridesg",
-    "followers": 0
-  },
-  {
-    "name": "TG Goh",
-    "handle": "tggoh",
-    "followers": 0
-  },
-  {
-    "name": "The Beauty Society",
-    "handle": "lovebeautysociety",
-    "followers": 0
-  },
-  {
-    "name": "The Big Blow",
-    "handle": "thebigblow",
-    "followers": 0
-  },
-  {
-    "name": "The House of AM by Adithi Menon",
-    "handle": "thehouseofam.adithi",
     "followers": 0
   },
   {
@@ -1665,103 +1860,8 @@
     "followers": 0
   },
   {
-    "name": "The Make Up Room",
-    "handle": "themakeuproom_sg",
-    "followers": 0
-  },
-  {
     "name": "The Makeup Room",
     "handle": "themakeuproom.sg",
-    "followers": 0
-  },
-  {
-    "name": "The Powder Loft; Makeup Artist",
-    "handle": "thepowderloft",
-    "followers": 0
-  },
-  {
-    "name": "The Radiant People",
-    "handle": "theradiantpeople",
-    "followers": 0
-  },
-  {
-    "name": "The Rorrimu Bride",
-    "handle": "therorrimubride",
-    "followers": 0
-  },
-  {
-    "name": "The Style Atelier",
-    "handle": "thestyleatelier",
-    "followers": 0
-  },
-  {
-    "name": "The Suburbs Studio",
-    "handle": "suburbs.studio",
-    "followers": 0
-  },
-  {
-    "name": "The Xclusive unisex salon",
-    "handle": "xclusive_salon_makeupstudio",
-    "followers": 0
-  },
-  {
-    "name": "Thippawan Makeup",
-    "handle": "thippawan.makeup",
-    "followers": 0
-  },
-  {
-    "name": "Thiva Makeup Artist",
-    "handle": "thiva_mua",
-    "followers": 0
-  },
-  {
-    "name": "Tiara Red Wan Makeup Artist",
-    "handle": "tiararedwan",
-    "followers": 0
-  },
-  {
-    "name": "Tiffining Beauty",
-    "handle": "tiffiningbeauty",
-    "followers": 0
-  },
-  {
-    "name": "Tinoq Russell Goh",
-    "handle": "pasirpanjangboy",
-    "followers": 0
-  },
-  {
-    "name": "Tracy Immanuel Makeup",
-    "handle": "tracyimmanuelmakeup",
-    "followers": 0
-  },
-  {
-    "name": "Tracy Yap Makeup Artist",
-    "handle": "tracyyap.makeupartist",
-    "followers": 0
-  },
-  {
-    "name": "Twentys Makeup Artistry",
-    "handle": "twentysmakeup",
-    "followers": 0
-  },
-  {
-    "name": "ululada Korean Skincare and Makeup",
-    "handle": "ululada.sg",
-    "followers": 0
-  },
-  {
-    "name": "V Makeup & Hairstyling",
-    "handle": "mua_ivy_tan",
-    "followers": 0
-  },
-  {
-    "name": "Valda Goh Makeup Artist",
-    "handle": "valdagoh",
-    "followers": 0
-  },
-  {
-    "name": "Valen Makeup Studio",
-    "handle": "valenmakeupstudio",
     "followers": 0
   },
   {
@@ -1770,43 +1870,8 @@
     "followers": 0
   },
   {
-    "name": "Veela makeup",
-    "handle": "veela_makeup_haiyan",
-    "followers": 0
-  },
-  {
-    "name": "Venize Makeup",
-    "handle": "venizemakeup_sg",
-    "followers": 0
-  },
-  {
-    "name": "Vera Lim Makeup Artist",
-    "handle": "veraveralim",
-    "followers": 0
-  },
-  {
-    "name": "Vianne Young",
-    "handle": "viannemakeup",
-    "followers": 0
-  },
-  {
     "name": "Vic Hwang Makeup",
     "handle": "vichwangmua",
-    "followers": 0
-  },
-  {
-    "name": "Vicky",
-    "handle": "vickyangmakeup",
-    "followers": 0
-  },
-  {
-    "name": "Vicky Makeup",
-    "handle": "vickymakeup_mehndi",
-    "followers": 0
-  },
-  {
-    "name": "Victoria Han Makeup",
-    "handle": "victoriahan_makeup",
     "followers": 0
   },
   {
@@ -1815,23 +1880,8 @@
     "followers": 0
   },
   {
-    "name": "Vivian Leo-Yen Makeup Artist",
-    "handle": "vivianleoyenmakeup",
-    "followers": 0
-  },
-  {
     "name": "Vivien Low Makeup",
     "handle": "vivilow",
-    "followers": 0
-  },
-  {
-    "name": "Wanie Hisham",
-    "handle": "waniehisham_muasg",
-    "followers": 0
-  },
-  {
-    "name": "Waynesther Professional Makeup",
-    "handle": "waynesther",
     "followers": 0
   },
   {
@@ -1840,28 +1890,8 @@
     "followers": 0
   },
   {
-    "name": "Weiyee-Makeup",
-    "handle": "weiyee_makeup",
-    "followers": 0
-  },
-  {
     "name": "Welna Make Up Artist",
     "handle": "welnamakeup",
-    "followers": 0
-  },
-  {
-    "name": "Wildroses Bridal Makeup and Hair",
-    "handle": "wildrosesbridalmakeupandhair",
-    "followers": 0
-  },
-  {
-    "name": "Wincey Make Up Studio",
-    "handle": "winceymakeup",
-    "followers": 0
-  },
-  {
-    "name": "Wiwa Makeup & Hairstylist",
-    "handle": "joicyyyc",
     "followers": 0
   },
   {
@@ -1870,23 +1900,83 @@
     "followers": 0
   },
   {
-    "name": "Xara Lee Makeup Artistry",
-    "handle": "xara_lee_makeup",
+    "name": "Yuki Lim Makeup",
+    "handle": "yukilimmakeup",
     "followers": 0
   },
   {
-    "name": "Yani Makeup Artist",
-    "handle": "blushbyyaps_makeup",
+    "name": "Zihui Makeup",
+    "handle": "linzihui_",
     "followers": 0
   },
   {
-    "name": "YENARTISTRY",
-    "handle": "yenartistry",
+    "name": "Alyssa Hair and Makeup",
+    "handle": "alyssahairandmakeup",
     "followers": 0
   },
   {
-    "name": "Ying Cui Pris Makeup Artist",
-    "handle": "yyingcui",
+    "name": "Ann Makeup",
+    "handle": "ann_makeup.sg",
+    "followers": 0
+  },
+  {
+    "name": "Ashley K Makeup",
+    "handle": "ashleykokmakeup",
+    "followers": 0
+  },
+  {
+    "name": "Cadee Yeoh",
+    "handle": "cadeeyeoh",
+    "followers": 0
+  },
+  {
+    "name": "Chi Chi Allure Makeup Studio",
+    "handle": "chichi_allure",
+    "followers": 0
+  },
+  {
+    "name": "Gin Chia Makeup",
+    "handle": "ginchiamakeup",
+    "followers": 0
+  },
+  {
+    "name": "Jenny Goh 2am Makeup",
+    "handle": "jenny_qianyi",
+    "followers": 0
+  },
+  {
+    "name": "Kate Jebelli Makeup",
+    "handle": "katejebelli_makeup",
+    "followers": 0
+  },
+  {
+    "name": "Kenneth Lee Makeup",
+    "handle": "kennethleemakeup",
+    "followers": 0
+  },
+  {
+    "name": "Kung Nim",
+    "handle": "benla_makover_services",
+    "followers": 0
+  },
+  {
+    "name": "Lynh Makeup Artist",
+    "handle": "lynh.mua",
+    "followers": 0
+  },
+  {
+    "name": "MakeupArtist Mini Natsiree",
+    "handle": "makeupartist_mininatsiree",
+    "followers": 0
+  },
+  {
+    "name": "PKO MAKEUP",
+    "handle": "pko_makeup",
+    "followers": 0
+  },
+  {
+    "name": "Suz Artistry",
+    "handle": "suzartistry",
     "followers": 0
   },
   {
@@ -1897,96 +1987,6 @@
   {
     "name": "Youri Theam Makeup Artist",
     "handle": "youri__t",
-    "followers": 0
-  },
-  {
-    "name": "YRegina Makeup",
-    "handle": "yreginamakeup",
-    "followers": 0
-  },
-  {
-    "name": "YuHui Tay Makeup Artist",
-    "handle": "yuhui.13rushes",
-    "followers": 0
-  },
-  {
-    "name": "Yuki Fang makeup artist",
-    "handle": "yukifangmakeup",
-    "followers": 0
-  },
-  {
-    "name": "Yuki Lim Makeup",
-    "handle": "yukilimmakeup",
-    "followers": 0
-  },
-  {
-    "name": "Yuki Lim Makeup Artist",
-    "handle": "yukilim_makeupartist",
-    "followers": 0
-  },
-  {
-    "name": "Yukiko Lim Makeup & Hairstyling",
-    "handle": "makeupyukikolim",
-    "followers": 0
-  },
-  {
-    "name": "Yvonne How Makeup& Hairdo Service",
-    "handle": "yvonneyh__mua",
-    "followers": 0
-  },
-  {
-    "name": "Z Beauty SG",
-    "handle": "zbeautysg",
-    "followers": 0
-  },
-  {
-    "name": "Zanncreations Makeup",
-    "handle": "zanncreations_makeup",
-    "followers": 0
-  },
-  {
-    "name": "Zbeauty.sg",
-    "handle": "zbeauty.sg",
-    "followers": 0
-  },
-  {
-    "name": "Zen Makeup Team",
-    "handle": "zenmakeupteam",
-    "followers": 0
-  },
-  {
-    "name": "Zexin Lee NX MAKEUP TEAM",
-    "handle": "z3_xin",
-    "followers": 0
-  },
-  {
-    "name": "Zihan Makeup",
-    "handle": "zihanmakeup",
-    "followers": 0
-  },
-  {
-    "name": "Zihui Makeup",
-    "handle": "zihuimakeup",
-    "followers": 0
-  },
-  {
-    "name": "Zihui Makeup",
-    "handle": "linzihui_",
-    "followers": 0
-  },
-  {
-    "name": "Zinny Theint Make Up Artistry",
-    "handle": "zinnytheint",
-    "followers": 0
-  },
-  {
-    "name": "Zoel Tee",
-    "handle": "zoel.makeup",
-    "followers": 0
-  },
-  {
-    "name": "Zoey Powderpuffed",
-    "handle": "zoey_powderpuffed",
     "followers": 0
   }
 ]

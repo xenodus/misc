@@ -2,7 +2,8 @@
 /**
  * Fetch Instagram profile bios (biography) into artists.json as `description`.
  *
- * Uses Instagram's public web_profile_info endpoint (no browser).
+ * Uses curl against Instagram's public web_profile_info endpoint (Node fetch is
+ * rate-limited more aggressively from this environment).
  *
  * Throttling:
  * - Concurrency is always 1
@@ -16,6 +17,7 @@
  */
 const fs = require('fs');
 const path = require('path');
+const { spawnSync } = require('child_process');
 
 const ROOT = __dirname;
 const ARTISTS_PATH = path.join(ROOT, 'artists.json');
@@ -25,8 +27,7 @@ const DELAY_MS = Number(process.env.DELAY_MS || 1000);
 const BACKOFF_MS = Number(process.env.BACKOFF_MS || 5000);
 const JITTER_MS = Number(process.env.JITTER_MS || 500);
 const CONCURRENCY = 1;
-const UA =
-  'Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/122.0.0.0 Safari/537.36';
+const UA = 'Mozilla/5.0';
 const ENDPOINTS = [
   (h) => `https://i.instagram.com/api/v1/users/web_profile_info/?username=${encodeURIComponent(h)}`,
   (h) => `https://www.instagram.com/api/v1/users/web_profile_info/?username=${encodeURIComponent(h)}`,
@@ -64,31 +65,63 @@ function writeArtists(artists) {
   fs.writeFileSync(ARTISTS_PATH, JSON.stringify(sorted, null, 2) + '\n');
 }
 
-async function fetchBio(handle) {
+function curlGet(url) {
+  const bodyPath = path.join('/tmp', `ig-bio-${process.pid}-${Date.now()}.json`);
+  const result = spawnSync(
+    'curl',
+    [
+      '-sS',
+      '-m',
+      '30',
+      '-o',
+      bodyPath,
+      '-w',
+      '%{http_code}',
+      '-A',
+      UA,
+      '-H',
+      'X-IG-App-ID: 936619743392459',
+      '-H',
+      'Accept: */*',
+      url,
+    ],
+    { encoding: 'utf8' }
+  );
+
+  const status = Number((result.stdout || '').trim());
+  let text = '';
+  try {
+    if (fs.existsSync(bodyPath)) {
+      text = fs.readFileSync(bodyPath, 'utf8');
+      fs.unlinkSync(bodyPath);
+    }
+  } catch {
+    // ignore cleanup errors
+  }
+
+  if (result.error) {
+    return { status: 0, text: '', error: result.error.message };
+  }
+  if (result.status !== 0 && !status) {
+    return { status: 0, text: '', error: (result.stderr || '').trim() || `curl_exit_${result.status}` };
+  }
+  return { status, text };
+}
+
+function fetchBio(handle) {
   let lastStatus = 'no_response';
   for (const makeUrl of ENDPOINTS) {
-    let res;
-    try {
-      res = await fetch(makeUrl(handle), {
-        headers: {
-          'User-Agent': UA,
-          'X-IG-App-ID': '936619743392459',
-          'X-Requested-With': 'XMLHttpRequest',
-          Accept: '*/*',
-        },
-      });
-    } catch (err) {
-      lastStatus = `exception:${err.message}`;
+    const { status, text, error } = curlGet(makeUrl(handle));
+    if (error) {
+      lastStatus = `exception:${error}`;
       continue;
     }
-
-    lastStatus = `http_${res.status}`;
-    if (res.status === 401 || res.status === 429) {
+    lastStatus = `http_${status}`;
+    if (status === 401 || status === 429) {
       return { status: lastStatus, description: '', rateLimited: true };
     }
-    if (res.status !== 200) continue;
+    if (status !== 200) continue;
 
-    const text = await res.text();
     try {
       const json = JSON.parse(text);
       const user = json?.data?.user;
@@ -120,7 +153,7 @@ async function main() {
   let seeded = 0;
   for (const artist of artists) {
     const prev = progress[artist.handle.toLowerCase()];
-    if (prev?.status === 'ok' && prev.description != null && artist.description == null) {
+    if (prev?.status === 'ok' && prev.description != null && !(artist.description || '').trim()) {
       artist.description = prev.description;
       seeded++;
     }
@@ -156,7 +189,7 @@ async function main() {
 
     let result;
     try {
-      result = await fetchBio(artist.handle);
+      result = fetchBio(artist.handle);
     } catch (err) {
       result = { status: 'exception', description: '', err: err.message };
     }

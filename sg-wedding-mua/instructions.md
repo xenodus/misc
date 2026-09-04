@@ -174,12 +174,13 @@ When adding or updating an artist in `artists-source.json` and `artists.json`, v
 ### Required checks
 
 1. **From Singapore** — The artist is based in Singapore or primarily serves Singapore bridal clients.
-2. **Has at least 5 posts on Instagram** — The profile is active and has a minimum of 5 public posts.
-3. **Is a makeup artist** — The account belongs to a makeup artist (bridal/wedding MUA), not a photographer, venue, planner, or unrelated business.
+2. **Public account** — The Instagram profile is public (not private). Private accounts cannot be scraped for followers or descriptions and must be excluded.
+3. **Has at least 5 posts on Instagram** — The profile is active and has a minimum of 5 public posts.
+4. **Is a makeup artist** — The account belongs to a makeup artist (bridal/wedding MUA), not a photographer, venue, planner, or unrelated business.
 
 ### Workflow
 
-1. Open the artist's Instagram profile and confirm all three checks above.
+1. Open the artist's Instagram profile and confirm all four checks above.
 2. Add or update the entry in `artists-source.json` with `name` and `handle`.
 3. Run `node fetch-followers.js --only-missing` to refresh follower counts and the `instagram` URL in `artists.json`.
 4. Run `node fetch-bios.js --only-missing` to refresh the profile description. If the API is rate-limited, run `node fetch-descriptions.js --only-missing` instead.

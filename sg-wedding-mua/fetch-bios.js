@@ -6,7 +6,8 @@
  * rate-limited more aggressively from this environment).
  *
  * Proxies (optional):
- * - Reads DEDICATED_PROXY_1 .. DEDICATED_PROXY_7 (http:// or socks5:// URLs)
+ * - Reads DEDICATED_PROXY_1 .. DEDICATED_PROXY_7
+ * - Accepts host|port|username|password or full http(s)/socks5 URLs
  * - Round-robins through slots 1 → 2 → … → 7 → 1 (one proxy per lookup)
  * - Empty slots use direct egress for that lookup
  * - Falls back to direct egress when none are set
@@ -48,17 +49,33 @@ async function waitUntilMinLookupElapsed(startedAt) {
   if (wait > 0) await sleep(wait);
 }
 
+function parseProxyEnv(value) {
+  if (!value || !value.trim()) return null;
+  const raw = value.trim();
+  if (raw.includes('|')) {
+    const [host, port, username, password] = raw.split('|');
+    if (!host || !port || !username || !password) return null;
+    return `http://${encodeURIComponent(username)}:${encodeURIComponent(password)}@${host}:${port}`;
+  }
+  try {
+    const u = new URL(raw);
+    if (!u.hostname) return null;
+    return raw;
+  } catch {
+    return null;
+  }
+}
+
 function loadProxySlots() {
   const slots = Array(PROXY_SLOT_COUNT).fill(null);
   for (let i = 1; i <= PROXY_SLOT_COUNT; i++) {
-    const raw = (process.env[`DEDICATED_PROXY_${i}`] || '').trim();
-    if (!raw) continue;
+    const url = parseProxyEnv(process.env[`DEDICATED_PROXY_${i}`]);
+    if (!url) continue;
     try {
-      const u = new URL(raw);
-      if (!u.hostname) throw new Error('missing host');
+      const u = new URL(url);
       slots[i - 1] = {
         slot: i,
-        url: raw,
+        url,
         label: `DEDICATED_PROXY_${i}(${u.protocol}//${u.hostname}:${u.port || ''})`,
       };
     } catch (err) {

@@ -1,14 +1,9 @@
 {
   "name": "sg-wedding-mua",
   "version": "1.0.0",
-  "description": "A local webpage listing Singapore bridal makeup artists with Instagram handles, follower counts, and a **Processed** checkbox tracked in your browser.",
+  "private": true,
+  "description": "Singapore bridal makeup artists directory",
   "main": "app.js",
-  "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
-  },
-  "keywords": [],
-  "author": "",
-  "license": "ISC",
   "dependencies": {
     "puppeteer-core": "^25.10.0"
   }

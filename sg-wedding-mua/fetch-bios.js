@@ -11,6 +11,7 @@
  * - Round-robins through slots 1 → 2 → … → 7 → 1 (one proxy per lookup)
  * - Empty slots use direct egress for that lookup
  * - Falls back to direct egress when none are set
+ * - On 401/429, retries via RESIDENTIAL_PROXY_1 using headless Chrome (web meta scrape)
  *
  * Throttling:
  * - Concurrency is always 1 (lookups run sequentially)
@@ -39,6 +40,11 @@ const PROXY_SLOT_COUNT = 7;
 const UA = 'Mozilla/5.0';
 const ENDPOINT = (h) =>
   `https://i.instagram.com/api/v1/users/web_profile_info/?username=${encodeURIComponent(h)}`;
+const CHROME =
+  process.env.CHROME_PATH ||
+  ['/usr/bin/google-chrome-stable', '/usr/bin/google-chrome', '/usr/local/bin/google-chrome'].find(
+    (p) => fs.existsSync(p)
+  );
 
 function sleep(ms) {
   return new Promise((r) => setTimeout(r, ms));
@@ -63,6 +69,103 @@ function parseProxyEnv(value) {
     return raw;
   } catch {
     return null;
+  }
+}
+
+function parseProxyForPuppeteer(value) {
+  if (!value || !value.trim()) return null;
+  const raw = value.trim();
+  if (raw.includes('|')) {
+    const [host, port, username, password] = raw.split('|');
+    if (!host || !port || !username || !password) return null;
+    return { host, port, username, password, server: `http://${host}:${port}` };
+  }
+  try {
+    const u = new URL(raw);
+    if (!u.hostname) return null;
+    const port = u.port || (u.protocol === 'https:' ? '443' : '80');
+    return {
+      host: u.hostname,
+      port: String(port),
+      username: decodeURIComponent(u.username),
+      password: decodeURIComponent(u.password),
+      server: `${u.protocol}//${u.hostname}:${port}`,
+    };
+  } catch {
+    return null;
+  }
+}
+
+function decodeHtml(text) {
+  return String(text || '')
+    .replace(/&quot;/g, '"')
+    .replace(/&#39;/g, "'")
+    .replace(/&amp;/g, '&')
+    .replace(/&#064;/g, '@');
+}
+
+function parseWebDescription(text) {
+  if (!text) return '';
+  const decoded = decodeHtml(text).replace(/\s+/g, ' ').trim();
+  if (/Performing security verification|Enable JavaScript|HTTP ERROR 429/i.test(decoded)) return null;
+  const quoted = decoded.match(/on Instagram:\s*"([\s\S]*)"\s*$/i);
+  if (quoted) return quoted[1].replace(/\\n/g, '\n').trim();
+  if (/See Instagram photos and videos from/i.test(decoded)) return '';
+  return '';
+}
+
+let residentialBrowserPromise = null;
+
+async function getResidentialBrowser(proxy) {
+  if (!proxy || !CHROME) return null;
+  if (!residentialBrowserPromise) {
+    const puppeteer = require('puppeteer-core');
+    residentialBrowserPromise = puppeteer.launch({
+      executablePath: CHROME,
+      headless: 'new',
+      args: [
+        '--no-sandbox',
+        '--disable-setuid-sandbox',
+        '--disable-dev-shm-usage',
+        `--proxy-server=${proxy.server}`,
+      ],
+    });
+  }
+  return residentialBrowserPromise;
+}
+
+async function fetchBioViaWeb(handle, proxy) {
+  const via = 'RESIDENTIAL_PROXY_1(web)';
+  try {
+    const browser = await getResidentialBrowser(proxy);
+    if (!browser) return { status: 'no_chrome', description: '', proxy: via };
+
+    const page = await browser.newPage();
+    try {
+      await page.authenticate({ username: proxy.username, password: proxy.password });
+      await page.setUserAgent(
+        'Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/122.0.0.0 Safari/537.36'
+      );
+      const resp = await page.goto(`https://www.instagram.com/${encodeURIComponent(handle)}/`, {
+        waitUntil: 'domcontentloaded',
+        timeout: 45000,
+      });
+      await sleep(900);
+      const meta = await page.evaluate(() => ({
+        og: document.querySelector('meta[property="og:description"]')?.content || '',
+        desc: document.querySelector('meta[name="description"]')?.content || '',
+      }));
+      const parsed = parseWebDescription(meta.desc || meta.og);
+      if (parsed === null) {
+        const rateLimited = resp && resp.status() === 429;
+        return { status: rateLimited ? 'http_429' : 'web_blocked', description: '', rateLimited, proxy: via };
+      }
+      return { status: 'ok', description: parsed, proxy: via, proxySlot: 'residential' };
+    } finally {
+      await page.close();
+    }
+  } catch (err) {
+    return { status: `exception:${err.message}`, description: '', proxy: via };
   }
 }
 
@@ -208,6 +311,7 @@ async function main() {
   }
 
   const proxySlots = loadProxySlots();
+  const residentialProxy = parseProxyForPuppeteer(process.env.RESIDENTIAL_PROXY_1);
   const { fetchBio, configuredProxyCount } = createFetcher(proxySlots);
   if (configuredProxyCount) {
     console.log(
@@ -220,6 +324,9 @@ async function main() {
     console.warn(
       'No DEDICATED_PROXY_1..7 set; using direct egress (likely to hit Instagram rate limits).'
     );
+  }
+  if (residentialProxy) {
+    console.log(`Residential fallback available via RESIDENTIAL_PROXY_1 (${residentialProxy.host})`);
   }
 
   const onlyMissing = process.argv.includes('--only-missing');
@@ -271,6 +378,19 @@ async function main() {
       result = { status: 'exception', description: '', err: err.message };
     }
 
+    const authFail = result.rateLimited || /http_401|http_429/.test(result.status);
+    if (authFail && residentialProxy) {
+      process.stdout.write('residential fallback ... ');
+      try {
+        const webResult = await fetchBioViaWeb(artist.handle, residentialProxy);
+        if (webResult.status === 'ok' || !(webResult.rateLimited || /http_401|http_429/.test(webResult.status))) {
+          result = webResult;
+        }
+      } catch (err) {
+        result = { status: `exception:${err.message}`, description: '', proxy: 'RESIDENTIAL_PROXY_1(web)' };
+      }
+    }
+
     const row = {
       handle: artist.handle,
       status: result.status,
@@ -294,7 +414,6 @@ async function main() {
     } else {
       fail++;
       console.log(result.status);
-      const authFail = result.rateLimited || /http_401|http_429/.test(result.status);
       if (authFail) {
         consecutiveAuthFails++;
         const wait = BACKOFF_MS * Math.min(consecutiveAuthFails, 3);
@@ -307,6 +426,15 @@ async function main() {
     }
 
     await waitUntilMinLookupElapsed(lookupStartedAt);
+  }
+
+  if (residentialBrowserPromise) {
+    try {
+      const browser = await residentialBrowserPromise;
+      await browser.close();
+    } catch {
+      // ignore cleanup errors
+    }
   }
 
   const withDesc = artists.filter((a) => (a.description || '').trim()).length;

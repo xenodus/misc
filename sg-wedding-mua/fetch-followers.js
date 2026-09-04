@@ -70,7 +70,6 @@ function parseFollowers(text) {
   if (/profile may be broken|profile may have been removed|Page isn't available/i.test(text)) {
     return 0;
   }
-  // e.g. "5,553 followers", "13.7K followers", "1 follower"
   const m = text.match(/([\d,.]+)\s*([KkMm])?\s*followers?/i);
   if (!m) return null;
   let val = parseFloat(m[1].replace(/,/g, ''));
@@ -79,6 +78,10 @@ function parseFollowers(text) {
   if (suf === 'K') val *= 1000;
   if (suf === 'M') val *= 1_000_000;
   return Math.round(val);
+}
+
+function instagramUrl(handle) {
+  return `https://www.instagram.com/${handle}/`;
 }
 
 async function createBrowser(proxy) {
@@ -119,14 +122,20 @@ function splitWork(items, buckets) {
   return groups;
 }
 
-function writeOutput(artists, resultsByHandle, existing, onlyMissing) {
+function writeOutput(artists, resultsByHandle, existing, onlyMissing, existingRecords) {
   const merged = artists.map((artist) => {
     const key = artist.handle.toLowerCase();
+    const prior = existingRecords[key] || {};
+    const base = {
+      ...artist,
+      instagram: prior.instagram || instagramUrl(artist.handle),
+      ...(prior.description ? { description: prior.description } : {}),
+    };
     if (Object.prototype.hasOwnProperty.call(resultsByHandle, key)) {
-      return { ...artist, followers: resultsByHandle[key] };
+      return { ...base, followers: resultsByHandle[key] };
     }
     return {
-      ...artist,
+      ...base,
       followers: onlyMissing ? existing[key] || 0 : 0,
     };
   });
@@ -187,9 +196,12 @@ async function main() {
 
   const artists = JSON.parse(fs.readFileSync(SOURCE, 'utf8'));
   let existing = {};
+  let existingRecords = {};
   if (fs.existsSync(OUTPUT)) {
     for (const a of JSON.parse(fs.readFileSync(OUTPUT, 'utf8'))) {
-      existing[a.handle.toLowerCase()] = a.followers || 0;
+      const key = a.handle.toLowerCase();
+      existing[key] = a.followers || 0;
+      existingRecords[key] = a;
     }
   }
 
@@ -217,7 +229,9 @@ async function main() {
 
   let writeChain = Promise.resolve();
   const onResult = () => {
-    writeChain = writeChain.then(() => writeOutput(artists, resultsByHandle, existing, onlyMissing));
+    writeChain = writeChain.then(() =>
+      writeOutput(artists, resultsByHandle, existing, onlyMissing, existingRecords)
+    );
     return writeChain;
   };
 
@@ -227,7 +241,7 @@ async function main() {
     )
   );
 
-  writeOutput(artists, resultsByHandle, existing, onlyMissing);
+  writeOutput(artists, resultsByHandle, existing, onlyMissing, existingRecords);
   const fetched = toFetch.map(({ artist }) => artist.handle.toLowerCase());
   const withCount = fetched.filter((key) => resultsByHandle[key] > 0).length;
   console.log(`\nSaved ${artists.length} artists to ${OUTPUT} (${withCount}/${fetched.length} newly fetched with followers)`);

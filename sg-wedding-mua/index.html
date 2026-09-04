@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Singapore Wedding Makeup Artists</title>
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+  <header class="header">
+    <div class="header-inner">
+      <h1>Singapore Wedding Makeup Artists</h1>
+      <p class="subtitle">Bridal MUAs on Instagram — sorted by followers</p>
+      <div class="stats" id="stats"></div>
+      <div class="toolbar">
+        <label class="search-box">
+          <span class="sr-only">Search</span>
+          <input type="search" id="search" placeholder="Search name or @handle..." autocomplete="off">
+        </label>
+        <label class="filter-checkbox">
+          <input type="checkbox" id="show-processed-only">
+          Show processed only
+        </label>
+        <button type="button" id="clear-processed" class="btn-secondary">Clear all processed</button>
+      </div>
+    </div>
+  </header>
+
+  <main class="main">
+    <div class="table-wrap">
+      <table>
+        <thead>
+          <tr>
+            <th class="col-rank">#</th>
+            <th class="col-name">Name</th>
+            <th class="col-handle">Instagram Handle</th>
+            <th class="col-followers">Followers</th>
+            <th class="col-processed">Processed</th>
+          </tr>
+        </thead>
+        <tbody id="table-body"></tbody>
+      </table>
+    </div>
+    <p class="empty-state" id="empty-state" hidden>No artists match your filters.</p>
+  </main>
+
+  <footer class="footer">
+    <p>Processed checkboxes are saved in your browser (localStorage). Follower counts sourced from public profiles.</p>
+  </footer>
+
+  <script src="app.js"></script>
+</body>
+</html>

@@ -116,7 +116,7 @@ Refreshes **profile descriptions** (Instagram bios) into the `description` field
 
 - **Input / output:** `artists.json`
 - **Method:** `curl` against Instagram's `web_profile_info` API endpoint
-- **Proxies:** Optional. `DEDICATED_PROXY_1` … `DEDICATED_PROXY_7` as `host|port|username|password` or a full `http://` / `socks5://` URL. Round-robins across proxies; rotates on 401/429.
+- **Proxies:** Optional. `DEDICATED_PROXY_1` … `DEDICATED_PROXY_7` as `host|port|username|password` or a full `http://` / `socks5://` URL. Round-robins across proxies; rotates on 401/429. On rate limit, falls back to `RESIDENTIAL_PROXY_1` via headless Chrome.
 - **Throttling:** Concurrency 1; `DELAY_MS` (default 1000) between requests; `BACKOFF_MS` (default 5000) on rate limits
 - **Progress:** Appends each attempt to `bios-progress.jsonl`
 
@@ -131,7 +131,7 @@ Fallback for **profile descriptions** when `fetch-bios.js` returns 401 on all pr
 
 - **Input / output:** `artists.json`
 - **Method:** Parallel headless Chrome workers (one per proxy) scrape each profile page and parse the bio from meta tags
-- **Proxies:** Required. `DEDICATED_PROXY_1` … `DEDICATED_PROXY_N` as `host|port|username|password`
+- **Proxies:** Required unless using residential fallback. `DEDICATED_PROXY_1` … `DEDICATED_PROXY_N` as `host|port|username|password` or URL. Also loads `RESIDENTIAL_PROXY_1` when set. Use `--residential-only` to skip dedicated proxies.
 - **Requires:** Google Chrome
 
 ```bash
@@ -154,6 +154,7 @@ node fetch-descriptions.js --only-missing
 | Variable              | Used by                         | Format / default                          |
 |-----------------------|---------------------------------|-------------------------------------------|
 | `DEDICATED_PROXY_1`–`7` | All fetch scripts             | `host\|port\|username\|password` or URL  |
+| `RESIDENTIAL_PROXY_1` | `fetch-bios.js`, `fetch-descriptions.js` | Same format; web-scrape fallback when API is rate-limited |
 | `CHROME_PATH`         | `fetch-followers.js`, `fetch-descriptions.js` | Path to Chrome binary     |
 | `DELAY_MS`            | `fetch-bios.js`                 | Default `1000`                            |
 | `BACKOFF_MS`          | `fetch-bios.js`                 | Default `5000`                            |

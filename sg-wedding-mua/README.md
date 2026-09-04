@@ -34,6 +34,8 @@ node fetch-followers.js              # scrape all via Instagram /embed/
 node fetch-followers.js --only-missing  # skip handles that already have counts
 ```
 
+Set `DEDICATED_PROXY_1` … `DEDICATED_PROXY_7` as `host|port|username|password` to fan out requests across healthy proxies in parallel. Dead proxies are skipped automatically at startup.
+
 Requires Google Chrome (`CHROME_PATH` or a standard install path). Counts come from each profile’s public embed page (`N followers`), which works without Instagram login for public accounts.
 
 ## Data sources

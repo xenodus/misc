@@ -1,5 +1,9 @@
 {
+  "name": "sg-wedding-mua",
+  "version": "1.0.0",
   "private": true,
+  "description": "Singapore bridal makeup artists directory",
+  "main": "app.js",
   "dependencies": {
     "puppeteer-core": "^25.10.0"
   }

@@ -178,6 +178,7 @@ When adding or updating an artist in `artists-source.json` and `artists.json`, v
 2. **Public account** — The Instagram profile is public (not private). Private accounts cannot be scraped for followers or descriptions and must be excluded.
 3. **Has at least 5 posts on Instagram** — The profile is active and has a minimum of 5 public posts.
 4. **Is a makeup artist** — The account belongs to a makeup artist (bridal/wedding MUA), not a photographer, venue, planner, or unrelated business.
+5. **Has a profile description** — The Instagram account has bio text. If `fetch-bios.js` (including `RESIDENTIAL_PROXY_1` fallback) or `fetch-descriptions.js` confirms the profile has no bio, remove the artist from both `artists-source.json` and `artists.json`.
 
 ### Workflow
 
@@ -185,5 +186,6 @@ When adding or updating an artist in `artists-source.json` and `artists.json`, v
 2. Add or update the entry in `artists-source.json` with `name` and `handle`.
 3. Run `node fetch-followers.js --only-missing` to refresh follower counts and the `instagram` URL in `artists.json`.
 4. Run `node fetch-bios.js --only-missing` to refresh the profile description. If the API is rate-limited, run `node fetch-descriptions.js --only-missing` instead.
-5. Remove any artist who no longer meets these criteria from both files.
-6. Push to `master` to deploy the updated site.
+5. Remove any artist with a confirmed empty Instagram bio from both `artists-source.json` and `artists.json`.
+6. Remove any artist who no longer meets these criteria from both files.
+7. Push to `master` to deploy the updated site.

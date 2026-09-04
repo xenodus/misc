@@ -9,9 +9,10 @@ A local webpage listing Singapore bridal makeup artists with Instagram handles, 
 | `index.html` | Main webpage |
 | `styles.css` | Styling |
 | `app.js` | Table rendering, search, localStorage for processed state |
-| `artists.json` | Artist data (name, handle, followers) sorted by followers |
+| `artists.json` | Artist data (name, description, handle, followers) sorted by followers |
 | `artists-source.json` | Source list of artists used to generate `artists.json` |
-| `fetch-followers.js` | Optional script to refresh follower counts from public analytics |
+| `fetch-followers.js` | Optional script to refresh follower counts from Instagram embeds |
+| `fetch-bios.js` | Optional throttled script to refresh Instagram profile descriptions |
 
 ## Live site
 
@@ -35,6 +36,14 @@ node fetch-followers.js --only-missing  # skip handles that already have counts
 ```
 
 Requires Google Chrome (`CHROME_PATH` or a standard install path). Counts come from each profile’s public embed page (`N followers`), which works without Instagram login for public accounts.
+
+### Refresh profile descriptions (optional)
+
+```bash
+node fetch-bios.js --only-missing
+```
+
+Looks up Instagram bios one profile at a time with a delay between requests (`DELAY_MS`, default 12s) and a longer backoff after rate limits (`BACKOFF_MS`, default 60s). Progress is appended to `bios-progress.jsonl`.
 
 ## Data sources
 

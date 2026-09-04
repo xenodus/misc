@@ -2,11 +2,12 @@
 /**
  * Fetch Instagram profile bios (biography) into artists.json as `description`.
  *
- * Throttling (to avoid Instagram rate limits):
- * - Concurrency is always 1 (no parallel profile lookups)
+ * Uses Instagram's public web_profile_info endpoint (no browser).
+ *
+ * Throttling:
+ * - Concurrency is always 1
  * - Waits DELAY_MS between requests (default 1s)
  * - Backs off on HTTP 401/429 (default 5s, escalates up to 3x on streaks)
- * - Reuses one browser session; refreshes it after auth failures
  *
  * Usage:
  *   node fetch-bios.js
@@ -15,21 +16,21 @@
  */
 const fs = require('fs');
 const path = require('path');
-const puppeteer = require('puppeteer-core');
 
 const ROOT = __dirname;
 const ARTISTS_PATH = path.join(ROOT, 'artists.json');
 const PROGRESS_PATH = path.join(ROOT, 'bios-progress.jsonl');
-const CHROME =
-  process.env.CHROME_PATH ||
-  ['/usr/bin/google-chrome-stable', '/usr/bin/google-chrome', '/usr/local/bin/google-chrome'].find(
-    (p) => fs.existsSync(p)
-  );
 
 const DELAY_MS = Number(process.env.DELAY_MS || 1000);
 const BACKOFF_MS = Number(process.env.BACKOFF_MS || 5000);
 const JITTER_MS = Number(process.env.JITTER_MS || 500);
-const CONCURRENCY = 1; // hard-capped; do not raise without expecting rate limits
+const CONCURRENCY = 1;
+const UA =
+  'Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/122.0.0.0 Safari/537.36';
+const ENDPOINTS = [
+  (h) => `https://i.instagram.com/api/v1/users/web_profile_info/?username=${encodeURIComponent(h)}`,
+  (h) => `https://www.instagram.com/api/v1/users/web_profile_info/?username=${encodeURIComponent(h)}`,
+];
 
 function sleep(ms) {
   return new Promise((r) => setTimeout(r, ms));
@@ -63,76 +64,33 @@ function writeArtists(artists) {
   fs.writeFileSync(ARTISTS_PATH, JSON.stringify(sorted, null, 2) + '\n');
 }
 
-async function createBrowser() {
-  return puppeteer.launch({
-    executablePath: CHROME,
-    headless: 'new',
-    args: ['--no-sandbox', '--disable-setuid-sandbox', '--disable-dev-shm-usage'],
-  });
-}
-
-async function createPage(browser) {
-  const page = await browser.newPage();
-  await page.setUserAgent(
-    'Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/122.0.0.0 Safari/537.36'
-  );
-  await page.setExtraHTTPHeaders({ 'Accept-Language': 'en-US,en;q=0.9' });
-  // Warm session lightly via a public embed (less aggressive than hammering the API)
-  await page
-    .goto('https://www.instagram.com/', { waitUntil: 'domcontentloaded', timeout: 45000 })
-    .catch(() => {});
-  await sleep(800);
-  return page;
-}
-
-async function fetchBio(page, handle) {
-  await page
-    .goto(`https://www.instagram.com/${encodeURIComponent(handle)}/`, {
-      waitUntil: 'domcontentloaded',
-      timeout: 45000,
-    })
-    .catch(() => {});
-  await sleep(600);
-
-  let data = await page.evaluate(async (h) => {
-    const res = await fetch(
-      `https://www.instagram.com/api/v1/users/web_profile_info/?username=${encodeURIComponent(h)}`,
-      {
+async function fetchBio(handle) {
+  let lastStatus = 'no_response';
+  for (const makeUrl of ENDPOINTS) {
+    let res;
+    try {
+      res = await fetch(makeUrl(handle), {
         headers: {
+          'User-Agent': UA,
           'X-IG-App-ID': '936619743392459',
           'X-Requested-With': 'XMLHttpRequest',
           Accept: '*/*',
         },
-        credentials: 'include',
-      }
-    );
-    return { status: res.status, text: await res.text() };
-  }, handle);
+      });
+    } catch (err) {
+      lastStatus = `exception:${err.message}`;
+      continue;
+    }
 
-  // Transient schema/asset errors sometimes clear after a soft reload
-  if (data.status === 400) {
-    await sleep(2000);
-    await page.reload({ waitUntil: 'domcontentloaded', timeout: 45000 }).catch(() => {});
-    await sleep(1500);
-    data = await page.evaluate(async (h) => {
-      const res = await fetch(
-        `https://www.instagram.com/api/v1/users/web_profile_info/?username=${encodeURIComponent(h)}`,
-        {
-          headers: {
-            'X-IG-App-ID': '936619743392459',
-            'X-Requested-With': 'XMLHttpRequest',
-            Accept: '*/*',
-          },
-          credentials: 'include',
-        }
-      );
-      return { status: res.status, text: await res.text() };
-    }, handle);
-  }
+    lastStatus = `http_${res.status}`;
+    if (res.status === 401 || res.status === 429) {
+      return { status: lastStatus, description: '', rateLimited: true };
+    }
+    if (res.status !== 200) continue;
 
-  if (data.status === 200) {
+    const text = await res.text();
     try {
-      const json = JSON.parse(data.text);
+      const json = JSON.parse(text);
       const user = json?.data?.user;
       if (!user) return { status: 'no_user', description: '' };
       return {
@@ -143,18 +101,13 @@ async function fetchBio(page, handle) {
         followers: user.edge_followed_by?.count ?? null,
       };
     } catch {
-      return { status: 'parse_fail', description: '' };
+      lastStatus = 'parse_fail';
     }
   }
-
-  return { status: `http_${data.status}`, description: '' };
+  return { status: lastStatus, description: '' };
 }
 
 async function main() {
-  if (!CHROME) {
-    console.error('Chrome not found. Set CHROME_PATH.');
-    process.exit(1);
-  }
   if (CONCURRENCY !== 1) {
     console.error('This script only supports concurrency=1 to protect against rate limits.');
     process.exit(1);
@@ -164,7 +117,6 @@ async function main() {
   const artists = JSON.parse(fs.readFileSync(ARTISTS_PATH, 'utf8'));
   const progress = loadProgress();
 
-  // Seed artists.json from any prior successful progress rows
   let seeded = 0;
   for (const artist of artists) {
     const prev = progress[artist.handle.toLowerCase()];
@@ -181,8 +133,6 @@ async function main() {
   const todo = artists.filter((a) => {
     if (onlyMissing && (a.description || '').trim()) return false;
     const prev = progress[a.handle.toLowerCase()];
-    // Retry previous failures; skip if we already stored an ok bio in progress
-    // and artists.json already has it when --only-missing
     if (onlyMissing && prev?.status === 'ok' && (prev.description || '') === (a.description || '')) {
       return false;
     }
@@ -196,65 +146,54 @@ async function main() {
     `Fetching bios for ${todo.length}/${artists.length} artists (concurrency=${CONCURRENCY}, delay=${DELAY_MS}ms, backoff=${BACKOFF_MS}ms)`
   );
 
-  let browser = await createBrowser();
-  let page = await createPage(browser);
   let ok = 0;
   let fail = 0;
   let consecutiveAuthFails = 0;
 
-  try {
-    for (let i = 0; i < todo.length; i++) {
-      const artist = todo[i];
-      process.stdout.write(`[${i + 1}/${todo.length}] @${artist.handle} ... `);
+  for (let i = 0; i < todo.length; i++) {
+    const artist = todo[i];
+    process.stdout.write(`[${i + 1}/${todo.length}] @${artist.handle} ... `);
 
-      let result;
-      try {
-        result = await fetchBio(page, artist.handle);
-      } catch (err) {
-        result = { status: 'exception', description: '', err: err.message };
-      }
+    let result;
+    try {
+      result = await fetchBio(artist.handle);
+    } catch (err) {
+      result = { status: 'exception', description: '', err: err.message };
+    }
 
-      const row = {
-        handle: artist.handle,
-        status: result.status,
-        description: result.description || '',
-        full_name: result.full_name || null,
-        category: result.category || null,
-        fetchedAt: new Date().toISOString(),
-      };
-      appendProgress(row);
-      progress[artist.handle.toLowerCase()] = row;
+    const row = {
+      handle: artist.handle,
+      status: result.status,
+      description: result.description || '',
+      full_name: result.full_name || null,
+      category: result.category || null,
+      fetchedAt: new Date().toISOString(),
+    };
+    appendProgress(row);
+    progress[artist.handle.toLowerCase()] = row;
 
-      if (result.status === 'ok') {
-        artist.description = result.description || '';
-        writeArtists(artists);
-        ok++;
-        consecutiveAuthFails = 0;
-        const preview = (result.description || '').replace(/\s+/g, ' ').slice(0, 90);
-        console.log(`ok | ${preview || '(empty bio)'}`);
-        await sleep(jittered(DELAY_MS));
+    if (result.status === 'ok') {
+      artist.description = result.description || '';
+      writeArtists(artists);
+      ok++;
+      consecutiveAuthFails = 0;
+      const preview = (result.description || '').replace(/\s+/g, ' ').slice(0, 90);
+      console.log(`ok | ${preview || '(empty bio)'}`);
+      await sleep(jittered(DELAY_MS));
+    } else {
+      fail++;
+      console.log(result.status);
+      const authFail = result.rateLimited || /http_401|http_429/.test(result.status);
+      if (authFail) {
+        consecutiveAuthFails++;
+        const wait = jittered(BACKOFF_MS * Math.min(consecutiveAuthFails, 3));
+        console.log(`  rate-limited; backing off ${Math.round(wait / 1000)}s`);
+        await sleep(wait);
       } else {
-        fail++;
-        console.log(result.status);
-        const authFail = /http_401|http_429/.test(result.status);
-        if (authFail) {
-          consecutiveAuthFails++;
-          const wait = jittered(BACKOFF_MS * Math.min(consecutiveAuthFails, 3));
-          console.log(`  rate-limited; backing off ${Math.round(wait / 1000)}s and refreshing session`);
-          await page.close().catch(() => {});
-          await browser.close().catch(() => {});
-          await sleep(wait);
-          browser = await createBrowser();
-          page = await createPage(browser);
-        } else {
-          consecutiveAuthFails = 0;
-          await sleep(jittered(DELAY_MS));
-        }
+        consecutiveAuthFails = 0;
+        await sleep(jittered(DELAY_MS));
       }
     }
-  } finally {
-    await page.close().catch(() => {});
-    await browser.close().catch(() => {});
   }
 
   const withDesc = artists.filter((a) => (a.description || '').trim()).length;

@@ -66,7 +66,7 @@ See `fetch-bios.js` header comments for full behavior.
 
 ## Data sources
 
-Artists were compiled from curated Singapore bridal directories and wedding industry lists, including **SingaporeBrides**, **Just Married Films**, **Daily Vanity**, **Bone & Grey**, **Blissful Brides**, **Bridely** (full makeup-artists directory), **Bridestory**, **Terris**, **The Wedding Vow**, **Her World Brides**, and studio team pages. The list contains **278** Singapore wedding makeup artists with Instagram handles (non-MUA, private, non-Singapore, inactive, and unreachable profiles removed).
+Artists were compiled from curated Singapore bridal directories and wedding industry lists, including **SingaporeBrides**, **Just Married Films**, **Daily Vanity**, **Bone & Grey**, **Blissful Brides**, **Bridely** (full makeup-artists directory), **Bridestory**, **Terris**, **The Wedding Vow**, **Her World Brides**, and studio team pages. The list contains **263** Singapore wedding makeup artists with Instagram handles (non-MUA, private, non-Singapore, inactive, and unreachable profiles removed).
 
 Follower counts are scraped from Instagram’s public `/embed/` pages. Private, deleted, or rate-limited profiles show `—`. Re-run `fetch-followers.js` to refresh counts.
 

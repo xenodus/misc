@@ -9,9 +9,11 @@ A local webpage listing Singapore bridal makeup artists with Instagram handles, 
 | `index.html` | Main webpage |
 | `styles.css` | Styling |
 | `app.js` | Table rendering, search, localStorage for processed state |
-| `artists.json` | Artist data (name, handle, followers) sorted by followers |
+| `artists.json` | Artist data (name, description, handle, followers, instagram) sorted by followers |
 | `artists-source.json` | Source list of artists used to generate `artists.json` |
-| `fetch-followers.js` | Optional script to refresh follower counts from public analytics |
+| `fetch-followers.js` | Optional script to refresh follower counts from Instagram embeds |
+| `fetch-bios.js` | Optional throttled script to refresh Instagram profile descriptions |
+| `instructions.md` | Checklist for adding or updating artists |
 
 ## Live site
 
@@ -24,23 +26,37 @@ Deployed automatically via GitHub Actions when changes are pushed to `master`.
 1. Open the [live site](https://xenodus.github.io/misc/) or `index.html` locally.
 2. Click Instagram handles to open profiles.
 3. Tick **Processed** checkboxes to track artists you've reviewed — state is saved in `localStorage`.
-4. Use search to filter by name or handle.
+4. Use search to filter by name, handle, or description.
 
 ### Refresh follower counts (optional)
 
 ```bash
 npm install puppeteer-core
-node fetch-followers.js              # scrape all via Instagram /embed/ (7 parallel proxies)
+node fetch-followers.js              # scrape all via Instagram /embed/
 node fetch-followers.js --only-missing  # skip handles that already have counts
 ```
 
-Requires Google Chrome (`CHROME_PATH` or a standard install path). When `DEDICATED_PROXY_1` through `DEDICATED_PROXY_7` are set (`host|port|user|pass`), the script runs seven parallel workers. Counts come from each profile’s public embed page (`N followers`), which works without Instagram login for public accounts. Each artist record includes an `instagram` profile URL.
+Set `DEDICATED_PROXY_1` … `DEDICATED_PROXY_7` as `host|port|username|password` to fan out requests across healthy proxies in parallel. Dead proxies are skipped automatically at startup.
+
+Requires Google Chrome (`CHROME_PATH` or a standard install path). Counts come from each profile’s public embed page (`N followers`), which works without Instagram login for public accounts. Each artist record includes an `instagram` profile URL.
+
+### Refresh profile descriptions (optional)
+
+```bash
+node fetch-bios.js --only-missing
+# optional proxies (round-robin; rotate on 401/429):
+# DEDICATED_PROXY_1=http://user:pass@host:port ... DEDICATED_PROXY_7=...
+```
+
+Looks up Instagram bios one profile at a time via curl (`DELAY_MS` default 1s, `BACKOFF_MS` default 5s). When `DEDICATED_PROXY_1`…`DEDICATED_PROXY_7` are set, requests go through those proxies and rotate on rate limits. Progress is appended to `bios-progress.jsonl`.
 
 ## Data sources
 
-Artists were compiled from curated Singapore bridal directories and wedding industry lists, including **SingaporeBrides**, **Just Married Films**, **Daily Vanity**, **Bone & Grey**, **Blissful Brides**, **Bridely** (full makeup-artists directory), **Bridestory**, **Terris**, **The Wedding Vow**, **Her World Brides**, and studio team pages. The list contains **375** Singapore wedding makeup artists with Instagram handles (private accounts and non-Singapore-based artists removed).
+Artists were compiled from curated Singapore bridal directories and wedding industry lists, including **SingaporeBrides**, **Just Married Films**, **Daily Vanity**, **Bone & Grey**, **Blissful Brides**, **Bridely** (full makeup-artists directory), **Bridestory**, **Terris**, **The Wedding Vow**, **Her World Brides**, and studio team pages. The list contains **278** Singapore wedding makeup artists with Instagram handles (non-MUA, private, non-Singapore, inactive, and unreachable profiles removed).
 
 Follower counts are scraped from Instagram’s public `/embed/` pages. Private, deleted, or rate-limited profiles show `—`. Re-run `fetch-followers.js` to refresh counts.
+
+See `instructions.md` for criteria when adding or updating artists.
 
 ## Notes
 

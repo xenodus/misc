@@ -12,5 +12,6 @@ When adding or updating an artist in `artists-source.json` and `artists.json`, v
 
 1. Open the artist’s Instagram profile and confirm all three checks above.
 2. Add or update the entry in `artists-source.json` with `name` and `handle`.
-3. Run `node fetch-followers.js --only-missing` to refresh follower counts and add the `instagram` URL in `artists.json`.
-4. Remove any artist who no longer meets these criteria from both files.
+3. Run `node fetch-followers.js --only-missing` to refresh follower counts and the `instagram` URL in `artists.json`.
+4. Optionally run `node fetch-bios.js --only-missing` to refresh the profile description.
+5. Remove any artist who no longer meets these criteria from both files.

@@ -28,6 +28,13 @@ function formatFollowers(count) {
   return count.toLocaleString('en-SG');
 }
 
+function formatDescription(text) {
+  if (!text) return '<span class="muted">—</span>';
+  const full = escapeHtml(text);
+  const short = escapeHtml(text.length > 120 ? `${text.slice(0, 117)}…` : text);
+  return `<span class="description-text" title="${full}">${short}</span>`;
+}
+
 function getFilteredArtists() {
   const query = searchInput.value.trim().toLowerCase();
   const processedOnly = showProcessedOnly.checked;
@@ -38,7 +45,8 @@ function getFilteredArtists() {
     if (!query) return true;
     return (
       artist.name.toLowerCase().includes(query) ||
-      artist.handle.toLowerCase().includes(query)
+      artist.handle.toLowerCase().includes(query) ||
+      (artist.description || '').toLowerCase().includes(query)
     );
   });
 }
@@ -69,6 +77,7 @@ function render() {
         <a class="handle-link" href="https://www.instagram.com/${encodeURIComponent(artist.handle)}/" target="_blank" rel="noopener noreferrer">@${escapeHtml(artist.handle)}</a>
       </td>
       <td class="col-followers">${formatFollowers(artist.followers)}</td>
+      <td class="col-description">${formatDescription(artist.description)}</td>
       <td class="col-processed">
         <input type="checkbox" class="processed-checkbox" data-handle="${escapeHtml(artist.handle)}" ${isProcessed ? 'checked' : ''} aria-label="Mark ${escapeHtml(artist.name)} as processed">
       </td>
@@ -116,7 +125,7 @@ async function init() {
     artists.sort((a, b) => (b.followers || 0) - (a.followers || 0));
     render();
   } catch (error) {
-    tableBody.innerHTML = `<tr><td colspan="5">Could not load artist data: ${escapeHtml(error.message)}</td></tr>`;
+    tableBody.innerHTML = `<tr><td colspan="6">Could not load artist data: ${escapeHtml(error.message)}</td></tr>`;
   }
 }
 

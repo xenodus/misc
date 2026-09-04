@@ -9,9 +9,10 @@ A local webpage listing Singapore bridal makeup artists with Instagram handles, 
 | `index.html` | Main webpage |
 | `styles.css` | Styling |
 | `app.js` | Table rendering, search, localStorage for processed state |
-| `artists.json` | Artist data (name, handle, followers) sorted by followers |
+| `artists.json` | Artist data (name, handle, followers, description) sorted by followers |
 | `artists-source.json` | Source list of artists used to generate `artists.json` |
 | `fetch-followers.js` | Optional script to refresh follower counts from public analytics |
+| `fetch-descriptions.js` | Optional script to fetch Instagram profile bios via dedicated proxies |
 
 ## Live site
 
@@ -35,6 +36,16 @@ node fetch-followers.js --only-missing  # skip handles that already have counts
 ```
 
 Requires Google Chrome (`CHROME_PATH` or a standard install path). Counts come from each profile’s public embed page (`N followers`), which works without Instagram login for public accounts.
+
+### Refresh profile descriptions (optional)
+
+```bash
+npm install puppeteer-core
+node fetch-descriptions.js              # fetch all bios via proxies
+node fetch-descriptions.js --only-missing  # skip handles that already have a bio
+```
+
+Requires `DEDICATED_PROXY_1`, `DEDICATED_PROXY_2`, … env vars (`host|port|username|password`). Uses parallel workers (one per proxy) to fetch each profile page and parse the Instagram bio from the meta description.
 
 ## Data sources
 

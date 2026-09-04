@@ -38,7 +38,8 @@ function getFilteredArtists() {
     if (!query) return true;
     return (
       artist.name.toLowerCase().includes(query) ||
-      artist.handle.toLowerCase().includes(query)
+      artist.handle.toLowerCase().includes(query) ||
+      (artist.description || '').toLowerCase().includes(query)
     );
   });
 }
@@ -62,9 +63,15 @@ function render() {
     const row = document.createElement('tr');
     if (isProcessed) row.classList.add('is-processed');
 
+    const description = (artist.description || '').trim();
     row.innerHTML = `
       <td class="col-rank">${index + 1}</td>
       <td class="col-name"><span class="artist-name">${escapeHtml(artist.name)}</span></td>
+      <td class="col-description">${
+        description
+          ? `<span class="artist-description">${escapeHtml(description)}</span>`
+          : '<span class="artist-description is-empty">—</span>'
+      }</td>
       <td class="col-handle">
         <a class="handle-link" href="https://www.instagram.com/${encodeURIComponent(artist.handle)}/" target="_blank" rel="noopener noreferrer">@${escapeHtml(artist.handle)}</a>
       </td>
@@ -116,7 +123,7 @@ async function init() {
     artists.sort((a, b) => (b.followers || 0) - (a.followers || 0));
     render();
   } catch (error) {
-    tableBody.innerHTML = `<tr><td colspan="5">Could not load artist data: ${escapeHtml(error.message)}</td></tr>`;
+    tableBody.innerHTML = `<tr><td colspan="6">Could not load artist data: ${escapeHtml(error.message)}</td></tr>`;
   }
 }
 

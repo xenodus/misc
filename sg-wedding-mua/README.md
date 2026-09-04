@@ -9,9 +9,10 @@ A local webpage listing Singapore bridal makeup artists with Instagram handles, 
 | `index.html` | Main webpage |
 | `styles.css` | Styling |
 | `app.js` | Table rendering, search, localStorage for processed state |
-| `artists.json` | Artist data (name, handle, followers) sorted by followers |
+| `artists.json` | Artist data (name, description, handle, followers) sorted by followers |
 | `artists-source.json` | Source list of artists used to generate `artists.json` |
-| `fetch-followers.js` | Optional script to refresh follower counts from public analytics |
+| `fetch-followers.js` | Optional script to refresh follower counts from Instagram embeds |
+| `fetch-bios.js` | Optional throttled script to refresh Instagram profile descriptions |
 
 ## Live site
 
@@ -36,9 +37,17 @@ node fetch-followers.js --only-missing  # skip handles that already have counts
 
 Requires Google Chrome (`CHROME_PATH` or a standard install path). Counts come from each profile’s public embed page (`N followers`), which works without Instagram login for public accounts.
 
+### Refresh profile descriptions (optional)
+
+```bash
+node fetch-bios.js --only-missing
+```
+
+Looks up Instagram bios one profile at a time with a delay between requests (`DELAY_MS`, default 12s) and a longer backoff after rate limits (`BACKOFF_MS`, default 60s). Progress is appended to `bios-progress.jsonl`.
+
 ## Data sources
 
-Artists were compiled from curated Singapore bridal directories and wedding industry lists, including **SingaporeBrides**, **Just Married Films**, **Daily Vanity**, **Bone & Grey**, **Blissful Brides**, **Bridely** (full makeup-artists directory), **Bridestory**, **Terris**, **The Wedding Vow**, **Her World Brides**, and studio team pages. The list contains **375** Singapore wedding makeup artists with Instagram handles (private accounts and non-Singapore-based artists removed).
+Artists were compiled from curated Singapore bridal directories and wedding industry lists, including **SingaporeBrides**, **Just Married Films**, **Daily Vanity**, **Bone & Grey**, **Blissful Brides**, **Bridely** (full makeup-artists directory), **Bridestory**, **Terris**, **The Wedding Vow**, **Her World Brides**, and studio team pages. The list contains **278** Singapore wedding makeup artists with Instagram handles (non-MUA, private, non-Singapore, inactive, and unreachable profiles removed).
 
 Follower counts are scraped from Instagram’s public `/embed/` pages. Private, deleted, or rate-limited profiles show `—`. Re-run `fetch-followers.js` to refresh counts.
 

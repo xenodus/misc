@@ -4,14 +4,14 @@
  *
  * Throttling (to avoid Instagram rate limits):
  * - Concurrency is always 1 (no parallel profile lookups)
- * - Waits DELAY_MS between successful requests (default 12s)
- * - Backs off longer on HTTP 401/429
+ * - Waits DELAY_MS between requests (default 1s)
+ * - Backs off on HTTP 401/429 (default 5s, escalates up to 3x on streaks)
  * - Reuses one browser session; refreshes it after auth failures
  *
  * Usage:
  *   node fetch-bios.js
  *   node fetch-bios.js --only-missing
- *   DELAY_MS=15000 BACKOFF_MS=60000 node fetch-bios.js --only-missing
+ *   DELAY_MS=1000 BACKOFF_MS=5000 node fetch-bios.js --only-missing
  */
 const fs = require('fs');
 const path = require('path');
@@ -26,9 +26,9 @@ const CHROME =
     (p) => fs.existsSync(p)
   );
 
-const DELAY_MS = Number(process.env.DELAY_MS || 12000);
-const BACKOFF_MS = Number(process.env.BACKOFF_MS || 60000);
-const JITTER_MS = Number(process.env.JITTER_MS || 3000);
+const DELAY_MS = Number(process.env.DELAY_MS || 1000);
+const BACKOFF_MS = Number(process.env.BACKOFF_MS || 5000);
+const JITTER_MS = Number(process.env.JITTER_MS || 500);
 const CONCURRENCY = 1; // hard-capped; do not raise without expecting rate limits
 
 function sleep(ms) {
@@ -81,7 +81,7 @@ async function createPage(browser) {
   await page
     .goto('https://www.instagram.com/', { waitUntil: 'domcontentloaded', timeout: 45000 })
     .catch(() => {});
-  await sleep(2000);
+  await sleep(800);
   return page;
 }
 
@@ -92,7 +92,7 @@ async function fetchBio(page, handle) {
       timeout: 45000,
     })
     .catch(() => {});
-  await sleep(1500);
+  await sleep(600);
 
   let data = await page.evaluate(async (h) => {
     const res = await fetch(

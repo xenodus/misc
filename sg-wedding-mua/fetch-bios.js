@@ -46,17 +46,33 @@ function jittered(ms) {
   return ms + Math.floor(Math.random() * JITTER_MS);
 }
 
+function parseProxyEnv(value) {
+  if (!value || !value.trim()) return null;
+  const raw = value.trim();
+  if (raw.includes('|')) {
+    const [host, port, username, password] = raw.split('|');
+    if (!host || !port || !username || !password) return null;
+    return `http://${encodeURIComponent(username)}:${encodeURIComponent(password)}@${host}:${port}`;
+  }
+  try {
+    const u = new URL(raw);
+    if (!u.hostname) return null;
+    return raw;
+  } catch {
+    return null;
+  }
+}
+
 function loadProxies() {
   const proxies = [];
   for (let i = 1; i <= 7; i++) {
-    const raw = (process.env[`DEDICATED_PROXY_${i}`] || '').trim();
-    if (!raw) continue;
+    const url = parseProxyEnv(process.env[`DEDICATED_PROXY_${i}`]);
+    if (!url) continue;
     try {
-      const u = new URL(raw);
-      if (!u.hostname) throw new Error('missing host');
+      const u = new URL(url);
       proxies.push({
         index: i,
-        url: raw,
+        url,
         label: `DEDICATED_PROXY_${i}(${u.protocol}//${u.hostname}:${u.port || ''})`,
       });
     } catch (err) {

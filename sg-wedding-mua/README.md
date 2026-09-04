@@ -13,6 +13,7 @@ A local webpage listing Singapore bridal makeup artists with Instagram handles, 
 | `artists-source.json` | Source list of artists used to generate `artists.json` |
 | `fetch-followers.js` | Optional script to refresh follower counts from Instagram embeds |
 | `fetch-bios.js` | Optional throttled script to refresh Instagram profile descriptions |
+| `fetch-descriptions.js` | Puppeteer + proxy fallback when `fetch-bios.js` is rate-limited |
 | `instructions.md` | Checklist for adding or updating artists |
 
 ## Live site
@@ -44,11 +45,17 @@ Requires Google Chrome (`CHROME_PATH` or a standard install path). Counts come f
 
 ```bash
 node fetch-bios.js --only-missing
-# optional proxies (round-robin; rotate on 401/429):
-# DEDICATED_PROXY_1=http://user:pass@host:port ... DEDICATED_PROXY_7=...
 ```
 
-Looks up Instagram bios one profile at a time via curl (`DELAY_MS` default 1s, `BACKOFF_MS` default 5s). When `DEDICATED_PROXY_1`…`DEDICATED_PROXY_7` are set, requests go through those proxies and rotate on rate limits. Progress is appended to `bios-progress.jsonl`.
+Looks up Instagram bios one profile at a time via curl (`DELAY_MS` default 1s, `BACKOFF_MS` default 5s). When `DEDICATED_PROXY_1`…`DEDICATED_PROXY_7` are set (`host|port|username|password`), requests go through those proxies and rotate on rate limits. Progress is appended to `bios-progress.jsonl`.
+
+If the API is rate-limited, use the Puppeteer fallback:
+
+```bash
+node fetch-descriptions.js --only-missing
+```
+
+Uses parallel headless Chrome workers (one per proxy) to scrape bios from profile page meta tags.
 
 ## Data sources
 

@@ -5,6 +5,7 @@
  */
 const fs = require('fs');
 const path = require('path');
+const { URL } = require('url');
 const puppeteer = require('puppeteer-core');
 
 const ROOT = __dirname;
@@ -16,15 +17,40 @@ const CHROME =
     (p) => fs.existsSync(p)
   );
 
-function loadProxies() {
-  const proxies = [];
-  for (let i = 1; i <= 20; i++) {
-    const raw = process.env[`DEDICATED_PROXY_${i}`];
-    if (!raw) continue;
+function parseProxyEnv(value) {
+  if (!value || !value.trim()) return null;
+  const raw = value.trim();
+  if (raw.includes('|')) {
     const [host, port, username, password] = raw.split('|');
-    if (!host || !port || !username || !password) continue;
-    proxies.push({ host, port, username, password, server: `http://${host}:${port}` });
+    if (!host || !port || !username || !password) return null;
+    return { host, port, username, password, server: `http://${host}:${port}` };
   }
+  try {
+    const u = new URL(raw);
+    if (!u.hostname) return null;
+    const port = u.port || (u.protocol === 'https:' ? '443' : '80');
+    return {
+      host: u.hostname,
+      port: String(port),
+      username: decodeURIComponent(u.username),
+      password: decodeURIComponent(u.password),
+      server: `${u.protocol}//${u.hostname}:${port}`,
+    };
+  } catch {
+    return null;
+  }
+}
+
+function loadProxies({ residentialOnly = false } = {}) {
+  const proxies = [];
+  if (!residentialOnly) {
+    for (let i = 1; i <= 20; i++) {
+      const proxy = parseProxyEnv(process.env[`DEDICATED_PROXY_${i}`]);
+      if (proxy) proxies.push({ ...proxy, label: `DEDICATED_PROXY_${i}` });
+    }
+  }
+  const residential = parseProxyEnv(process.env.RESIDENTIAL_PROXY_1);
+  if (residential) proxies.push({ ...residential, label: 'RESIDENTIAL_PROXY_1' });
   return proxies;
 }
 
@@ -135,10 +161,18 @@ async function main() {
     process.exit(1);
   }
 
-  const proxies = loadProxies();
+  const residentialOnly = process.argv.includes('--residential-only');
+  const proxies = loadProxies({ residentialOnly });
   if (!proxies.length) {
-    console.error('No proxies found. Set DEDICATED_PROXY_1, DEDICATED_PROXY_2, ...');
+    console.error(
+      'No proxies found. Set DEDICATED_PROXY_1..N and/or RESIDENTIAL_PROXY_1 (host|port|user|pass or URL).'
+    );
     process.exit(1);
+  }
+  if (residentialOnly) {
+    console.log('Using residential proxy only (RESIDENTIAL_PROXY_1)');
+  } else if (proxies.some((p) => p.label === 'RESIDENTIAL_PROXY_1')) {
+    console.log('Including RESIDENTIAL_PROXY_1 as fallback worker');
   }
 
   const onlyMissing = process.argv.includes('--only-missing');

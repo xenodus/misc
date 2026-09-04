@@ -30,11 +30,11 @@ Deployed automatically via GitHub Actions when changes are pushed to `master`.
 
 ```bash
 npm install puppeteer-core
-node fetch-followers.js              # scrape all via Instagram /embed/
+node fetch-followers.js              # scrape all via Instagram /embed/ (7 parallel proxies)
 node fetch-followers.js --only-missing  # skip handles that already have counts
 ```
 
-Requires Google Chrome (`CHROME_PATH` or a standard install path). Counts come from each profile’s public embed page (`N followers`), which works without Instagram login for public accounts.
+Requires Google Chrome (`CHROME_PATH` or a standard install path). When `DEDICATED_PROXY_1` through `DEDICATED_PROXY_7` are set (`host|port|user|pass`), the script runs seven parallel workers. Counts come from each profile’s public embed page (`N followers`), which works without Instagram login for public accounts. Each artist record includes an `instagram` profile URL.
 
 ## Data sources
 

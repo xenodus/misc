@@ -41,9 +41,11 @@ Requires Google Chrome (`CHROME_PATH` or a standard install path). Counts come f
 
 ```bash
 node fetch-bios.js --only-missing
+# optional proxies (round-robin; rotate on 401/429):
+# DEDICATED_PROXY_1=http://user:pass@host:port ... DEDICATED_PROXY_7=...
 ```
 
-Looks up Instagram bios one profile at a time with a delay between requests (`DELAY_MS`, default 12s) and a longer backoff after rate limits (`BACKOFF_MS`, default 60s). Progress is appended to `bios-progress.jsonl`.
+Looks up Instagram bios one profile at a time via curl (`DELAY_MS` default 1s, `BACKOFF_MS` default 5s). When `DEDICATED_PROXY_1`…`DEDICATED_PROXY_7` are set, requests go through those proxies and rotate on rate limits. Progress is appended to `bios-progress.jsonl`.
 
 ## Data sources
 

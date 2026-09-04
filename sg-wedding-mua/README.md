@@ -30,19 +30,20 @@ Deployed automatically via GitHub Actions when changes are pushed to `master`.
 
 ```bash
 npm install puppeteer-core
-node fetch-followers.js
+node fetch-followers.js              # scrape all via Instagram /embed/
+node fetch-followers.js --only-missing  # skip handles that already have counts
 ```
 
-Requires Google Chrome at `/usr/local/bin/google-chrome` (adjust path in script if needed).
+Requires Google Chrome (`CHROME_PATH` or a standard install path). Counts come from each profile’s public embed page (`N followers`), which works without Instagram login for public accounts.
 
 ## Data sources
 
 Artists were compiled from curated Singapore bridal directories and wedding industry lists, including **SingaporeBrides**, **Just Married Films**, **Daily Vanity**, **Bone & Grey**, **Blissful Brides**, **Bridely** (full makeup-artists directory), **Bridestory**, **Terris**, **The Wedding Vow**, **Her World Brides**, and studio team pages. The list contains **398** Singapore wedding makeup artists with Instagram handles (after removing 5 private Instagram accounts).
 
-Follower counts are sourced from public Instagram analytics (StarNgage) where available. Profiles not indexed by the analytics source show `—` for followers. Re-run `fetch-followers.js` to refresh counts.
+Follower counts are scraped from Instagram’s public `/embed/` pages. Private, deleted, or rate-limited profiles show `—`. Re-run `fetch-followers.js` to refresh counts.
 
 ## Notes
 
 - Checkboxes are stored locally per browser; clearing site data resets them.
-- Some handles may show `—` for followers if the profile was not found in the analytics source.
+- Some handles may show `—` for followers if the profile is private, deleted, or temporarily blocked by Instagram.
 - This is a static tool — no data is sent to any server.

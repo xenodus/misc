@@ -45,9 +45,14 @@ Requires Google Chrome (`CHROME_PATH` or a standard install path). Counts come f
 
 ```bash
 node fetch-bios.js --only-missing
+# optional proxies (round-robin 1→2→…→7→1):
+# DEDICATED_PROXY_1=host|port|username|password ... DEDICATED_PROXY_7=...
+# or full URLs: DEDICATED_PROXY_1=http://user:pass@host:port
 ```
 
-Looks up Instagram bios one profile at a time via curl (`DELAY_MS` default 1s, `BACKOFF_MS` default 5s). When `DEDICATED_PROXY_1`…`DEDICATED_PROXY_7` are set (`host|port|username|password`), requests go through those proxies and rotate on rate limits. Progress is appended to `bios-progress.jsonl`.
+Looks up Instagram bios **sequentially** (concurrency 1) via curl. Each lookup takes at least 1 second (`MIN_LOOKUP_MS`, default 1000): if a request finishes in 0.2s, the script waits 0.8s before starting the next one. On HTTP 401/429 it backs off (`BACKOFF_MS`, default 5s) after that minimum wait.
+
+When `DEDICATED_PROXY_1`…`DEDICATED_PROXY_7` are set, each lookup uses the next proxy in order (1 → 2 → … → 7 → 1). Empty slots fall back to direct egress for that lookup only. Progress is appended to `bios-progress.jsonl`.
 
 If the API is rate-limited, use the Puppeteer fallback:
 
@@ -56,6 +61,8 @@ node fetch-descriptions.js --only-missing
 ```
 
 Uses parallel headless Chrome workers (one per proxy) to scrape bios from profile page meta tags.
+
+See `fetch-bios.js` header comments for full behavior.
 
 ## Data sources
 

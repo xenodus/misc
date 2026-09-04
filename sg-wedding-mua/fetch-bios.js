@@ -6,19 +6,22 @@
  * rate-limited more aggressively from this environment).
  *
  * Proxies (optional):
- * - Reads DEDICATED_PROXY_1 .. DEDICATED_PROXY_7 (http:// or socks5:// URLs)
- * - Round-robins across available proxies; rotates on 401/429
+ * - Reads DEDICATED_PROXY_1 .. DEDICATED_PROXY_7
+ * - Accepts host|port|username|password or full http(s)/socks5 URLs
+ * - Round-robins through slots 1 → 2 → … → 7 → 1 (one proxy per lookup)
+ * - Empty slots use direct egress for that lookup
  * - Falls back to direct egress when none are set
  *
  * Throttling:
- * - Concurrency is always 1
- * - Waits DELAY_MS between requests (default 1s)
+ * - Concurrency is always 1 (lookups run sequentially)
+ * - Each lookup takes at least MIN_LOOKUP_MS (default 1s): if a request finishes
+ *   in 0.2s, the script waits 0.8s before starting the next lookup
  * - Backs off on HTTP 401/429 (default 5s, escalates up to 3x on streaks)
  *
  * Usage:
  *   node fetch-bios.js
  *   node fetch-bios.js --only-missing
- *   DELAY_MS=1000 BACKOFF_MS=5000 node fetch-bios.js --only-missing
+ *   MIN_LOOKUP_MS=1000 BACKOFF_MS=5000 node fetch-bios.js --only-missing
  */
 const fs = require('fs');
 const path = require('path');
@@ -29,21 +32,21 @@ const ROOT = __dirname;
 const ARTISTS_PATH = path.join(ROOT, 'artists.json');
 const PROGRESS_PATH = path.join(ROOT, 'bios-progress.jsonl');
 
-const DELAY_MS = Number(process.env.DELAY_MS || 1000);
+const MIN_LOOKUP_MS = Number(process.env.MIN_LOOKUP_MS || process.env.DELAY_MS || 1000);
 const BACKOFF_MS = Number(process.env.BACKOFF_MS || 5000);
-const JITTER_MS = Number(process.env.JITTER_MS || 500);
 const CONCURRENCY = 1;
+const PROXY_SLOT_COUNT = 7;
 const UA = 'Mozilla/5.0';
-const ENDPOINTS = [
-  (h) => `https://i.instagram.com/api/v1/users/web_profile_info/?username=${encodeURIComponent(h)}`,
-];
+const ENDPOINT = (h) =>
+  `https://i.instagram.com/api/v1/users/web_profile_info/?username=${encodeURIComponent(h)}`;
 
 function sleep(ms) {
   return new Promise((r) => setTimeout(r, ms));
 }
 
-function jittered(ms) {
-  return ms + Math.floor(Math.random() * JITTER_MS);
+async function waitUntilMinLookupElapsed(startedAt) {
+  const wait = Math.max(0, MIN_LOOKUP_MS - (Date.now() - startedAt));
+  if (wait > 0) await sleep(wait);
 }
 
 function parseProxyEnv(value) {
@@ -63,23 +66,23 @@ function parseProxyEnv(value) {
   }
 }
 
-function loadProxies() {
-  const proxies = [];
-  for (let i = 1; i <= 7; i++) {
+function loadProxySlots() {
+  const slots = Array(PROXY_SLOT_COUNT).fill(null);
+  for (let i = 1; i <= PROXY_SLOT_COUNT; i++) {
     const url = parseProxyEnv(process.env[`DEDICATED_PROXY_${i}`]);
     if (!url) continue;
     try {
       const u = new URL(url);
-      proxies.push({
-        index: i,
+      slots[i - 1] = {
+        slot: i,
         url,
         label: `DEDICATED_PROXY_${i}(${u.protocol}//${u.hostname}:${u.port || ''})`,
-      });
+      };
     } catch (err) {
       console.warn(`Ignoring invalid DEDICATED_PROXY_${i}: ${err.message}`);
     }
   }
-  return proxies;
+  return slots;
 }
 
 function loadProgress() {
@@ -150,72 +153,52 @@ function curlGet(url, proxy) {
   return { status, text, stderr: (result.stderr || '').trim() };
 }
 
-function createFetcher(proxies) {
+function createFetcher(slots) {
   let cursor = 0;
 
   function nextProxy() {
-    if (!proxies.length) return null;
-    const proxy = proxies[cursor % proxies.length];
-    cursor += 1;
-    return proxy;
-  }
-
-  function rotateAfterFailure() {
-    // Force next request onto a different proxy when we have more than one.
-    if (proxies.length > 1) cursor += 0; // already advanced in nextProxy
+    const slotIndex = cursor;
+    cursor = (cursor + 1) % PROXY_SLOT_COUNT;
+    return { proxy: slots[slotIndex], slot: slotIndex + 1 };
   }
 
   function fetchBio(handle) {
-    let lastStatus = 'no_response';
-    const attempts = Math.max(1, proxies.length || 1);
+    const { proxy, slot } = nextProxy();
+    const url = ENDPOINT(handle);
+    const { status, text, error, stderr } = curlGet(url, proxy);
+    const via = proxy ? proxy.label : `direct(slot ${slot})`;
 
-    for (let attempt = 0; attempt < attempts; attempt++) {
-      const proxy = nextProxy();
-      const url = ENDPOINTS[0](handle);
-      const { status, text, error, stderr } = curlGet(url, proxy);
-      const via = proxy ? proxy.label : 'direct';
-
-      if (error) {
-        lastStatus = `exception:${error}`;
-        console.log(`\n  ${via} error: ${error}`);
-        rotateAfterFailure();
-        continue;
-      }
-
-      lastStatus = `http_${status}`;
-      if (status === 401 || status === 429) {
-        // Try remaining proxies immediately before declaring rate-limited.
-        if (attempt < attempts - 1) {
-          process.stdout.write(`(${via} ${lastStatus}, rotate) `);
-          continue;
-        }
-        return { status: lastStatus, description: '', rateLimited: true, proxy: via };
-      }
-      if (status !== 200) {
-        if (stderr) process.stdout.write(`(${via} ${lastStatus}) `);
-        continue;
-      }
-
-      try {
-        const json = JSON.parse(text);
-        const user = json?.data?.user;
-        if (!user) return { status: 'no_user', description: '', proxy: via };
-        return {
-          status: 'ok',
-          description: user.biography || '',
-          full_name: user.full_name || '',
-          category: user.category_name || user.business_category_name || null,
-          followers: user.edge_followed_by?.count ?? null,
-          proxy: via,
-        };
-      } catch {
-        lastStatus = 'parse_fail';
-      }
+    if (error) {
+      return { status: `exception:${error}`, description: '', proxy: via, proxySlot: slot };
     }
-    return { status: lastStatus, description: '' };
+
+    if (status === 401 || status === 429) {
+      return { status: `http_${status}`, description: '', rateLimited: true, proxy: via, proxySlot: slot };
+    }
+    if (status !== 200) {
+      if (stderr) process.stdout.write(`(${via} http_${status}) `);
+      return { status: `http_${status}`, description: '', proxy: via, proxySlot: slot };
+    }
+
+    try {
+      const json = JSON.parse(text);
+      const user = json?.data?.user;
+      if (!user) return { status: 'no_user', description: '', proxy: via, proxySlot: slot };
+      return {
+        status: 'ok',
+        description: user.biography || '',
+        full_name: user.full_name || '',
+        category: user.category_name || user.business_category_name || null,
+        followers: user.edge_followed_by?.count ?? null,
+        proxy: via,
+        proxySlot: slot,
+      };
+    } catch {
+      return { status: 'parse_fail', description: '', proxy: via, proxySlot: slot };
+    }
   }
 
-  return { fetchBio, proxyCount: proxies.length };
+  return { fetchBio, configuredProxyCount: slots.filter(Boolean).length };
 }
 
 async function main() {
@@ -224,11 +207,12 @@ async function main() {
     process.exit(1);
   }
 
-  const proxies = loadProxies();
-  const { fetchBio, proxyCount } = createFetcher(proxies);
-  if (proxyCount) {
+  const proxySlots = loadProxySlots();
+  const { fetchBio, configuredProxyCount } = createFetcher(proxySlots);
+  if (configuredProxyCount) {
     console.log(
-      `Using ${proxyCount} dedicated prox${proxyCount === 1 ? 'y' : 'ies'}: ${proxies
+      `Using ${configuredProxyCount}/${PROXY_SLOT_COUNT} dedicated proxies (round-robin 1→7): ${proxySlots
+        .filter(Boolean)
         .map((p) => p.label)
         .join(', ')}`
     );
@@ -268,7 +252,7 @@ async function main() {
   });
 
   console.log(
-    `Fetching bios for ${todo.length}/${artists.length} artists (concurrency=${CONCURRENCY}, delay=${DELAY_MS}ms, backoff=${BACKOFF_MS}ms)`
+    `Fetching bios for ${todo.length}/${artists.length} artists (concurrency=${CONCURRENCY}, min_lookup=${MIN_LOOKUP_MS}ms, backoff=${BACKOFF_MS}ms)`
   );
 
   let ok = 0;
@@ -276,6 +260,7 @@ async function main() {
   let consecutiveAuthFails = 0;
 
   for (let i = 0; i < todo.length; i++) {
+    const lookupStartedAt = Date.now();
     const artist = todo[i];
     process.stdout.write(`[${i + 1}/${todo.length}] @${artist.handle} ... `);
 
@@ -293,6 +278,7 @@ async function main() {
       full_name: result.full_name || null,
       category: result.category || null,
       proxy: result.proxy || null,
+      proxySlot: result.proxySlot || null,
       fetchedAt: new Date().toISOString(),
     };
     appendProgress(row);
@@ -305,21 +291,22 @@ async function main() {
       consecutiveAuthFails = 0;
       const preview = (result.description || '').replace(/\s+/g, ' ').slice(0, 90);
       console.log(`ok | ${preview || '(empty bio)'}`);
-      await sleep(jittered(DELAY_MS));
     } else {
       fail++;
       console.log(result.status);
       const authFail = result.rateLimited || /http_401|http_429/.test(result.status);
       if (authFail) {
         consecutiveAuthFails++;
-        const wait = jittered(BACKOFF_MS * Math.min(consecutiveAuthFails, 3));
+        const wait = BACKOFF_MS * Math.min(consecutiveAuthFails, 3);
         console.log(`  rate-limited; backing off ${Math.round(wait / 1000)}s`);
+        await waitUntilMinLookupElapsed(lookupStartedAt);
         await sleep(wait);
-      } else {
-        consecutiveAuthFails = 0;
-        await sleep(jittered(DELAY_MS));
+        continue;
       }
+      consecutiveAuthFails = 0;
     }
+
+    await waitUntilMinLookupElapsed(lookupStartedAt);
   }
 
   const withDesc = artists.filter((a) => (a.description || '').trim()).length;

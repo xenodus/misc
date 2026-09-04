@@ -37,7 +37,7 @@ Requires Google Chrome at `/usr/local/bin/google-chrome` (adjust path in script 
 
 ## Data sources
 
-Artists were compiled from curated Singapore bridal directories and wedding industry lists, including **SingaporeBrides**, **Just Married Films**, **Daily Vanity**, **Bone & Grey**, **Blissful Brides**, **Bridely** (full makeup-artists directory), **Bridestory**, **Terris**, **The Wedding Vow**, **Her World Brides**, and studio team pages. The list contains **403** Singapore wedding makeup artists with Instagram handles (242 original + 161 new).
+Artists were compiled from curated Singapore bridal directories and wedding industry lists, including **SingaporeBrides**, **Just Married Films**, **Daily Vanity**, **Bone & Grey**, **Blissful Brides**, **Bridely** (full makeup-artists directory), **Bridestory**, **Terris**, **The Wedding Vow**, **Her World Brides**, and studio team pages. The list contains **398** Singapore wedding makeup artists with Instagram handles (after removing 5 private Instagram accounts).
 
 Follower counts are sourced from public Instagram analytics (StarNgage) where available. Profiles not indexed by the analytics source show `—` for followers. Re-run `fetch-followers.js` to refresh counts.
 

@@ -10,7 +10,11 @@
   <header class="header">
     <div class="header-inner">
       <h1>Singapore Wedding Makeup Artists</h1>
-      <p class="subtitle">Bridal MUAs on Instagram — sorted by followers</p>
+      <p class="subtitle" id="subtitle">Bridal MUAs — sorted by followers</p>
+      <nav class="platform-tabs" aria-label="Platform">
+        <button type="button" class="platform-tab is-active" data-platform="instagram" aria-selected="true">Instagram</button>
+        <button type="button" class="platform-tab" data-platform="tiktok" aria-selected="false">TikTok</button>
+      </nav>
       <div class="stats" id="stats"></div>
       <div class="toolbar">
         <label class="search-box">
@@ -38,7 +42,7 @@
             <th class="col-rank">#</th>
             <th class="col-name">Name</th>
             <th class="col-description">Profile description</th>
-            <th class="col-handle">Instagram Handle</th>
+            <th class="col-handle" id="handle-header">Instagram Handle</th>
             <th class="col-followers">Followers</th>
             <th class="col-processed">Processed</th>
           </tr>

@@ -57,6 +57,35 @@ h1 {
   color: var(--muted);
 }
 
+.platform-tabs {
+  display: flex;
+  gap: 0.5rem;
+  margin-bottom: 1rem;
+}
+
+.platform-tab {
+  padding: 0.5rem 1rem;
+  border: 1px solid var(--border);
+  border-radius: 999px;
+  background: var(--surface);
+  color: var(--muted);
+  font-size: 0.9rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: background 0.15s, border-color 0.15s, color 0.15s;
+}
+
+.platform-tab:hover {
+  border-color: #fdba74;
+  color: var(--text);
+}
+
+.platform-tab.is-active {
+  background: var(--accent-soft);
+  border-color: #fdba74;
+  color: var(--accent);
+}
+
 .stats {
   display: flex;
   flex-wrap: wrap;

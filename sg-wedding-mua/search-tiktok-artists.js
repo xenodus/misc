@@ -19,6 +19,13 @@ const IG_DATA = path.join(ROOT, 'artists.json');
 const TT_SOURCE = path.join(ROOT, 'artists-source-tiktok.json');
 const TT_OUTPUT = path.join(ROOT, 'artists-tiktok.json');
 
+const SCROLL_DELAY_MS = parseInt(process.env.SCROLL_DELAY_MS || '300', 10);
+const PAGE_DELAY_MS = parseInt(process.env.PAGE_DELAY_MS || '600', 10);
+const PROFILE_DELAY_MS = parseInt(process.env.PROFILE_DELAY_MS || '150', 10);
+const FETCH_PROFILE_WAIT_MS = parseInt(process.env.FETCH_PROFILE_WAIT_MS || '350', 10);
+const STEP_DELAY_MS = parseInt(process.env.STEP_DELAY_MS || '200', 10);
+const PROGRESS_INTERVAL_MS = parseInt(process.env.PROGRESS_INTERVAL_MS || '60000', 10);
+
 const CHROME =
   process.env.CHROME_PATH ||
   ['/usr/bin/google-chrome-stable', '/usr/bin/google-chrome', '/usr/local/bin/google-chrome'].find(
@@ -620,40 +627,40 @@ async function extractHandlesFromPage(page) {
 
 async function scrapeFollowingHandles(page, handle) {
   const url = `https://www.tiktok.com/@${encodeURIComponent(handle)}`;
-  await page.goto(url, { waitUntil: 'networkidle2', timeout: 60000 });
-  await new Promise((r) => setTimeout(r, 2000));
-  await scrollPage(page, 3);
+  await page.goto(url, { waitUntil: 'domcontentloaded', timeout: 45000 });
+  await new Promise((r) => setTimeout(r, PAGE_DELAY_MS));
+  await scrollPage(page, 2);
   return extractHandlesFromPage(page);
 }
 
 async function scrollPage(page, times = 4) {
   for (let i = 0; i < times; i++) {
     await page.evaluate(() => window.scrollBy(0, window.innerHeight * 2));
-    await new Promise((r) => setTimeout(r, 1200));
+    await new Promise((r) => setTimeout(r, SCROLL_DELAY_MS));
   }
 }
 
 async function scrapeHashtagHandles(page, hashtag) {
   const url = `https://www.tiktok.com/tag/${encodeURIComponent(hashtag)}`;
-  await page.goto(url, { waitUntil: 'networkidle2', timeout: 60000 });
-  await new Promise((r) => setTimeout(r, 2500));
-  await scrollPage(page, 5);
+  await page.goto(url, { waitUntil: 'domcontentloaded', timeout: 45000 });
+  await new Promise((r) => setTimeout(r, PAGE_DELAY_MS));
+  await scrollPage(page, 3);
   return extractHandlesFromPage(page);
 }
 
 async function scrapeSearchHandles(page, query) {
   const url = `https://www.tiktok.com/search/user?q=${encodeURIComponent(query)}`;
-  await page.goto(url, { waitUntil: 'networkidle2', timeout: 60000 });
-  await new Promise((r) => setTimeout(r, 2500));
-  await scrollPage(page, 6);
+  await page.goto(url, { waitUntil: 'domcontentloaded', timeout: 45000 });
+  await new Promise((r) => setTimeout(r, PAGE_DELAY_MS));
+  await scrollPage(page, 3);
   return extractHandlesFromPage(page);
 }
 
 async function fetchProfile(page, handle) {
   const url = `https://www.tiktok.com/@${encodeURIComponent(handle)}`;
   try {
-    await page.goto(url, { waitUntil: 'domcontentloaded', timeout: 45000 });
-    await new Promise((r) => setTimeout(r, 1000));
+    await page.goto(url, { waitUntil: 'domcontentloaded', timeout: 30000 });
+    await new Promise((r) => setTimeout(r, FETCH_PROFILE_WAIT_MS));
     return await parseUniversalProfile(page);
   } catch (err) {
     return { error: err.message, handle };
@@ -666,7 +673,7 @@ function splitWork(items, buckets) {
   return groups;
 }
 
-async function runWorker(workerId, page, queue, igRegistry, ttRegistry, existingByHandle, onResult, maxNewRef) {
+async function runWorker(workerId, page, queue, igRegistry, ttRegistry, existingByHandle, onResult, maxNewRef, progress) {
   for (const { handle, index, total } of queue) {
     if (maxNewRef.value <= 0) break;
 
@@ -687,14 +694,32 @@ async function runWorker(workerId, page, queue, igRegistry, ttRegistry, existing
         },
       };
       maxNewRef.value -= 1;
+      progress.accepted += 1;
     } else {
       console.log(`✗ ${reasons.join(', ')}`);
       result = { rejected: { handle, reasons, name: profile?.name } };
+      progress.rejected += 1;
     }
 
+    progress.checked += 1;
+    progress.lastHandle = handle;
     await onResult(result);
-    await new Promise((r) => setTimeout(r, 600));
+    await new Promise((r) => setTimeout(r, PROFILE_DELAY_MS));
   }
+}
+
+function startProgressReporter(progress, total) {
+  const startedAt = Date.now();
+  const timer = setInterval(() => {
+    const elapsedMin = ((Date.now() - startedAt) / 60000).toFixed(1);
+    const rate = progress.checked > 0 ? (progress.checked / ((Date.now() - startedAt) / 1000)).toFixed(1) : 0;
+    const remaining = total - progress.checked;
+    const etaMin = rate > 0 ? (remaining / rate / 60).toFixed(1) : '?';
+    console.log(
+      `\n[PROGRESS] ${progress.checked}/${total} checked | ${progress.accepted} accepted | ${progress.rejected} rejected | ${rate}/s | elapsed ${elapsedMin}m | ETA ${etaMin}m | last @${progress.lastHandle || '-'}`
+    );
+  }, PROGRESS_INTERVAL_MS);
+  return () => clearInterval(timer);
 }
 
 function evaluateProfile(profile, igRegistry, ttRegistry) {
@@ -759,7 +784,7 @@ async function main() {
         } catch (err) {
           console.warn(`  Failed #${hashtag}: ${err.message}`);
         }
-        await new Promise((r) => setTimeout(r, 800));
+        await new Promise((r) => setTimeout(r, STEP_DELAY_MS));
       }
 
       for (const query of SEARCH_QUERIES) {
@@ -771,7 +796,7 @@ async function main() {
         } catch (err) {
           console.warn(`  Failed search "${query}": ${err.message}`);
         }
-        await new Promise((r) => setTimeout(r, 800));
+        await new Promise((r) => setTimeout(r, STEP_DELAY_MS));
       }
     } else {
       console.log('\nCrawl-only mode — skipping hashtag/search scraping');
@@ -787,7 +812,7 @@ async function main() {
       } catch (err) {
         console.warn(`  Failed crawl @${seed}: ${err.message}`);
       }
-      await new Promise((r) => setTimeout(r, 600));
+      await new Promise((r) => setTimeout(r, STEP_DELAY_MS));
     }
   } finally {
     await browser.close();
@@ -800,8 +825,9 @@ async function main() {
 
   const accepted = [];
   const rejected = [];
-  const workerCount = Math.min(4, Math.max(1, parseInt(process.env.WORKERS || '4', 10)));
+  const workerCount = Math.min(6, Math.max(1, parseInt(process.env.WORKERS || '6', 10)));
   const maxNewRef = { value: maxNew };
+  const progress = { checked: 0, accepted: 0, rejected: 0, lastHandle: '' };
 
   const browser2 = await createBrowser();
   const pages = await Promise.all(
@@ -814,6 +840,7 @@ async function main() {
     total: candidates.length,
   }));
   const groups = splitWork(queue, workerCount);
+  const stopProgress = startProgressReporter(progress, candidates.length);
 
   try {
     await Promise.all(
@@ -821,10 +848,11 @@ async function main() {
         runWorker(i + 1, pages[i], group, igRegistry, ttRegistry, existingByHandle, async (result) => {
           if (result.accepted) accepted.push(result.accepted);
           if (result.rejected) rejected.push(result.rejected);
-        }, maxNewRef)
+        }, maxNewRef, progress)
       )
     );
   } finally {
+    stopProgress();
     await browser2.close();
   }
 

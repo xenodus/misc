@@ -6,7 +6,8 @@
  * Usage:
  *   node search-tiktok-artists.js
  *   node search-tiktok-artists.js --dry-run
- *   node search-tiktok-artists.js --hashtags=sgmua,sgbridalmua
+ *   node search-tiktok-artists.js --max=200
+ *   node search-tiktok-artists.js --crawl-only --max=150
  */
 const fs = require('fs');
 const path = require('path');
@@ -264,6 +265,29 @@ const SEED_HANDLES = [
   'renugha_m_vadivelu',
   'bypattcia',
   'shobabridals',
+  'vivienbeautystudio',
+  'nooc.makeup',
+  'makeupdoyennes_brides',
+  'beautywithoutfilter',
+  'makeupmaestrosg',
+  'powderpuffedmakeup',
+  'jenniswongmakeup',
+  'enchantemakeup',
+  'atiiqahho',
+  'victoriahan_makeup',
+  'aesta_makeup',
+  'stbridalmakeup',
+  'dearmuse.makeup',
+  'makeupartistrybyjulie_mua',
+  'linlinmakeup_25',
+  'giegie_makeup',
+  'yinks_artistry',
+  'nhi.shin.makeup',
+  'shereenbegum_',
+  'tasfia.beauty',
+  'dhen.mua',
+  'trgemua',
+  'vlenmakeupartist',
 ];
 
 const SG_KEYWORDS = [
@@ -319,6 +343,126 @@ const NON_MUA_KEYWORDS = [
   'bridal haven',
   'dream dress',
   'charleston',
+  'watch shop',
+  'watch store',
+  'sgwatch',
+  'gown connoisseur',
+  'gown rental',
+  'proposal journey',
+  'wedding planner',
+  'event planner',
+  'coordination',
+  'jewellery',
+  'jewelry store',
+  'fashion brand',
+  'clothing brand',
+  'skincare brand',
+  'cosmetics brand',
+  'beauty brand',
+  'salon chain',
+  'academy only',
+  'training centre',
+  'modelling agency',
+  'model agency',
+  'influencer agency',
+  'media company',
+  'production house',
+  'videographer',
+  'wedding video',
+  'wedding film',
+  'wedding photo',
+  'wedding photography',
+  'wedding studio',
+  'photo studio',
+  'hair salon only',
+  'nail artist only',
+  'lash artist only',
+  'brow artist only',
+  'pmu only',
+  'permanent makeup only',
+  'tattoo artist',
+  'barber shop',
+  'barbershop',
+  'spa only',
+  'massage',
+  'wellness centre',
+  'yoga instructor',
+  'fitness trainer',
+  'personal trainer',
+  'life coach',
+  'motivational speaker',
+  'public speaker',
+  'author',
+  'writer',
+  'blogger only',
+  'vlogger only',
+  'youtuber only',
+  'streamer',
+  'gamer',
+  'musician',
+  'singer',
+  'dancer',
+  'actor',
+  'actress',
+  'model only',
+  'fashion model',
+  'influencer only',
+  'brand ambassador only',
+  'pr agency',
+  'marketing agency',
+  'advertising agency',
+  'social media agency',
+  'digital agency',
+  'web design',
+  'graphic design',
+  'interior design',
+  'event decor',
+  'event styling only',
+  'floral design only',
+  'cake designer',
+  'baker',
+  'caterer',
+  'restaurant',
+  'hotel',
+  'resort',
+  'travel agency',
+  'tour guide',
+  'property agent',
+  'real estate agent',
+  'insurance agent',
+  'financial advisor',
+  'lawyer',
+  'doctor',
+  'dentist',
+  'clinic',
+  'hospital',
+  'pharmacy',
+  'supplement',
+  'health product',
+  'beauty product seller',
+  'beauty product reseller',
+  'dropship',
+  'ecommerce',
+  'online shop',
+  'shopee seller',
+  'lazada seller',
+  'carousell',
+  'marketplace seller',
+  'contact lens seller',
+  'lens seller',
+  'wig seller',
+  'hair extension seller',
+  'beauty tool seller',
+  'makeup brush seller',
+  'skincare seller',
+  'perfume seller',
+  'fashion seller',
+  'clothing seller',
+  'accessories seller',
+  'bag seller',
+  'shoe seller',
+  'jewellery seller',
+  'watch seller',
 ];
 
 function normalizeHandle(handle) {
@@ -438,13 +582,41 @@ async function createPage(browser) {
 }
 
 async function extractHandlesFromPage(page) {
-  return page.evaluate(() =>
+  const fromLinks = await page.evaluate(() =>
     [...new Set(
       Array.from(document.querySelectorAll('a[href*="/@"]'))
         .map((a) => a.href.match(/@([^/?]+)/)?.[1])
         .filter(Boolean)
     )]
   );
+
+  const fromHydration = await page.evaluate(() => {
+    const el = document.querySelector('#__UNIVERSAL_DATA_FOR_REHYDRATION__');
+    if (!el) return [];
+    const handles = new Set();
+    const walk = (node) => {
+      if (!node || typeof node !== 'object') return;
+      if (typeof node.uniqueId === 'string' && node.uniqueId) handles.add(node.uniqueId);
+      if (typeof node.author === 'string' && node.author.startsWith('@')) {
+        handles.add(node.author.replace('@', ''));
+      }
+      for (const value of Object.values(node)) walk(value);
+    };
+    try {
+      walk(JSON.parse(el.textContent));
+    } catch (_) {}
+    return [...handles];
+  });
+
+  return [...new Set([...fromLinks, ...fromHydration])];
+}
+
+async function scrapeFollowingHandles(page, handle) {
+  const url = `https://www.tiktok.com/@${encodeURIComponent(handle)}`;
+  await page.goto(url, { waitUntil: 'networkidle2', timeout: 60000 });
+  await new Promise((r) => setTimeout(r, 2000));
+  await scrollPage(page, 3);
+  return extractHandlesFromPage(page);
 }
 
 async function scrollPage(page, times = 4) {
@@ -542,6 +714,7 @@ async function main() {
   }
 
   const dryRun = process.argv.includes('--dry-run');
+  const crawlOnly = process.argv.includes('--crawl-only');
   const hashtagArg = process.argv.find((a) => a.startsWith('--hashtags='));
   const maxArg = process.argv.find((a) => a.startsWith('--max='));
   const maxNew = maxArg ? parseInt(maxArg.split('=')[1], 10) : 200;
@@ -563,29 +736,51 @@ async function main() {
   const page = await createPage(browser);
   const discovered = new Set(SEED_HANDLES.map(normalizeHandle));
 
+  const crawlSeeds = [
+    ...existingSource.map((a) => normalizeHandle(a.handle)),
+    ...SEED_HANDLES.map(normalizeHandle),
+  ].filter((h) => h && !igRegistry.handles.has(h));
+
   try {
-    for (const hashtag of hashtags) {
-      console.log(`\nScraping #${hashtag}...`);
-      try {
-        const handles = await scrapeHashtagHandles(page, hashtag);
-        console.log(`  Found ${handles.length} handles`);
-        handles.forEach((h) => discovered.add(normalizeHandle(h)));
-      } catch (err) {
-        console.warn(`  Failed #${hashtag}: ${err.message}`);
+    if (!crawlOnly) {
+      for (const hashtag of hashtags) {
+        console.log(`\nScraping #${hashtag}...`);
+        try {
+          const handles = await scrapeHashtagHandles(page, hashtag);
+          console.log(`  Found ${handles.length} handles`);
+          handles.forEach((h) => discovered.add(normalizeHandle(h)));
+        } catch (err) {
+          console.warn(`  Failed #${hashtag}: ${err.message}`);
+        }
+        await new Promise((r) => setTimeout(r, 800));
       }
-      await new Promise((r) => setTimeout(r, 800));
+
+      for (const query of SEARCH_QUERIES) {
+        console.log(`\nSearching users: "${query}"...`);
+        try {
+          const handles = await scrapeSearchHandles(page, query);
+          console.log(`  Found ${handles.length} handles`);
+          handles.forEach((h) => discovered.add(normalizeHandle(h)));
+        } catch (err) {
+          console.warn(`  Failed search "${query}": ${err.message}`);
+        }
+        await new Promise((r) => setTimeout(r, 800));
+      }
+    } else {
+      console.log('\nCrawl-only mode — skipping hashtag/search scraping');
     }
 
-    for (const query of SEARCH_QUERIES) {
-      console.log(`\nSearching users: "${query}"...`);
+    const uniqueCrawlSeeds = [...new Set(crawlSeeds)].slice(0, 60);
+    for (const seed of uniqueCrawlSeeds) {
+      console.log(`\nCrawling related from @${seed}...`);
       try {
-        const handles = await scrapeSearchHandles(page, query);
+        const handles = await scrapeFollowingHandles(page, seed);
         console.log(`  Found ${handles.length} handles`);
         handles.forEach((h) => discovered.add(normalizeHandle(h)));
       } catch (err) {
-        console.warn(`  Failed search "${query}": ${err.message}`);
+        console.warn(`  Failed crawl @${seed}: ${err.message}`);
       }
-      await new Promise((r) => setTimeout(r, 800));
+      await new Promise((r) => setTimeout(r, 600));
     }
   } finally {
     await browser.close();

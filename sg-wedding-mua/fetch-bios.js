@@ -11,7 +11,7 @@
  * - Round-robins through slots 1 → 2 → … → 7 → 1 (one proxy per lookup)
  * - Empty slots use direct egress for that lookup
  * - Falls back to direct egress when none are set
- * - On 401/429, retries via RESIDENTIAL_PROXY_1 using headless Chrome (web meta scrape)
+ * - On 401/429, retries via DYNAMIC_PROXY_1 then RESIDENTIAL_PROXY_1 using headless Chrome (web meta scrape)
  *
  * Throttling:
  * - Concurrency is always 1 (lookups run sequentially)
@@ -114,43 +114,51 @@ function parseWebDescription(text) {
   return '';
 }
 
-let residentialBrowserPromise = null;
+const WEB_UA =
+  'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/131.0.0.0 Safari/537.36';
 
-async function getResidentialBrowser(proxy) {
+const webBrowserPromises = new Map();
+
+async function getWebBrowser(proxy) {
   if (!proxy || !CHROME) return null;
-  if (!residentialBrowserPromise) {
+  const key = proxy.label || proxy.server;
+  if (!webBrowserPromises.has(key)) {
     const puppeteer = require('puppeteer-core');
-    residentialBrowserPromise = puppeteer.launch({
-      executablePath: CHROME,
-      headless: 'new',
-      args: [
-        '--no-sandbox',
-        '--disable-setuid-sandbox',
-        '--disable-dev-shm-usage',
-        `--proxy-server=${proxy.server}`,
-      ],
-    });
+    webBrowserPromises.set(
+      key,
+      puppeteer.launch({
+        executablePath: CHROME,
+        headless: 'new',
+        args: [
+          '--no-sandbox',
+          '--disable-setuid-sandbox',
+          '--disable-dev-shm-usage',
+          `--proxy-server=${proxy.server}`,
+        ],
+      })
+    );
   }
-  return residentialBrowserPromise;
+  return webBrowserPromises.get(key);
 }
 
 async function fetchBioViaWeb(handle, proxy) {
-  const via = 'RESIDENTIAL_PROXY_1(web)';
+  const label = proxy.label || 'WEB_PROXY_1';
+  const via = `${label}(web)`;
+  const isDynamic = label === 'DYNAMIC_PROXY_1';
   try {
-    const browser = await getResidentialBrowser(proxy);
+    const browser = await getWebBrowser(proxy);
     if (!browser) return { status: 'no_chrome', description: '', proxy: via };
 
     const page = await browser.newPage();
     try {
       await page.authenticate({ username: proxy.username, password: proxy.password });
-      await page.setUserAgent(
-        'Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/122.0.0.0 Safari/537.36'
-      );
+      await page.setUserAgent(WEB_UA);
+      await page.setExtraHTTPHeaders({ 'Accept-Language': 'en-US,en;q=0.9' });
       const resp = await page.goto(`https://www.instagram.com/${encodeURIComponent(handle)}/`, {
-        waitUntil: 'domcontentloaded',
-        timeout: 45000,
+        waitUntil: isDynamic ? 'networkidle2' : 'domcontentloaded',
+        timeout: isDynamic ? 60000 : 45000,
       });
-      await sleep(900);
+      await sleep(isDynamic ? 2500 : 900);
       const meta = await page.evaluate(() => ({
         og: document.querySelector('meta[property="og:description"]')?.content || '',
         desc: document.querySelector('meta[name="description"]')?.content || '',
@@ -160,13 +168,22 @@ async function fetchBioViaWeb(handle, proxy) {
         const rateLimited = resp && resp.status() === 429;
         return { status: rateLimited ? 'http_429' : 'web_blocked', description: '', rateLimited, proxy: via };
       }
-      return { status: 'ok', description: parsed, proxy: via, proxySlot: 'residential' };
+      return { status: 'ok', description: parsed, proxy: via, proxySlot: label.toLowerCase() };
     } finally {
       await page.close();
     }
   } catch (err) {
     return { status: `exception:${err.message}`, description: '', proxy: via };
   }
+}
+
+function loadWebProxies() {
+  const proxies = [];
+  const dynamic = parseProxyForPuppeteer(process.env.DYNAMIC_PROXY_1);
+  if (dynamic) proxies.push({ ...dynamic, label: 'DYNAMIC_PROXY_1' });
+  const residential = parseProxyForPuppeteer(process.env.RESIDENTIAL_PROXY_1);
+  if (residential) proxies.push({ ...residential, label: 'RESIDENTIAL_PROXY_1' });
+  return proxies;
 }
 
 function loadProxySlots() {
@@ -311,7 +328,7 @@ async function main() {
   }
 
   const proxySlots = loadProxySlots();
-  const residentialProxy = parseProxyForPuppeteer(process.env.RESIDENTIAL_PROXY_1);
+  const webProxies = loadWebProxies();
   const { fetchBio, configuredProxyCount } = createFetcher(proxySlots);
   if (configuredProxyCount) {
     console.log(
@@ -325,8 +342,8 @@ async function main() {
       'No DEDICATED_PROXY_1..7 set; using direct egress (likely to hit Instagram rate limits).'
     );
   }
-  if (residentialProxy) {
-    console.log(`Residential fallback available via RESIDENTIAL_PROXY_1 (${residentialProxy.host})`);
+  for (const webProxy of webProxies) {
+    console.log(`Web fallback available via ${webProxy.label} (${webProxy.host})`);
   }
 
   const onlyMissing = process.argv.includes('--only-missing');
@@ -379,15 +396,18 @@ async function main() {
     }
 
     const authFail = result.rateLimited || /http_401|http_429/.test(result.status);
-    if (authFail && residentialProxy) {
-      process.stdout.write('residential fallback ... ');
-      try {
-        const webResult = await fetchBioViaWeb(artist.handle, residentialProxy);
-        if (webResult.status === 'ok' || !(webResult.rateLimited || /http_401|http_429/.test(webResult.status))) {
-          result = webResult;
+    if (authFail && webProxies.length) {
+      for (const webProxy of webProxies) {
+        process.stdout.write(`${webProxy.label} fallback ... `);
+        try {
+          const webResult = await fetchBioViaWeb(artist.handle, webProxy);
+          if (webResult.status === 'ok' || !(webResult.rateLimited || /http_401|http_429/.test(webResult.status))) {
+            result = webResult;
+            break;
+          }
+        } catch (err) {
+          result = { status: `exception:${err.message}`, description: '', proxy: `${webProxy.label}(web)` };
         }
-      } catch (err) {
-        result = { status: `exception:${err.message}`, description: '', proxy: 'RESIDENTIAL_PROXY_1(web)' };
       }
     }
 
@@ -428,9 +448,9 @@ async function main() {
     await waitUntilMinLookupElapsed(lookupStartedAt);
   }
 
-  if (residentialBrowserPromise) {
+  for (const browserPromise of webBrowserPromises.values()) {
     try {
-      const browser = await residentialBrowserPromise;
+      const browser = await browserPromise;
       await browser.close();
     } catch {
       // ignore cleanup errors

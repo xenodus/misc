@@ -38,6 +38,7 @@ Canonical list of artists. Used as input when (re)building `artists.json`.
 |----------|--------|--------------------------------------|
 | `name`   | string | Display name                         |
 | `handle` | string | Instagram username (no `@`)          |
+| `tag`    | string | Optional UI badge, e.g. `"new"` for recently added artists. Keep until you manually remove it. |
 
 When adding a new artist, update this file first.
 
@@ -52,6 +53,7 @@ Runtime data loaded by the webpage. Sorted by `followers` (descending).
 | `followers`   | number | Follower count (`0` if private or unavailable)   |
 | `description` | string | Instagram profile bio (shown as **Profile description** in the UI) |
 | `instagram`   | string | Full profile URL, e.g. `https://www.instagram.com/handle/` |
+| `tag`         | string | Optional UI badge mirrored from `artists-source.json` (e.g. `"new"`). Do not strip when running fetch scripts. |
 
 Populated by `fetch-followers.js` and the bio-fetch scripts. Do not hand-edit follower counts or descriptions unless correcting a bad scrape.
 
@@ -184,7 +186,7 @@ When adding or updating an artist in `artists-source.json` and `artists.json`, v
 ### Workflow
 
 1. Open the artist's Instagram profile and confirm all four checks above.
-2. Add or update the entry in `artists-source.json` with `name` and `handle`.
+2. Add or update the entry in `artists-source.json` with `name` and `handle`. Add `"tag": "new"` for recently added artists; leave the tag in place until you deliberately remove it.
 3. Run `node fetch-followers.js --only-missing` to refresh follower counts and the `instagram` URL in `artists.json`.
 4. Run `node fetch-bios.js --only-missing` to refresh the profile description. If the API is rate-limited, run `node fetch-descriptions.js --only-missing` instead.
 5. Remove any artist with a confirmed empty Instagram bio from both `artists-source.json` and `artists.json`.

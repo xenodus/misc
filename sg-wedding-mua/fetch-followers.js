@@ -130,6 +130,7 @@ function writeOutput(artists, resultsByHandle, existing, onlyMissing, existingRe
       ...artist,
       instagram: prior.instagram || instagramUrl(artist.handle),
       ...(prior.description ? { description: prior.description } : {}),
+      ...(artist.tag || prior.tag ? { tag: artist.tag || prior.tag } : {}),
     };
     if (Object.prototype.hasOwnProperty.call(resultsByHandle, key)) {
       return { ...base, followers: resultsByHandle[key] };

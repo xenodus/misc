@@ -1,7 +1,9 @@
-const STORAGE_KEY = 'sg-wedding-mua-processed-v1';
+const PROCESSED_STORAGE_KEY = 'sg-wedding-mua-processed-v1';
+const SEEN_STORAGE_KEY = 'sg-wedding-mua-seen-handles-v1';
 
 let artists = [];
 let processed = loadProcessed();
+let seenHandles = loadSeenHandles();
 
 const tableBody = document.getElementById('table-body');
 const statsEl = document.getElementById('stats');
@@ -9,11 +11,12 @@ const searchInput = document.getElementById('search');
 const showNewOnly = document.getElementById('show-new-only');
 const showProcessedOnly = document.getElementById('show-processed-only');
 const clearProcessedBtn = document.getElementById('clear-processed');
+const markAllSeenBtn = document.getElementById('mark-all-seen');
 const emptyState = document.getElementById('empty-state');
 
 function loadProcessed() {
   try {
-    const raw = localStorage.getItem(STORAGE_KEY);
+    const raw = localStorage.getItem(PROCESSED_STORAGE_KEY);
     return raw ? JSON.parse(raw) : {};
   } catch {
     return {};
@@ -21,7 +24,36 @@ function loadProcessed() {
 }
 
 function saveProcessed() {
-  localStorage.setItem(STORAGE_KEY, JSON.stringify(processed));
+  localStorage.setItem(PROCESSED_STORAGE_KEY, JSON.stringify(processed));
+}
+
+function loadSeenHandles() {
+  try {
+    const raw = localStorage.getItem(SEEN_STORAGE_KEY);
+    return raw ? new Set(JSON.parse(raw)) : new Set();
+  } catch {
+    return new Set();
+  }
+}
+
+function saveSeenHandles() {
+  localStorage.setItem(SEEN_STORAGE_KEY, JSON.stringify([...seenHandles]));
+}
+
+function isNew(artist) {
+  return !seenHandles.has(artist.handle);
+}
+
+function markSeen(handle) {
+  if (!seenHandles.has(handle)) {
+    seenHandles.add(handle);
+    saveSeenHandles();
+  }
+}
+
+function markAllSeen() {
+  artists.forEach((artist) => seenHandles.add(artist.handle));
+  saveSeenHandles();
 }
 
 function formatFollowers(count) {
@@ -36,7 +68,7 @@ function getFilteredArtists() {
 
   return artists.filter((artist) => {
     const isProcessed = Boolean(processed[artist.handle]);
-    if (newOnly && !artist.new) return false;
+    if (newOnly && !isNew(artist)) return false;
     if (processedOnly && !isProcessed) return false;
     if (!query) return true;
     return (
@@ -49,7 +81,7 @@ function getFilteredArtists() {
 
 function updateStats() {
   const total = artists.length;
-  const newCount = artists.filter((artist) => artist.new).length;
+  const newCount = artists.filter((artist) => isNew(artist)).length;
   const done = Object.values(processed).filter(Boolean).length;
   statsEl.innerHTML = `
     <span class="stat-item"><strong>${total}</strong> artists listed</span>
@@ -72,7 +104,7 @@ function render() {
     row.innerHTML = `
       <td class="col-rank">${index + 1}</td>
       <td class="col-name">
-        <span class="artist-name">${escapeHtml(artist.name)}</span>${artist.new ? ' <span class="new-badge">New</span>' : ''}
+        <span class="artist-name">${escapeHtml(artist.name)}</span>${isNew(artist) ? ' <span class="new-badge">New</span>' : ''}
       </td>
       <td class="col-description">${
         description
@@ -92,6 +124,7 @@ function render() {
     checkbox.addEventListener('change', (event) => {
       processed[artist.handle] = event.target.checked;
       if (!event.target.checked) delete processed[artist.handle];
+      if (event.target.checked) markSeen(artist.handle);
       saveProcessed();
       updateStats();
       render();
@@ -123,12 +156,22 @@ clearProcessedBtn.addEventListener('click', () => {
   render();
 });
 
+markAllSeenBtn.addEventListener('click', () => {
+  markAllSeen();
+  render();
+});
+
 async function init() {
   try {
     const response = await fetch('artists.json');
     if (!response.ok) throw new Error(`Failed to load artists.json (${response.status})`);
     artists = await response.json();
     artists.sort((a, b) => (b.followers || 0) - (a.followers || 0));
+
+    if (seenHandles.size === 0) {
+      markAllSeen();
+    }
+
     render();
   } catch (error) {
     tableBody.innerHTML = `<tr><td colspan="6">Could not load artist data: ${escapeHtml(error.message)}</td></tr>`;

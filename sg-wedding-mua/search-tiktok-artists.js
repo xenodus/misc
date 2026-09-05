@@ -32,6 +32,37 @@ const DEFAULT_HASHTAGS = [
   'bridalmakeupsg',
   'singaporemua',
   'sgbrides',
+  'sgbridal',
+  'sgbridemakeup',
+  'sgweddingmakeup',
+  'sgmakeupartist',
+  'sgmakeup',
+  'bridalmakeupsingapore',
+  'weddingmakeupsg',
+  'makeupartistsg',
+  'sgbride',
+  'sgweddingmua',
+  'bridalmua',
+  'bridalmakeup',
+  'weddingmua',
+  'makeupartistsg',
+  'sgmakeupartists',
+  'sgbridalmakeupartist',
+  'makeupbysg',
+  'sgbeauty',
+];
+
+const SEARCH_QUERIES = [
+  'singapore bridal makeup artist',
+  'singapore wedding makeup artist',
+  'sg bridal mua',
+  'singapore mua bridal',
+  'sg makeup artist wedding',
+  'bridal makeup singapore',
+  'wedding makeup singapore',
+  'sg bridal makeup',
+  'makeup artist singapore bridal',
+  'hmua singapore',
 ];
 
 const SEED_HANDLES = [
@@ -208,10 +239,7 @@ async function createPage(browser) {
   return page;
 }
 
-async function scrapeHashtagHandles(page, hashtag) {
-  const url = `https://www.tiktok.com/tag/${encodeURIComponent(hashtag)}`;
-  await page.goto(url, { waitUntil: 'networkidle2', timeout: 60000 });
-  await new Promise((r) => setTimeout(r, 2500));
+async function extractHandlesFromPage(page) {
   return page.evaluate(() =>
     [...new Set(
       Array.from(document.querySelectorAll('a[href*="/@"]'))
@@ -219,6 +247,29 @@ async function scrapeHashtagHandles(page, hashtag) {
         .filter(Boolean)
     )]
   );
+}
+
+async function scrollPage(page, scrolls = 8, pauseMs = 1200) {
+  for (let i = 0; i < scrolls; i++) {
+    await page.evaluate(() => window.scrollBy(0, window.innerHeight * 1.5));
+    await new Promise((r) => setTimeout(r, pauseMs));
+  }
+}
+
+async function scrapeHashtagHandles(page, hashtag) {
+  const url = `https://www.tiktok.com/tag/${encodeURIComponent(hashtag)}`;
+  await page.goto(url, { waitUntil: 'networkidle2', timeout: 60000 });
+  await new Promise((r) => setTimeout(r, 2500));
+  await scrollPage(page, 10, 1000);
+  return extractHandlesFromPage(page);
+}
+
+async function scrapeSearchHandles(page, query) {
+  const url = `https://www.tiktok.com/search/user?q=${encodeURIComponent(query)}`;
+  await page.goto(url, { waitUntil: 'networkidle2', timeout: 60000 });
+  await new Promise((r) => setTimeout(r, 2500));
+  await scrollPage(page, 6, 1000);
+  return extractHandlesFromPage(page);
 }
 
 async function fetchProfile(page, handle) {
@@ -238,8 +289,10 @@ function splitWork(items, buckets) {
   return groups;
 }
 
-async function runWorker(workerId, page, queue, igRegistry, existingByHandle, onResult) {
+async function runWorker(workerId, page, queue, igRegistry, existingByHandle, onResult, maxAccepted) {
   for (const { handle, index, total } of queue) {
+    if (maxAccepted > 0 && onResult.acceptedCount >= maxAccepted) break;
+
     process.stdout.write(`[${index}/${total}] [w${workerId}] @${handle} ... `);
 
     const profile = await fetchProfile(page, handle);
@@ -261,7 +314,7 @@ async function runWorker(workerId, page, queue, igRegistry, existingByHandle, on
       result = { rejected: { handle, reasons, name: profile?.name } };
     }
 
-    await onResult(result);
+    await onResult.call(result);
     await new Promise((r) => setTimeout(r, 600));
   }
 }
@@ -291,16 +344,30 @@ async function main() {
 
   const dryRun = process.argv.includes('--dry-run');
   const hashtagArg = process.argv.find((a) => a.startsWith('--hashtags='));
+  const maxArg = process.argv.find((a) => a.startsWith('--max='));
+  const maxAccepted = maxArg ? parseInt(maxArg.split('=')[1], 10) : 100;
   const hashtags = hashtagArg
     ? hashtagArg.split('=')[1].split(',').map((h) => h.trim()).filter(Boolean)
     : DEFAULT_HASHTAGS;
 
+  const existingSource = fs.existsSync(TT_SOURCE)
+    ? JSON.parse(fs.readFileSync(TT_SOURCE, 'utf8'))
+    : [];
+  const existingByHandle = new Map(
+    existingSource.map((a) => [normalizeHandle(a.handle), a])
+  );
+
   const igRegistry = loadInstagramRegistry();
   console.log(`Instagram registry: ${igRegistry.handles.size} handles`);
+  console.log(`Existing TikTok source: ${existingSource.length} artists`);
+  if (maxAccepted > 0) console.log(`Target: up to ${maxAccepted} accepted artists`);
 
   const browser = await createBrowser();
   const page = await createPage(browser);
-  const discovered = new Set(SEED_HANDLES.map(normalizeHandle));
+  const discovered = new Set([
+    ...SEED_HANDLES.map(normalizeHandle),
+    ...existingSource.map((a) => normalizeHandle(a.handle)),
+  ]);
 
   try {
     for (const hashtag of hashtags) {
@@ -314,6 +381,18 @@ async function main() {
       }
       await new Promise((r) => setTimeout(r, 800));
     }
+
+    for (const query of SEARCH_QUERIES) {
+      console.log(`\nSearching "${query}"...`);
+      try {
+        const handles = await scrapeSearchHandles(page, query);
+        console.log(`  Found ${handles.length} handles`);
+        handles.forEach((h) => discovered.add(normalizeHandle(h)));
+      } catch (err) {
+        console.warn(`  Failed search "${query}": ${err.message}`);
+      }
+      await new Promise((r) => setTimeout(r, 800));
+    }
   } finally {
     await browser.close();
   }
@@ -321,15 +400,24 @@ async function main() {
   const candidates = [...discovered].filter(Boolean);
   console.log(`\n${candidates.length} unique candidate handles to evaluate`);
 
-  const existingSource = fs.existsSync(TT_SOURCE)
-    ? JSON.parse(fs.readFileSync(TT_SOURCE, 'utf8'))
-    : [];
-  const existingByHandle = new Map(
-    existingSource.map((a) => [normalizeHandle(a.handle), a])
-  );
-
   const accepted = [];
   const rejected = [];
+  const acceptedHandles = new Set();
+  const onResult = {
+    acceptedCount: 0,
+    async call(result) {
+      if (result.accepted) {
+        const key = normalizeHandle(result.accepted.handle);
+        if (!acceptedHandles.has(key)) {
+          acceptedHandles.add(key);
+          accepted.push(result.accepted);
+          this.acceptedCount = accepted.length;
+        }
+      }
+      if (result.rejected) rejected.push(result.rejected);
+    },
+  };
+
   const workerCount = Math.min(4, Math.max(1, parseInt(process.env.WORKERS || '3', 10)));
 
   const browser2 = await createBrowser();
@@ -347,10 +435,7 @@ async function main() {
   try {
     await Promise.all(
       groups.map((group, i) =>
-        runWorker(i + 1, pages[i], group, igRegistry, existingByHandle, async (result) => {
-          if (result.accepted) accepted.push(result.accepted);
-          if (result.rejected) rejected.push(result.rejected);
-        })
+        runWorker(i + 1, pages[i], group, igRegistry, existingByHandle, onResult, maxAccepted)
       )
     );
   } finally {
@@ -359,19 +444,21 @@ async function main() {
 
   accepted.sort((a, b) => a.name.localeCompare(b.name));
 
-  console.log(`\nAccepted: ${accepted.length}`);
+  const finalList = accepted;
+
+  console.log(`\nAccepted: ${finalList.length}`);
   console.log(`Rejected: ${rejected.length}`);
 
   if (dryRun) {
     console.log('\nDry run — not writing files.');
-    console.log(JSON.stringify(accepted, null, 2));
+    console.log(JSON.stringify(finalList, null, 2));
     return;
   }
 
-  fs.writeFileSync(TT_SOURCE, JSON.stringify(accepted, null, 2) + '\n');
-  console.log(`\nWrote ${accepted.length} artists to ${TT_SOURCE}`);
+  fs.writeFileSync(TT_SOURCE, JSON.stringify(finalList, null, 2) + '\n');
+  console.log(`\nWrote ${finalList.length} artists to ${TT_SOURCE}`);
 
-  if (accepted.length > 0) {
+  if (finalList.length > 0) {
     console.log('Run `node fetch-tiktok-profiles.js` to refresh followers and bios.');
   }
 }

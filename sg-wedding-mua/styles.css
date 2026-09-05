@@ -198,6 +198,20 @@ tbody tr.is-processed {
   font-weight: 600;
 }
 
+.new-badge {
+  display: inline-block;
+  margin-left: 0.4rem;
+  padding: 0.1rem 0.4rem;
+  border-radius: 4px;
+  background: var(--accent-soft);
+  color: var(--accent);
+  font-size: 0.7rem;
+  font-weight: 700;
+  letter-spacing: 0.03em;
+  text-transform: uppercase;
+  vertical-align: middle;
+}
+
 .artist-description {
   display: -webkit-box;
   -webkit-box-orient: vertical;

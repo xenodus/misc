@@ -6,6 +6,7 @@ let processed = loadProcessed();
 const tableBody = document.getElementById('table-body');
 const statsEl = document.getElementById('stats');
 const searchInput = document.getElementById('search');
+const showNewOnly = document.getElementById('show-new-only');
 const showProcessedOnly = document.getElementById('show-processed-only');
 const clearProcessedBtn = document.getElementById('clear-processed');
 const emptyState = document.getElementById('empty-state');
@@ -30,10 +31,12 @@ function formatFollowers(count) {
 
 function getFilteredArtists() {
   const query = searchInput.value.trim().toLowerCase();
+  const newOnly = showNewOnly.checked;
   const processedOnly = showProcessedOnly.checked;
 
   return artists.filter((artist) => {
     const isProcessed = Boolean(processed[artist.handle]);
+    if (newOnly && !artist.new) return false;
     if (processedOnly && !isProcessed) return false;
     if (!query) return true;
     return (
@@ -46,9 +49,11 @@ function getFilteredArtists() {
 
 function updateStats() {
   const total = artists.length;
+  const newCount = artists.filter((artist) => artist.new).length;
   const done = Object.values(processed).filter(Boolean).length;
   statsEl.innerHTML = `
     <span class="stat-item"><strong>${total}</strong> artists listed</span>
+    <span class="stat-item"><strong>${newCount}</strong> new</span>
     <span class="stat-item"><strong>${done}</strong> processed</span>
     <span class="stat-item"><strong>${total - done}</strong> remaining</span>
   `;
@@ -66,7 +71,9 @@ function render() {
     const description = (artist.description || '').trim();
     row.innerHTML = `
       <td class="col-rank">${index + 1}</td>
-      <td class="col-name"><span class="artist-name">${escapeHtml(artist.name)}</span></td>
+      <td class="col-name">
+        <span class="artist-name">${escapeHtml(artist.name)}</span>${artist.new ? ' <span class="new-badge">New</span>' : ''}
+      </td>
       <td class="col-description">${
         description
           ? `<span class="artist-description">${escapeHtml(description)}</span>`
@@ -106,6 +113,7 @@ function escapeHtml(value) {
 }
 
 searchInput.addEventListener('input', render);
+showNewOnly.addEventListener('change', render);
 showProcessedOnly.addEventListener('change', render);
 
 clearProcessedBtn.addEventListener('click', () => {

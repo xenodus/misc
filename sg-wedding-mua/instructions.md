@@ -38,8 +38,9 @@ Canonical list of artists. Used as input when (re)building `artists.json`.
 |----------|--------|--------------------------------------|
 | `name`   | string | Display name                         |
 | `handle` | string | Instagram username (no `@`)          |
+| `new`    | boolean | Optional. Set `true` for recently added artists (shows a **New** badge and enables the “Show new only” filter) |
 
-When adding a new artist, update this file first.
+When adding a new artist, update this file first and set `"new": true`.
 
 ### `artists.json`
 
@@ -52,6 +53,7 @@ Runtime data loaded by the webpage. Sorted by `followers` (descending).
 | `followers`   | number | Follower count (`0` if private or unavailable)   |
 | `description` | string | Instagram profile bio (shown as **Profile description** in the UI) |
 | `instagram`   | string | Full profile URL, e.g. `https://www.instagram.com/handle/` |
+| `new`         | boolean | Optional. Copied from `artists-source.json` when present |
 
 Populated by `fetch-followers.js` and the bio-fetch scripts. Do not hand-edit follower counts or descriptions unless correcting a bad scrape.
 
@@ -76,6 +78,7 @@ Browser logic:
 - Loads `artists.json` via `fetch()`
 - Renders the sortable/filterable table
 - Search matches name, handle, or description
+- **Show new only** filters to artists tagged with `"new": true` in the data
 - **Processed** checkboxes persist in `localStorage` under key `sg-wedding-mua-processed-v1` (per browser, not synced)
 
 ### `styles.css`

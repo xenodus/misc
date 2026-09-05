@@ -296,7 +296,18 @@ function matchesSingapore(signature, nickname, handle) {
 function matchesMua(signature, nickname) {
   const text = `${signature || ''} ${nickname || ''}`.toLowerCase();
   if (NON_MUA_KEYWORDS.some((kw) => text.includes(kw))) return false;
-  return MUA_KEYWORDS.some((kw) => text.includes(kw));
+  if (MUA_KEYWORDS.some((kw) => text.includes(kw))) return true;
+  if (
+    (text.includes('makeup') || text.includes('make up')) &&
+    (text.includes('wedding') || text.includes('bridal') || text.includes('bride'))
+  ) {
+    return true;
+  }
+  const name = (nickname || '').toLowerCase();
+  if ((name.includes('mua') || name.includes('makeup')) && !name.includes('marketplace')) {
+    return true;
+  }
+  return false;
 }
 
 function hasBio(signature) {
@@ -395,6 +406,40 @@ async function scrapeSearchHandles(page, query) {
   await new Promise((r) => setTimeout(r, 2500));
   await scrollPage(page, 6, 1000);
   return extractHandlesFromPage(page);
+}
+
+async function scrapeRelatedHandles(page, handle) {
+  const url = `https://www.tiktok.com/@${encodeURIComponent(handle)}`;
+  try {
+    await page.goto(url, { waitUntil: 'networkidle2', timeout: 45000 });
+    await new Promise((r) => setTimeout(r, 1500));
+    await scrollPage(page, 4, 800);
+    const handles = await extractHandlesFromPage(page);
+    const bio = await parseUniversalProfile(page);
+    const bioHandles = extractHandlesFromBio(bio?.description || '');
+    return [...new Set([...handles, ...bioHandles])].filter((h) => normalizeHandle(h) !== normalizeHandle(handle));
+  } catch {
+    return [];
+  }
+}
+
+async function mineHandlesFromProfiles(page, handles, label) {
+  const mined = new Set();
+  const list = [...handles].filter(Boolean);
+  console.log(`\nMining related handles from ${list.length} ${label} profiles...`);
+  for (let i = 0; i < list.length; i++) {
+    const handle = list[i];
+    process.stdout.write(`  [${i + 1}/${list.length}] @${handle} ... `);
+    try {
+      const related = await scrapeRelatedHandles(page, handle);
+      related.forEach((h) => mined.add(normalizeHandle(h)));
+      console.log(`${related.length} handles`);
+    } catch (err) {
+      console.log(`failed (${err.message})`);
+    }
+    await new Promise((r) => setTimeout(r, 500));
+  }
+  return mined;
 }
 
 async function fetchProfile(page, handle) {
@@ -503,7 +548,11 @@ async function main() {
 
   const useCache = !process.argv.includes('--no-cache');
   const evalCache = useCache
-    ? { ...buildCacheFromLog('/tmp/tiktok-search.log'), ...loadEvalCache() }
+    ? {
+        ...buildCacheFromLog('/tmp/tiktok-search.log'),
+        ...buildCacheFromLog('/tmp/tiktok-search-pass2.log'),
+        ...loadEvalCache(),
+      }
     : {};
   if (useCache) {
     console.log(`Eval cache: ${Object.keys(evalCache).length} handles`);
@@ -553,6 +602,14 @@ async function main() {
       }
       await new Promise((r) => setTimeout(r, 800));
     }
+
+    const mineHandles = [
+      ...SEED_HANDLES,
+      ...existingSource.map((a) => a.handle),
+    ].map(normalizeHandle);
+    const mined = await mineHandlesFromProfiles(page, mineHandles.slice(0, 40), 'seed/source');
+    mined.forEach((h) => discovered.add(h));
+    console.log(`  Mined ${mined.size} unique related handles`);
   } finally {
     await browser.close();
   }

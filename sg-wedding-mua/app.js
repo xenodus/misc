@@ -1,9 +1,7 @@
-const PROCESSED_STORAGE_KEY = 'sg-wedding-mua-processed-v1';
-const SEEN_STORAGE_KEY = 'sg-wedding-mua-seen-handles-v1';
+const STORAGE_KEY = 'sg-wedding-mua-processed-v1';
 
 let artists = [];
 let processed = loadProcessed();
-let seenHandles = loadSeenHandles();
 
 const tableBody = document.getElementById('table-body');
 const statsEl = document.getElementById('stats');
@@ -11,12 +9,11 @@ const searchInput = document.getElementById('search');
 const showNewOnly = document.getElementById('show-new-only');
 const showProcessedOnly = document.getElementById('show-processed-only');
 const clearProcessedBtn = document.getElementById('clear-processed');
-const markAllSeenBtn = document.getElementById('mark-all-seen');
 const emptyState = document.getElementById('empty-state');
 
 function loadProcessed() {
   try {
-    const raw = localStorage.getItem(PROCESSED_STORAGE_KEY);
+    const raw = localStorage.getItem(STORAGE_KEY);
     return raw ? JSON.parse(raw) : {};
   } catch {
     return {};
@@ -24,36 +21,7 @@ function loadProcessed() {
 }
 
 function saveProcessed() {
-  localStorage.setItem(PROCESSED_STORAGE_KEY, JSON.stringify(processed));
-}
-
-function loadSeenHandles() {
-  try {
-    const raw = localStorage.getItem(SEEN_STORAGE_KEY);
-    return raw ? new Set(JSON.parse(raw)) : new Set();
-  } catch {
-    return new Set();
-  }
-}
-
-function saveSeenHandles() {
-  localStorage.setItem(SEEN_STORAGE_KEY, JSON.stringify([...seenHandles]));
-}
-
-function isNew(artist) {
-  return !seenHandles.has(artist.handle);
-}
-
-function markSeen(handle) {
-  if (!seenHandles.has(handle)) {
-    seenHandles.add(handle);
-    saveSeenHandles();
-  }
-}
-
-function markAllSeen() {
-  artists.forEach((artist) => seenHandles.add(artist.handle));
-  saveSeenHandles();
+  localStorage.setItem(STORAGE_KEY, JSON.stringify(processed));
 }
 
 function formatFollowers(count) {
@@ -68,7 +36,7 @@ function getFilteredArtists() {
 
   return artists.filter((artist) => {
     const isProcessed = Boolean(processed[artist.handle]);
-    if (newOnly && !isNew(artist)) return false;
+    if (newOnly && artist.tag !== 'new') return false;
     if (processedOnly && !isProcessed) return false;
     if (!query) return true;
     return (
@@ -79,15 +47,30 @@ function getFilteredArtists() {
   });
 }
 
+function formatTagLabel(tag) {
+  if (!tag) return '';
+  return String(tag)
+    .split(/[-_\s]+/)
+    .filter(Boolean)
+    .map((part) => part.charAt(0).toUpperCase() + part.slice(1).toLowerCase())
+    .join(' ');
+}
+
+function renderTagBadge(tag) {
+  if (!tag) return '';
+  const label = formatTagLabel(tag);
+  return `<span class="artist-tag artist-tag--${escapeHtml(tag)}">${escapeHtml(label)}</span>`;
+}
+
 function updateStats() {
   const total = artists.length;
-  const newCount = artists.filter((artist) => isNew(artist)).length;
   const done = Object.values(processed).filter(Boolean).length;
+  const tagged = artists.filter((artist) => artist.tag === 'new').length;
   statsEl.innerHTML = `
     <span class="stat-item"><strong>${total}</strong> artists listed</span>
-    <span class="stat-item"><strong>${newCount}</strong> new</span>
     <span class="stat-item"><strong>${done}</strong> processed</span>
     <span class="stat-item"><strong>${total - done}</strong> remaining</span>
+    ${tagged ? `<span class="stat-item"><strong>${tagged}</strong> tagged new</span>` : ''}
   `;
 }
 
@@ -99,12 +82,16 @@ function render() {
     const isProcessed = Boolean(processed[artist.handle]);
     const row = document.createElement('tr');
     if (isProcessed) row.classList.add('is-processed');
+    if (artist.tag) row.classList.add('has-tag', `has-tag--${artist.tag}`);
 
     const description = (artist.description || '').trim();
     row.innerHTML = `
       <td class="col-rank">${index + 1}</td>
       <td class="col-name">
-        <span class="artist-name">${escapeHtml(artist.name)}</span>${isNew(artist) ? ' <span class="new-badge">New</span>' : ''}
+        <span class="artist-name-row">
+          <span class="artist-name">${escapeHtml(artist.name)}</span>
+          ${renderTagBadge(artist.tag)}
+        </span>
       </td>
       <td class="col-description">${
         description
@@ -124,7 +111,6 @@ function render() {
     checkbox.addEventListener('change', (event) => {
       processed[artist.handle] = event.target.checked;
       if (!event.target.checked) delete processed[artist.handle];
-      if (event.target.checked) markSeen(artist.handle);
       saveProcessed();
       updateStats();
       render();
@@ -156,22 +142,12 @@ clearProcessedBtn.addEventListener('click', () => {
   render();
 });
 
-markAllSeenBtn.addEventListener('click', () => {
-  markAllSeen();
-  render();
-});
-
 async function init() {
   try {
     const response = await fetch('artists.json');
     if (!response.ok) throw new Error(`Failed to load artists.json (${response.status})`);
     artists = await response.json();
     artists.sort((a, b) => (b.followers || 0) - (a.followers || 0));
-
-    if (seenHandles.size === 0) {
-      markAllSeen();
-    }
-
     render();
   } catch (error) {
     tableBody.innerHTML = `<tr><td colspan="6">Could not load artist data: ${escapeHtml(error.message)}</td></tr>`;

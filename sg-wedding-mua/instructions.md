@@ -76,6 +76,7 @@ Browser logic:
 - Loads `artists.json` via `fetch()`
 - Renders the sortable/filterable table
 - Search matches name, handle, or description
+- **Show new only** filters to artists with `"tag": "new"` in the data
 - **Processed** checkboxes persist in `localStorage` under key `sg-wedding-mua-processed-v1` (per browser, not synced)
 
 ### `styles.css`

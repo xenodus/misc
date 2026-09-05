@@ -65,9 +65,9 @@ function decodeHtml(text) {
 }
 
 function parseDescription(text) {
-  if (!text) return '';
+  if (!text) return null;
   const decoded = decodeHtml(text).replace(/\s+/g, ' ').trim();
-  if (/Performing security verification|Enable JavaScript|HTTP ERROR 429/i.test(decoded)) return null;
+  if (/Performing security verification|Enable JavaScript|HTTP ERROR 429|Please wait a few minutes/i.test(decoded)) return null;
   if (/profile may be broken|profile may have been removed|Page isn't available|Sorry, this page/i.test(decoded)) {
     return '';
   }
@@ -98,17 +98,25 @@ async function createBrowser(proxy) {
 
 async function fetchDescription(page, handle) {
   const url = `https://www.instagram.com/${encodeURIComponent(handle)}/`;
-  const resp = await page.goto(url, { waitUntil: 'domcontentloaded', timeout: 45000 });
-  await new Promise((r) => setTimeout(r, 900));
+  const resp = await page.goto(url, { waitUntil: 'networkidle2', timeout: 60000 });
+  await new Promise((r) => setTimeout(r, 3000));
+  if (resp && resp.status() === 429) {
+    return { description: null, rateLimited: true };
+  }
   const meta = await page.evaluate(() => ({
     og: document.querySelector('meta[property="og:description"]')?.content || '',
     desc: document.querySelector('meta[name="description"]')?.content || '',
+    body: (document.body?.innerText || '').replace(/\s+/g, ' ').trim(),
   }));
-  const parsed = parseDescription(meta.desc || meta.og);
-  if (parsed === null && resp && resp.status() === 429) {
+  if (/HTTP ERROR 429|Please wait a few minutes/i.test(meta.body)) {
     return { description: null, rateLimited: true };
   }
-  return { description: parsed === null ? '' : parsed, rateLimited: false };
+  const parsed = parseDescription(meta.desc || meta.og);
+  if (parsed === null) {
+    const rateLimited = resp && resp.status() >= 400;
+    return { description: null, rateLimited };
+  }
+  return { description: parsed, rateLimited: false };
 }
 
 function writeArtists(artists) {
@@ -126,27 +134,32 @@ async function worker(workerId, proxy, artists, allArtists, onUpdate) {
       const key = artist.handle.toLowerCase();
       process.stdout.write(`[w${workerId} ${i + 1}/${artists.length}] ${artist.handle} ... `);
 
-      let description = '';
+      let description = null;
       try {
         let attempts = 0;
-        while (attempts < 3) {
+        while (attempts < 5) {
           const result = await fetchDescription(page, artist.handle);
           if (result.rateLimited) {
             attempts += 1;
-            console.log(`rate-limited, cooling 20s (attempt ${attempts})`);
-            await new Promise((r) => setTimeout(r, 20000));
+            const wait = 30000 * attempts;
+            console.log(`rate-limited, cooling ${Math.round(wait / 1000)}s (attempt ${attempts})`);
+            await new Promise((r) => setTimeout(r, wait));
             continue;
           }
           description = result.description;
           break;
         }
-        console.log(description ? `"${description.slice(0, 60)}${description.length > 60 ? '…' : ''}"` : '(empty)');
+        if (description === null) {
+          console.log('skipped (rate-limited)');
+        } else {
+          console.log(description ? `"${description.slice(0, 60)}${description.length > 60 ? '…' : ''}"` : '(empty)');
+        }
       } catch (err) {
         console.log(`error (${err.message})`);
       }
 
       const idx = allArtists.findIndex((a) => a.handle.toLowerCase() === key);
-      if (idx >= 0) allArtists[idx] = { ...allArtists[idx], description };
+      if (idx >= 0 && description !== null) allArtists[idx] = { ...allArtists[idx], description };
       onUpdate();
       await new Promise((r) => setTimeout(r, DELAY_MS));
     }

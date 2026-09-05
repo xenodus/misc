@@ -105,9 +105,9 @@ function decodeHtml(text) {
 }
 
 function parseWebDescription(text) {
-  if (!text) return '';
+  if (!text) return null;
   const decoded = decodeHtml(text).replace(/\s+/g, ' ').trim();
-  if (/Performing security verification|Enable JavaScript|HTTP ERROR 429/i.test(decoded)) return null;
+  if (/Performing security verification|Enable JavaScript|HTTP ERROR 429|Please wait a few minutes/i.test(decoded)) return null;
   const quoted = decoded.match(/on Instagram:\s*"([\s\S]*)"\s*$/i);
   if (quoted) return quoted[1].replace(/\\n/g, '\n').trim();
   if (/See Instagram photos and videos from/i.test(decoded)) return '';
@@ -151,13 +151,16 @@ async function fetchBioViaWeb(handle, proxy) {
         timeout: 45000,
       });
       await sleep(900);
+      if (resp && resp.status() === 429) {
+        return { status: 'http_429', description: '', rateLimited: true, proxy: via };
+      }
       const meta = await page.evaluate(() => ({
         og: document.querySelector('meta[property="og:description"]')?.content || '',
         desc: document.querySelector('meta[name="description"]')?.content || '',
       }));
       const parsed = parseWebDescription(meta.desc || meta.og);
       if (parsed === null) {
-        const rateLimited = resp && resp.status() === 429;
+        const rateLimited = resp && resp.status() >= 400;
         return { status: rateLimited ? 'http_429' : 'web_blocked', description: '', rateLimited, proxy: via };
       }
       return { status: 'ok', description: parsed, proxy: via, proxySlot: 'residential' };

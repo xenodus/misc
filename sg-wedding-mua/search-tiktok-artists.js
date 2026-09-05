@@ -19,8 +19,8 @@ const IG_DATA = path.join(ROOT, 'artists.json');
 const TT_SOURCE = path.join(ROOT, 'artists-source-tiktok.json');
 const TT_OUTPUT = path.join(ROOT, 'artists-tiktok.json');
 
-const SCROLL_DELAY_MS = parseInt(process.env.SCROLL_DELAY_MS || '300', 10);
-const PAGE_DELAY_MS = parseInt(process.env.PAGE_DELAY_MS || '600', 10);
+const SCROLL_DELAY_MS = parseInt(process.env.SCROLL_DELAY_MS || '500', 10);
+const PAGE_DELAY_MS = parseInt(process.env.PAGE_DELAY_MS || '1200', 10);
 const PROFILE_DELAY_MS = parseInt(process.env.PROFILE_DELAY_MS || '150', 10);
 const FETCH_PROFILE_WAIT_MS = parseInt(process.env.FETCH_PROFILE_WAIT_MS || '350', 10);
 const STEP_DELAY_MS = parseInt(process.env.STEP_DELAY_MS || '200', 10);
@@ -627,9 +627,9 @@ async function extractHandlesFromPage(page) {
 
 async function scrapeFollowingHandles(page, handle) {
   const url = `https://www.tiktok.com/@${encodeURIComponent(handle)}`;
-  await page.goto(url, { waitUntil: 'domcontentloaded', timeout: 45000 });
+  await page.goto(url, { waitUntil: 'networkidle2', timeout: 45000 });
   await new Promise((r) => setTimeout(r, PAGE_DELAY_MS));
-  await scrollPage(page, 2);
+  await scrollPage(page, 3);
   return extractHandlesFromPage(page);
 }
 
@@ -642,17 +642,17 @@ async function scrollPage(page, times = 4) {
 
 async function scrapeHashtagHandles(page, hashtag) {
   const url = `https://www.tiktok.com/tag/${encodeURIComponent(hashtag)}`;
-  await page.goto(url, { waitUntil: 'domcontentloaded', timeout: 45000 });
+  await page.goto(url, { waitUntil: 'networkidle2', timeout: 45000 });
   await new Promise((r) => setTimeout(r, PAGE_DELAY_MS));
-  await scrollPage(page, 3);
+  await scrollPage(page, 4);
   return extractHandlesFromPage(page);
 }
 
 async function scrapeSearchHandles(page, query) {
   const url = `https://www.tiktok.com/search/user?q=${encodeURIComponent(query)}`;
-  await page.goto(url, { waitUntil: 'domcontentloaded', timeout: 45000 });
+  await page.goto(url, { waitUntil: 'networkidle2', timeout: 45000 });
   await new Promise((r) => setTimeout(r, PAGE_DELAY_MS));
-  await scrollPage(page, 3);
+  await scrollPage(page, 4);
   return extractHandlesFromPage(page);
 }
 

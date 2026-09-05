@@ -43,6 +43,8 @@ function parseProxyEnv(value) {
 
 function loadProxies({ residentialOnly = false } = {}) {
   const proxies = [];
+  const dynamic = parseProxyEnv(process.env.DYNAMIC_PROXY_1);
+  if (dynamic) proxies.push({ ...dynamic, label: 'DYNAMIC_PROXY_1' });
   if (!residentialOnly) {
     for (let i = 1; i <= 20; i++) {
       const proxy = parseProxyEnv(process.env[`DEDICATED_PROXY_${i}`]);
@@ -165,7 +167,7 @@ async function main() {
   const proxies = loadProxies({ residentialOnly });
   if (!proxies.length) {
     console.error(
-      'No proxies found. Set DEDICATED_PROXY_1..N and/or RESIDENTIAL_PROXY_1 (host|port|user|pass or URL).'
+      'No proxies found. Set DYNAMIC_PROXY_1, DEDICATED_PROXY_1..N and/or RESIDENTIAL_PROXY_1 (host|port|user|pass or URL).'
     );
     process.exit(1);
   }

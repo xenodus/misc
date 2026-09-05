@@ -1037,38 +1037,47 @@
   },
   {
     "name": "Charlotte Tattoo Makeup Hair",
-    "handle": "charlottetattoomakeuphair"
+    "handle": "charlottetattoomakeuphair",
+    "tag": "new"
   },
   {
     "name": "Adi Oren Makeup",
-    "handle": "pro_makeup_artist_adi"
+    "handle": "pro_makeup_artist_adi",
+    "tag": "new"
   },
   {
     "name": "Lillian Louie Makeup",
-    "handle": "lillianlouie"
+    "handle": "lillianlouie",
+    "tag": "new"
   },
   {
     "name": "Andrea J Dominique",
-    "handle": "andreajoandom"
+    "handle": "andreajoandom",
+    "tag": "new"
   },
   {
     "name": "Astley Lim",
-    "handle": "astleylim"
+    "handle": "astleylim",
+    "tag": "new"
   },
   {
     "name": "Dani Makeup",
-    "handle": "danimakeupsg"
+    "handle": "danimakeupsg",
+    "tag": "new"
   },
   {
     "name": "A-lin Makeup Artist",
-    "handle": "alin_makeup_artist"
+    "handle": "alin_makeup_artist",
+    "tag": "new"
   },
   {
     "name": "Vivien Low",
-    "handle": "vivienlowmua"
+    "handle": "vivienlowmua",
+    "tag": "new"
   },
   {
     "name": "Jen Lim Makeup",
-    "handle": "jenlimmua"
+    "handle": "jenlimmua",
+    "tag": "new"
   }
 ]

@@ -194,8 +194,46 @@ tbody tr.is-processed {
   text-align: center;
 }
 
+.artist-name-row {
+  display: inline-flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 0.45rem;
+}
+
 .artist-name {
   font-weight: 600;
+}
+
+.artist-tag {
+  display: inline-flex;
+  align-items: center;
+  padding: 0.12rem 0.5rem;
+  border-radius: 999px;
+  font-size: 0.68rem;
+  font-weight: 700;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+  line-height: 1.2;
+  white-space: nowrap;
+}
+
+.artist-tag--new {
+  color: #0f766e;
+  background: #ccfbf1;
+  border: 1px solid #99f6e4;
+}
+
+tbody tr.has-tag--new {
+  background: linear-gradient(90deg, #f0fdfa 0%, #ffffff 12rem);
+}
+
+tbody tr.has-tag--new:hover {
+  background: linear-gradient(90deg, #ecfeff 0%, #fffdf9 12rem);
+}
+
+tbody tr.has-tag--new.is-processed {
+  background: linear-gradient(90deg, #ecfdf5 0%, #f0fdf4 12rem);
 }
 
 .artist-description {

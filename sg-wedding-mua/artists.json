@@ -947,10 +947,10 @@
   {
     "name": "Andrea J Dominique",
     "handle": "andreajoandom",
+    "tag": "new",
     "instagram": "https://www.instagram.com/andreajoandom/",
     "followers": 2550,
-    "description": "",
-    "tag": "new"
+    "description": ""
   },
   {
     "name": "Makeup by TYPE",
@@ -1452,10 +1452,10 @@
   {
     "name": "Jen Lim Makeup",
     "handle": "jenlimmua",
+    "tag": "new",
     "instagram": "https://www.instagram.com/jenlimmua/",
     "followers": 902,
-    "description": "",
-    "tag": "new"
+    "description": ""
   },
   {
     "name": "Eileen Beauty Without Filter",
@@ -1474,10 +1474,10 @@
   {
     "name": "Charlotte Tattoo Makeup Hair",
     "handle": "charlottetattoomakeuphair",
+    "tag": "new",
     "instagram": "https://www.instagram.com/charlottetattoomakeuphair/",
     "description": "✨ 5-Star Master Tattoo & Hair Suite 🎨 25+ Yrs Exp | Fine-Line to Full body suit tattoo 💇‍♀️ Ex-media-work stylist 📍 Singapore | Private & Exclusive",
-    "followers": 861,
-    "tag": "new"
+    "followers": 861
   },
   {
     "name": "Khai Lee Makeup",
@@ -1496,10 +1496,10 @@
   {
     "name": "Dani Makeup",
     "handle": "danimakeupsg",
+    "tag": "new",
     "instagram": "https://www.instagram.com/danimakeupsg/",
     "followers": 808,
-    "description": "",
-    "tag": "new"
+    "description": ""
   },
   {
     "name": "Beyond Makeup by Beatrice Tan",
@@ -1525,10 +1525,10 @@
   {
     "name": "Astley Lim",
     "handle": "astleylim",
+    "tag": "new",
     "instagram": "https://www.instagram.com/astleylim/",
     "followers": 740,
-    "description": "",
-    "tag": "new"
+    "description": ""
   },
   {
     "name": "CandyL Makeup Artist",
@@ -1617,10 +1617,10 @@
   {
     "name": "A-lin Makeup Artist",
     "handle": "alin_makeup_artist",
+    "tag": "new",
     "instagram": "https://www.instagram.com/alin_makeup_artist/",
     "followers": 546,
-    "description": "",
-    "tag": "new"
+    "description": ""
   },
   {
     "name": "Sakshi Khatri Artistry",
@@ -1681,10 +1681,10 @@
   {
     "name": "Adi Oren Makeup",
     "handle": "pro_makeup_artist_adi",
+    "tag": "new",
     "instagram": "https://www.instagram.com/pro_makeup_artist_adi/",
     "description": "* SMA - International Makeup Academy Master Program * Business Administration - BA * HR certificate diploma",
-    "followers": 414,
-    "tag": "new"
+    "followers": 414
   },
   {
     "name": "Evenovi Makeup & Hair",
@@ -1703,10 +1703,10 @@
   {
     "name": "Vivien Low",
     "handle": "vivienlowmua",
+    "tag": "new",
     "instagram": "https://www.instagram.com/vivienlowmua/",
     "followers": 386,
-    "description": "",
-    "tag": "new"
+    "description": ""
   },
   {
     "name": "Cozy Container",
@@ -1781,10 +1781,10 @@
   {
     "name": "Lillian Louie Makeup",
     "handle": "lillianlouie",
+    "tag": "new",
     "instagram": "https://www.instagram.com/lillianlouie/",
     "followers": 264,
-    "description": "",
-    "tag": "new"
+    "description": ""
   },
   {
     "name": "Sumie Beauty Makeup Salon",
@@ -1883,5 +1883,13 @@
     "instagram": "https://www.instagram.com/therorrimubride/",
     "description": "The modern bridal house ✦ A bridal beauty by @rorrimu Founded by @yiqingmua Singapore | Worldwide Bookings: qq@rorrimu.com",
     "followers": 42
+  },
+  {
+    "name": "Cadee Yeo Makeup",
+    "handle": "cdy.makeup",
+    "tag": "new",
+    "instagram": "https://www.instagram.com/cdy.makeup/",
+    "followers": 23,
+    "description": ""
   }
 ]

@@ -97,6 +97,16 @@ const NON_MUA_KEYWORDS = [
   'dental',
   'fitness coach',
   'real estate',
+  'on the beat',
+  'onthebeat',
+  'music producer',
+  'content creator only',
+  'marketplace',
+  'wedding marketplace',
+  'content creator',
+  'bridal haven',
+  'dream dress',
+  'charleston',
 ];
 
 function normalizeHandle(handle) {
@@ -186,12 +196,16 @@ async function createBrowser() {
     headless: 'new',
     args: ['--no-sandbox', '--disable-setuid-sandbox', '--disable-dev-shm-usage', '--window-size=1280,900'],
   });
+  return browser;
+}
+
+async function createPage(browser) {
   const page = await browser.newPage();
   await page.setViewport({ width: 1280, height: 900 });
   await page.setUserAgent(
     'Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/122.0.0.0 Safari/537.36'
   );
-  return { browser, page };
+  return page;
 }
 
 async function scrapeHashtagHandles(page, hashtag) {
@@ -210,11 +224,45 @@ async function scrapeHashtagHandles(page, hashtag) {
 async function fetchProfile(page, handle) {
   const url = `https://www.tiktok.com/@${encodeURIComponent(handle)}`;
   try {
-    await page.goto(url, { waitUntil: 'networkidle2', timeout: 45000 });
-    await new Promise((r) => setTimeout(r, 1500));
+    await page.goto(url, { waitUntil: 'domcontentloaded', timeout: 45000 });
+    await new Promise((r) => setTimeout(r, 1000));
     return await parseUniversalProfile(page);
   } catch (err) {
     return { error: err.message, handle };
+  }
+}
+
+function splitWork(items, buckets) {
+  const groups = Array.from({ length: buckets }, () => []);
+  items.forEach((item, i) => groups[i % buckets].push(item));
+  return groups;
+}
+
+async function runWorker(workerId, page, queue, igRegistry, existingByHandle, onResult) {
+  for (const { handle, index, total } of queue) {
+    process.stdout.write(`[${index}/${total}] [w${workerId}] @${handle} ... `);
+
+    const profile = await fetchProfile(page, handle);
+    const { pass, reasons } = evaluateProfile(profile, igRegistry);
+    let result;
+
+    if (pass) {
+      console.log(`✓ ${profile.name} (${profile.followers} followers)`);
+      const prior = existingByHandle.get(normalizeHandle(handle));
+      result = {
+        accepted: {
+          name: profile.name,
+          handle: profile.handle,
+          ...(prior?.tag ? { tag: prior.tag } : { tag: 'new' }),
+        },
+      };
+    } else {
+      console.log(`✗ ${reasons.join(', ')}`);
+      result = { rejected: { handle, reasons, name: profile?.name } };
+    }
+
+    await onResult(result);
+    await new Promise((r) => setTimeout(r, 600));
   }
 }
 
@@ -250,7 +298,8 @@ async function main() {
   const igRegistry = loadInstagramRegistry();
   console.log(`Instagram registry: ${igRegistry.handles.size} handles`);
 
-  const { browser, page } = await createBrowser();
+  const browser = await createBrowser();
+  const page = await createPage(browser);
   const discovered = new Set(SEED_HANDLES.map(normalizeHandle));
 
   try {
@@ -263,7 +312,7 @@ async function main() {
       } catch (err) {
         console.warn(`  Failed #${hashtag}: ${err.message}`);
       }
-      await new Promise((r) => setTimeout(r, 1000));
+      await new Promise((r) => setTimeout(r, 800));
     }
   } finally {
     await browser.close();
@@ -281,31 +330,29 @@ async function main() {
 
   const accepted = [];
   const rejected = [];
+  const workerCount = Math.min(4, Math.max(1, parseInt(process.env.WORKERS || '3', 10)));
 
-  const { browser: browser2, page: page2 } = await createBrowser();
+  const browser2 = await createBrowser();
+  const pages = await Promise.all(
+    Array.from({ length: workerCount }, () => createPage(browser2))
+  );
+
+  const queue = candidates.map((handle, i) => ({
+    handle,
+    index: i + 1,
+    total: candidates.length,
+  }));
+  const groups = splitWork(queue, workerCount);
+
   try {
-    for (let i = 0; i < candidates.length; i++) {
-      const handle = candidates[i];
-      process.stdout.write(`[${i + 1}/${candidates.length}] @${handle} ... `);
-
-      const profile = await fetchProfile(page2, handle);
-      const { pass, reasons } = evaluateProfile(profile, igRegistry);
-
-      if (pass) {
-        console.log(`✓ ${profile.name} (${profile.followers} followers)`);
-        const prior = existingByHandle.get(normalizeHandle(handle));
-        accepted.push({
-          name: profile.name,
-          handle: profile.handle,
-          ...(prior?.tag ? { tag: prior.tag } : { tag: 'new' }),
-        });
-      } else {
-        console.log(`✗ ${reasons.join(', ')}`);
-        rejected.push({ handle, reasons, name: profile?.name });
-      }
-
-      await new Promise((r) => setTimeout(r, 1200));
-    }
+    await Promise.all(
+      groups.map((group, i) =>
+        runWorker(i + 1, pages[i], group, igRegistry, existingByHandle, async (result) => {
+          if (result.accepted) accepted.push(result.accepted);
+          if (result.rejected) rejected.push(result.rejected);
+        })
+      )
+    );
   } finally {
     await browser2.close();
   }

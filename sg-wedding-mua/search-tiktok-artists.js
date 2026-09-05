@@ -528,15 +528,22 @@ function isRegistryDuplicate(handle, nickname, igRegistry, ttRegistry) {
   return null;
 }
 
-function matchesSingapore(signature, nickname) {
-  const text = `${signature || ''} ${nickname || ''}`.toLowerCase();
-  return SG_KEYWORDS.some((kw) => text.includes(kw));
+function matchesSingapore(signature, nickname, handle) {
+  const text = `${signature || ''} ${nickname || ''} ${handle || ''}`.toLowerCase();
+  if (SG_KEYWORDS.some((kw) => text.includes(kw))) return true;
+  const h = (handle || '').toLowerCase();
+  if (h.includes('singapore') || h.includes('.sg') || h.endsWith('sg') || h.includes('_sg') || h.includes('sg_')) {
+    return true;
+  }
+  return false;
 }
 
-function matchesMua(signature, nickname) {
-  const text = `${signature || ''} ${nickname || ''}`.toLowerCase();
+function matchesMua(signature, nickname, handle) {
+  const text = `${signature || ''} ${nickname || ''} ${handle || ''}`.toLowerCase();
   if (NON_MUA_KEYWORDS.some((kw) => text.includes(kw))) return false;
-  return MUA_KEYWORDS.some((kw) => text.includes(kw));
+  if (MUA_KEYWORDS.some((kw) => text.includes(kw))) return true;
+  const h = (handle || '').toLowerCase();
+  return h.includes('makeup') || h.includes('mua') || h.includes('bridal') || h.includes('glam');
 }
 
 function hasBio(signature) {
@@ -698,8 +705,8 @@ function evaluateProfile(profile, igRegistry, ttRegistry) {
   if (profile.privateAccount) reasons.push('private-account');
   if (!hasBio(profile.description)) reasons.push('no-bio');
   if ((profile.videoCount || 0) < 5) reasons.push('under-5-posts');
-  if (!matchesMua(profile.description, profile.name)) reasons.push('not-mua');
-  if (!matchesSingapore(profile.description, profile.name)) reasons.push('not-singapore');
+  if (!matchesMua(profile.description, profile.name, profile.handle)) reasons.push('not-mua');
+  if (!matchesSingapore(profile.description, profile.name, profile.handle)) reasons.push('not-singapore');
 
   const dup = isRegistryDuplicate(profile.handle, profile.name, igRegistry, ttRegistry);
   if (dup) reasons.push(dup);

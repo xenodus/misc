@@ -44,13 +44,30 @@ function getFilteredArtists() {
   });
 }
 
+function formatTagLabel(tag) {
+  if (!tag) return '';
+  return String(tag)
+    .split(/[-_\s]+/)
+    .filter(Boolean)
+    .map((part) => part.charAt(0).toUpperCase() + part.slice(1).toLowerCase())
+    .join(' ');
+}
+
+function renderTagBadge(tag) {
+  if (!tag) return '';
+  const label = formatTagLabel(tag);
+  return `<span class="artist-tag artist-tag--${escapeHtml(tag)}">${escapeHtml(label)}</span>`;
+}
+
 function updateStats() {
   const total = artists.length;
   const done = Object.values(processed).filter(Boolean).length;
+  const tagged = artists.filter((artist) => artist.tag).length;
   statsEl.innerHTML = `
     <span class="stat-item"><strong>${total}</strong> artists listed</span>
     <span class="stat-item"><strong>${done}</strong> processed</span>
     <span class="stat-item"><strong>${total - done}</strong> remaining</span>
+    ${tagged ? `<span class="stat-item"><strong>${tagged}</strong> tagged new</span>` : ''}
   `;
 }
 
@@ -62,11 +79,17 @@ function render() {
     const isProcessed = Boolean(processed[artist.handle]);
     const row = document.createElement('tr');
     if (isProcessed) row.classList.add('is-processed');
+    if (artist.tag) row.classList.add('has-tag', `has-tag--${artist.tag}`);
 
     const description = (artist.description || '').trim();
     row.innerHTML = `
       <td class="col-rank">${index + 1}</td>
-      <td class="col-name"><span class="artist-name">${escapeHtml(artist.name)}</span></td>
+      <td class="col-name">
+        <span class="artist-name-row">
+          <span class="artist-name">${escapeHtml(artist.name)}</span>
+          ${renderTagBadge(artist.tag)}
+        </span>
+      </td>
       <td class="col-description">${
         description
           ? `<span class="artist-description">${escapeHtml(description)}</span>`

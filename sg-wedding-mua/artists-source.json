@@ -1034,5 +1034,50 @@
   {
     "name": "Zoey Powderpuffed",
     "handle": "zoey_powderpuffed"
+  },
+  {
+    "name": "Charlotte Tattoo Makeup Hair",
+    "handle": "charlottetattoomakeuphair",
+    "tag": "new"
+  },
+  {
+    "name": "Adi Oren Makeup",
+    "handle": "pro_makeup_artist_adi",
+    "tag": "new"
+  },
+  {
+    "name": "Lillian Louie Makeup",
+    "handle": "lillianlouie",
+    "tag": "new"
+  },
+  {
+    "name": "Andrea J Dominique",
+    "handle": "andreajoandom",
+    "tag": "new"
+  },
+  {
+    "name": "Astley Lim",
+    "handle": "astleylim",
+    "tag": "new"
+  },
+  {
+    "name": "Dani Makeup",
+    "handle": "danimakeupsg",
+    "tag": "new"
+  },
+  {
+    "name": "A-lin Makeup Artist",
+    "handle": "alin_makeup_artist",
+    "tag": "new"
+  },
+  {
+    "name": "Vivien Low",
+    "handle": "vivienlowmua",
+    "tag": "new"
+  },
+  {
+    "name": "Jen Lim Makeup",
+    "handle": "jenlimmua",
+    "tag": "new"
   }
 ]

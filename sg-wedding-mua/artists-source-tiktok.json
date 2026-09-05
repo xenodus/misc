@@ -1,5 +1,10 @@
 [
   {
+    "name": "Amber Weng | SG Makeup Artist",
+    "handle": "amber_weng_mua",
+    "tag": "new"
+  },
+  {
     "name": "angeline_makeups_artis",
     "handle": "angeline_makeups_artis",
     "tag": "new"
@@ -7,6 +12,11 @@
   {
     "name": "carorolee.mua (🇸🇬 based MUA)",
     "handle": "carorolee.mua",
+    "tag": "new"
+  },
+  {
+    "name": "Donutmakeup.sg",
+    "handle": "donutmakeup.sg",
     "tag": "new"
   },
   {
@@ -30,6 +40,11 @@
     "tag": "new"
   },
   {
+    "name": "Hayley_HMUA",
+    "handle": "hayley_hmua",
+    "tag": "new"
+  },
+  {
     "name": "Hazlinah_MUASINGAPORE",
     "handle": "makeupbyhaz_singapore",
     "tag": "new"
@@ -40,8 +55,23 @@
     "tag": "new"
   },
   {
+    "name": "jess_mua_sg",
+    "handle": "jess_mua_sg",
+    "tag": "new"
+  },
+  {
+    "name": "Karyn Makeup&Co. | Bridal MUA",
+    "handle": "karyn.makeupco",
+    "tag": "new"
+  },
+  {
     "name": "Ksha Makeup Studio",
     "handle": "ksha.mua",
+    "tag": "new"
+  },
+  {
+    "name": "Lush Looks",
+    "handle": "lifewithxiner",
     "tag": "new"
   },
   {
@@ -50,8 +80,23 @@
     "tag": "new"
   },
   {
+    "name": "M Glamour - Makeup Artist ✨💄",
+    "handle": "mglamourmakeup",
+    "tag": "new"
+  },
+  {
+    "name": "Makeup bY Sunny Singapore 🇸🇬",
+    "handle": "makeup_bysunny96",
+    "tag": "new"
+  },
+  {
     "name": "Makeup by Syadaahally 🇸🇬",
     "handle": "makeupbysyadaahally",
+    "tag": "new"
+  },
+  {
+    "name": "makeupxdhia",
+    "handle": "makeupxdhia",
     "tag": "new"
   },
   {
@@ -95,6 +140,16 @@
     "tag": "new"
   },
   {
+    "name": "SG Beauty 🎀",
+    "handle": "sgbeauty__",
+    "tag": "new"
+  },
+  {
+    "name": "SG LONDON",
+    "handle": "sglondonofficial",
+    "tag": "new"
+  },
+  {
     "name": "SG Makeup by Azizah",
     "handle": "sgmakeupby.azizahh",
     "tag": "new"
@@ -105,8 +160,18 @@
     "tag": "new"
   },
   {
+    "name": "SGMakeupandhair",
+    "handle": "sg.makeup3",
+    "tag": "new"
+  },
+  {
     "name": "SgmakeupartistShermaine",
     "handle": "sgmakeupartistshermaine",
+    "tag": "new"
+  },
+  {
+    "name": "SGMUA",
+    "handle": "suci_guntarii",
     "tag": "new"
   },
   {
@@ -115,8 +180,33 @@
     "tag": "new"
   },
   {
+    "name": "Silva Gega Bridal Atelier",
+    "handle": "sgbridalatelier",
+    "tag": "new"
+  },
+  {
     "name": "SINGAPORE MUA💄✨",
     "handle": "mua.sg_",
+    "tag": "new"
+  },
+  {
+    "name": "Soraya Hair & Makeup",
+    "handle": "soraya.hair.makeup",
+    "tag": "new"
+  },
+  {
+    "name": "SyasTouch",
+    "handle": "syastouch",
+    "tag": "new"
+  },
+  {
+    "name": "thegownconnoisseur",
+    "handle": "thegownconnoisseur",
+    "tag": "new"
+  },
+  {
+    "name": "TheProposalJourney",
+    "handle": "theproposaljourney",
     "tag": "new"
   },
   {
@@ -137,6 +227,16 @@
   {
     "name": "W I T H L O V E Y U M I",
     "handle": "withloveyumi",
+    "tag": "new"
+  },
+  {
+    "name": "Y U M I A Y U M M I",
+    "handle": "yumiayummi",
+    "tag": "new"
+  },
+  {
+    "name": "You&Me Bridal Singapore",
+    "handle": "youandme_bridal",
     "tag": "new"
   }
 ]

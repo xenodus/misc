@@ -32,6 +32,107 @@ const DEFAULT_HASHTAGS = [
   'bridalmakeupsg',
   'singaporemua',
   'sgbrides',
+  'sgbridalmakeup',
+  'sgmakeupartist',
+  'muasg',
+  'muasingapore',
+  'makeupsg',
+  'sgweddingmakeup',
+  'sgbridal',
+  'bridalsg',
+  'sgmakeup',
+  'makeupartistsg',
+  'makeupartistsingapore',
+  'sgbridalmakeupartist',
+  'sgweddingmakeupartist',
+  'singaporebridalmakeupartist',
+  'sgbridalhair',
+  'romsg',
+  'sgbridestobe',
+  'weddingsg',
+  'singaporewedding',
+  'sgweddings',
+  'malayweddingsg',
+  'indianweddingsg',
+  'chineseweddingsg',
+  'sgweddingmakeupbridal',
+  'makandamsg',
+  'sgigmakeup',
+  'weddingmakeupsg',
+  'bridalmakeupsingapore',
+  'makeupsingapore',
+  'bridalmua',
+  'weddingmua',
+  'sgweddinghair',
+  'sgweddingstylist',
+  'sgweddingcontent',
+  'sgweddingtips',
+  'sgweddingguide',
+  'sgweddingfair',
+  'sgweddingexpo',
+  'sgweddingbazaar',
+  'sgweddingcommunity',
+  'sgweddingnetwork',
+  'sgweddingprofessionals',
+  'sgweddingservices',
+  'sgweddingvendors',
+  'sgweddingplanner',
+  'sgweddingcoordinator',
+  'sgweddingmakeupclass',
+  'sgweddingmakeupcourse',
+  'sgweddingmakeupacademy',
+  'sgweddingmakeuptraining',
+  'sgweddingmakeupworkshop',
+  'sgweddingmakeuplesson',
+  'sgweddingmakeuptutorial',
+  'sgweddingmakeupdemo',
+  'sgweddingmakeuptransformation',
+  'sgweddingmakeupinspo',
+  'sgweddingmakeupideas',
+  'sgweddingmakeuplook',
+  'sgweddingmakeupstyle',
+  'sgweddingmakeuptrend',
+  'sgweddingmakeupglow',
+  'sgweddingmakeupwestern',
+  'sgweddingmakeupclassic',
+  'sgweddingmakeupmodern',
+  'sgweddingmakeupvintage',
+  'sgweddingmakeupbohemian',
+  'sgweddingmakeupromantic',
+  'sgweddingmakeupelegant',
+  'sgweddingmakeupminimal',
+  'sgweddingmakeupchic',
+  'sgweddingmakeupgorgeous',
+  'sgweddingmakeupstunning',
+  'sgweddingmakeupbeautiful',
+  'sgweddingmakeupdreamy',
+  'sgweddingmakeupfairytale',
+  'sgweddingmakeupprincess',
+  'sgweddingmakeupqueen',
+  'sgweddingmakeupbride',
+];
+
+const SEARCH_QUERIES = [
+  'singapore makeup artist',
+  'sg bridal mua',
+  'singapore bridal makeup',
+  'sg mua',
+  'makeup artist singapore',
+  'bridal makeup singapore',
+  'sg wedding makeup',
+  'singapore mua bridal',
+  'sg makeup artist bridal',
+  'freelance mua singapore',
+  'sg indian bridal makeup',
+  'sg malay bridal makeup',
+  'sg chinese bridal makeup',
+  'sg korean bridal makeup',
+  'sg thai bridal makeup',
+  'sg wedding mua',
+  'bridal glam singapore',
+  'sg bridal hair makeup',
+  'sg rom makeup',
+  'sg solemnization makeup',
 ];
 
 const SEED_HANDLES = [
@@ -52,6 +153,117 @@ const SEED_HANDLES = [
   'tasfia.beauty',
   'dhen.mua',
   'trgemua',
+  'velvabeautysg',
+  'makeupbyhaz_singapore',
+  'glowbyziemakeup',
+  'ksha.mua',
+  'makeupbysyadaahally',
+  'meevamakeup',
+  'nakedglam.studio',
+  'rosiebrennan.makeup',
+  'sgmakeupby.azizahh',
+  'shimyshimyyeah',
+  'mua.sg_',
+  'titystellamakeupnbridal',
+  'vichwangmua',
+  'withloveyumi',
+  'angeline_makeups_artis',
+  'carorolee.mua',
+  'feliarahue',
+  'makeyouglamz',
+  'nui_daily',
+  'siti.jfrii',
+  'vanezbeaute',
+  'clarasongmakeup',
+  '3teemakeup',
+  'kenhermannsofficial',
+  'melvin_tseng',
+  'shaunleelee',
+  'heizlearissa',
+  'claraslays',
+  'makeupbyrashidahmarican',
+  'makeuphairbyannabella',
+  'stbridalmakeup',
+  'dreammakers_makeup',
+  'bridalbytiffany',
+  'tiffiningbeauty',
+  'makeupbysusanliew',
+  'chloe_makeup_sg',
+  'zoel.makeup',
+  'mua.dawn',
+  'yukilim_makeupartist',
+  'makeup_by_fionab',
+  'sasa_hmua_sg',
+  'bygabytan',
+  'aoismakeup',
+  'xara_lee_makeup',
+  'zihanmakeup',
+  'andriana_jamil',
+  'candy__t',
+  'minnie_makeupartist3428',
+  'ululada.sg',
+  'zanncreations_makeup',
+  'shinomakeupnhairstyling',
+  'canvaseety',
+  'kireibeauty.sg',
+  'yuhui.13rushes',
+  'amber_weng',
+  'makeupartistrybyjulie_mua',
+  'aesta_makeup',
+  'angelgwee',
+  'teambride_sg',
+  'lovebeautysociety',
+  'sue.zb',
+  'themakeuproom_sg',
+  'elsayan_makeup',
+  'dearmuse.makeup',
+  'suburbs.studio',
+  'candyle.makeup',
+  'monikamakeovers.singapore',
+  'sandyxsher',
+  'yyingcui',
+  'juliekimmakeup',
+  'veraveralim',
+  'cocoonmakeupandhair',
+  'sarahlee_autelier',
+  'deniseleemakeup',
+  'lilimakeupspecialist',
+  'angelchuamakeuphair',
+  'nishaa_mua',
+  'charmainelin_makeup',
+  'christinechiamakeup',
+  'dblchin',
+  'lingspalette',
+  'christinetan.makeup',
+  'veela_makeup_haiyan',
+  'belladonna.artistry',
+  'zinnytheint',
+  'victoriahan_makeup',
+  'saydanar_hmua',
+  'adeline.ariel',
+  'mooilove_makeup_studio',
+  'elitemakeupartistsinc',
+  'canvasofglory',
+  'stella.ang.makeup',
+  'rachelongll',
+  'tangyongmakeup',
+  'lindalino.makeup',
+  'ladyyclairemakeup',
+  'muasusan',
+  'roseannetangrs',
+  'silviana.makeup',
+  'adindasardjono',
+  'daisysartistry',
+  'looksstudio',
+  'moninamonisha',
+  'autelier_makeup',
+  'mahes_mua',
+  'cynderellasg',
+  'mizroxx',
+  'keith_makeup_artist',
+  'renugha_m_vadivelu',
+  'bypattcia',
+  'shobabridals',
 ];
 
 const SG_KEYWORDS = [
@@ -144,13 +356,30 @@ function loadInstagramRegistry() {
   return { handles, names, tiktokFromIg };
 }
 
-function isInstagramDuplicate(handle, nickname, igRegistry) {
+function loadTikTokRegistry() {
+  const source = fs.existsSync(TT_SOURCE) ? JSON.parse(fs.readFileSync(TT_SOURCE, 'utf8')) : [];
+  const enriched = fs.existsSync(TT_OUTPUT) ? JSON.parse(fs.readFileSync(TT_OUTPUT, 'utf8')) : [];
+
+  const handles = new Set();
+  const names = new Set();
+
+  for (const artist of [...source, ...enriched]) {
+    handles.add(normalizeHandle(artist.handle));
+    names.add(artist.name.toLowerCase().trim());
+  }
+
+  return { handles, names, source };
+}
+
+function isRegistryDuplicate(handle, nickname, igRegistry, ttRegistry) {
   const h = normalizeHandle(handle);
-  if (igRegistry.handles.has(h)) return 'same-handle';
-  if (igRegistry.tiktokFromIg.has(h)) return 'linked-in-ig-bio';
+  if (igRegistry.handles.has(h)) return 'in-instagram-registry:same-handle';
+  if (igRegistry.tiktokFromIg.has(h)) return 'in-instagram-registry:linked-in-ig-bio';
+  if (ttRegistry.handles.has(h)) return 'in-tiktok-registry:same-handle';
 
   const nick = (nickname || '').toLowerCase().trim();
-  if (nick && igRegistry.names.has(nick)) return 'same-name';
+  if (nick && igRegistry.names.has(nick)) return 'in-instagram-registry:same-name';
+  if (nick && ttRegistry.names.has(nick)) return 'in-tiktok-registry:same-name';
 
   return null;
 }
@@ -208,10 +437,7 @@ async function createPage(browser) {
   return page;
 }
 
-async function scrapeHashtagHandles(page, hashtag) {
-  const url = `https://www.tiktok.com/tag/${encodeURIComponent(hashtag)}`;
-  await page.goto(url, { waitUntil: 'networkidle2', timeout: 60000 });
-  await new Promise((r) => setTimeout(r, 2500));
+async function extractHandlesFromPage(page) {
   return page.evaluate(() =>
     [...new Set(
       Array.from(document.querySelectorAll('a[href*="/@"]'))
@@ -219,6 +445,29 @@ async function scrapeHashtagHandles(page, hashtag) {
         .filter(Boolean)
     )]
   );
+}
+
+async function scrollPage(page, times = 4) {
+  for (let i = 0; i < times; i++) {
+    await page.evaluate(() => window.scrollBy(0, window.innerHeight * 2));
+    await new Promise((r) => setTimeout(r, 1200));
+  }
+}
+
+async function scrapeHashtagHandles(page, hashtag) {
+  const url = `https://www.tiktok.com/tag/${encodeURIComponent(hashtag)}`;
+  await page.goto(url, { waitUntil: 'networkidle2', timeout: 60000 });
+  await new Promise((r) => setTimeout(r, 2500));
+  await scrollPage(page, 5);
+  return extractHandlesFromPage(page);
+}
+
+async function scrapeSearchHandles(page, query) {
+  const url = `https://www.tiktok.com/search/user?q=${encodeURIComponent(query)}`;
+  await page.goto(url, { waitUntil: 'networkidle2', timeout: 60000 });
+  await new Promise((r) => setTimeout(r, 2500));
+  await scrollPage(page, 6);
+  return extractHandlesFromPage(page);
 }
 
 async function fetchProfile(page, handle) {
@@ -238,12 +487,14 @@ function splitWork(items, buckets) {
   return groups;
 }
 
-async function runWorker(workerId, page, queue, igRegistry, existingByHandle, onResult) {
+async function runWorker(workerId, page, queue, igRegistry, ttRegistry, existingByHandle, onResult, maxNewRef) {
   for (const { handle, index, total } of queue) {
+    if (maxNewRef.value <= 0) break;
+
     process.stdout.write(`[${index}/${total}] [w${workerId}] @${handle} ... `);
 
     const profile = await fetchProfile(page, handle);
-    const { pass, reasons } = evaluateProfile(profile, igRegistry);
+    const { pass, reasons } = evaluateProfile(profile, igRegistry, ttRegistry);
     let result;
 
     if (pass) {
@@ -256,6 +507,7 @@ async function runWorker(workerId, page, queue, igRegistry, existingByHandle, on
           ...(prior?.tag ? { tag: prior.tag } : { tag: 'new' }),
         },
       };
+      maxNewRef.value -= 1;
     } else {
       console.log(`✗ ${reasons.join(', ')}`);
       result = { rejected: { handle, reasons, name: profile?.name } };
@@ -266,7 +518,7 @@ async function runWorker(workerId, page, queue, igRegistry, existingByHandle, on
   }
 }
 
-function evaluateProfile(profile, igRegistry) {
+function evaluateProfile(profile, igRegistry, ttRegistry) {
   const reasons = [];
   if (!profile || profile.error) {
     return { pass: false, reasons: [profile?.error || 'profile-unavailable'] };
@@ -277,8 +529,8 @@ function evaluateProfile(profile, igRegistry) {
   if (!matchesMua(profile.description, profile.name)) reasons.push('not-mua');
   if (!matchesSingapore(profile.description, profile.name)) reasons.push('not-singapore');
 
-  const igDup = isInstagramDuplicate(profile.handle, profile.name, igRegistry);
-  if (igDup) reasons.push(`in-instagram-registry:${igDup}`);
+  const dup = isRegistryDuplicate(profile.handle, profile.name, igRegistry, ttRegistry);
+  if (dup) reasons.push(dup);
 
   return { pass: reasons.length === 0, reasons };
 }
@@ -291,12 +543,21 @@ async function main() {
 
   const dryRun = process.argv.includes('--dry-run');
   const hashtagArg = process.argv.find((a) => a.startsWith('--hashtags='));
+  const maxArg = process.argv.find((a) => a.startsWith('--max='));
+  const maxNew = maxArg ? parseInt(maxArg.split('=')[1], 10) : 200;
   const hashtags = hashtagArg
     ? hashtagArg.split('=')[1].split(',').map((h) => h.trim()).filter(Boolean)
     : DEFAULT_HASHTAGS;
 
   const igRegistry = loadInstagramRegistry();
+  const ttRegistry = loadTikTokRegistry();
   console.log(`Instagram registry: ${igRegistry.handles.size} handles`);
+  console.log(`TikTok registry: ${ttRegistry.handles.size} handles`);
+
+  const existingSource = ttRegistry.source;
+  const existingByHandle = new Map(
+    existingSource.map((a) => [normalizeHandle(a.handle), a])
+  );
 
   const browser = await createBrowser();
   const page = await createPage(browser);
@@ -314,23 +575,31 @@ async function main() {
       }
       await new Promise((r) => setTimeout(r, 800));
     }
+
+    for (const query of SEARCH_QUERIES) {
+      console.log(`\nSearching users: "${query}"...`);
+      try {
+        const handles = await scrapeSearchHandles(page, query);
+        console.log(`  Found ${handles.length} handles`);
+        handles.forEach((h) => discovered.add(normalizeHandle(h)));
+      } catch (err) {
+        console.warn(`  Failed search "${query}": ${err.message}`);
+      }
+      await new Promise((r) => setTimeout(r, 800));
+    }
   } finally {
     await browser.close();
   }
 
-  const candidates = [...discovered].filter(Boolean);
-  console.log(`\n${candidates.length} unique candidate handles to evaluate`);
-
-  const existingSource = fs.existsSync(TT_SOURCE)
-    ? JSON.parse(fs.readFileSync(TT_SOURCE, 'utf8'))
-    : [];
-  const existingByHandle = new Map(
-    existingSource.map((a) => [normalizeHandle(a.handle), a])
-  );
+  const candidates = [...discovered]
+    .filter(Boolean)
+    .filter((h) => !ttRegistry.handles.has(h));
+  console.log(`\n${candidates.length} new candidate handles to evaluate (${discovered.size} total discovered)`);
 
   const accepted = [];
   const rejected = [];
-  const workerCount = Math.min(4, Math.max(1, parseInt(process.env.WORKERS || '3', 10)));
+  const workerCount = Math.min(4, Math.max(1, parseInt(process.env.WORKERS || '4', 10)));
+  const maxNewRef = { value: maxNew };
 
   const browser2 = await createBrowser();
   const pages = await Promise.all(
@@ -347,29 +616,36 @@ async function main() {
   try {
     await Promise.all(
       groups.map((group, i) =>
-        runWorker(i + 1, pages[i], group, igRegistry, existingByHandle, async (result) => {
+        runWorker(i + 1, pages[i], group, igRegistry, ttRegistry, existingByHandle, async (result) => {
           if (result.accepted) accepted.push(result.accepted);
           if (result.rejected) rejected.push(result.rejected);
-        })
+        }, maxNewRef)
       )
     );
   } finally {
     await browser2.close();
   }
 
-  accepted.sort((a, b) => a.name.localeCompare(b.name));
+  const mergedByHandle = new Map(
+    existingSource.map((a) => [normalizeHandle(a.handle), a])
+  );
+  for (const artist of accepted) {
+    mergedByHandle.set(normalizeHandle(artist.handle), artist);
+  }
+  const merged = [...mergedByHandle.values()].sort((a, b) => a.name.localeCompare(b.name));
 
-  console.log(`\nAccepted: ${accepted.length}`);
+  console.log(`\nNewly accepted: ${accepted.length}`);
   console.log(`Rejected: ${rejected.length}`);
+  console.log(`Total in registry: ${merged.length}`);
 
   if (dryRun) {
     console.log('\nDry run — not writing files.');
-    console.log(JSON.stringify(accepted, null, 2));
+    console.log(JSON.stringify(merged, null, 2));
     return;
   }
 
-  fs.writeFileSync(TT_SOURCE, JSON.stringify(accepted, null, 2) + '\n');
-  console.log(`\nWrote ${accepted.length} artists to ${TT_SOURCE}`);
+  fs.writeFileSync(TT_SOURCE, JSON.stringify(merged, null, 2) + '\n');
+  console.log(`\nWrote ${merged.length} artists to ${TT_SOURCE}`);
 
   if (accepted.length > 0) {
     console.log('Run `node fetch-tiktok-profiles.js` to refresh followers and bios.');
